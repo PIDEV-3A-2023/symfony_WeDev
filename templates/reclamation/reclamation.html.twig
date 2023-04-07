@@ -1,0 +1,23 @@
+{% extends 'main/base-front.html.twig' %}
+
+{% block title %}nos stations{% endblock %}
+
+{% block nav %}<ul class="nav">
+                        <li><a href="{{ path('app_accueil') }}" >Accueil </a></li>
+                        <li><a href="{{ path('app_velo') }}">Nos velos</a></li>
+                        <li><a href="{{ path('app_station') }}">Nos stations</a></li>
+                        <li><a href="{{ path('app_evenement') }}">Evenements</a></li>
+                        <li><a href="{{ path('app_reclamation') }}" class="active">Reclamation</a></li>
+                        <li><details ><summary><a >Profile <img src="front-office/assets/images/profile-header.jpg" alt=""></a></summary>
+                        <a  href="{{ path('app_profile') }}" class="link-unstyled">mon profile</a><a href="{{ path('app_login') }}" class="link-unstyled">deconnexion</a> 
+                        </details>
+                        </li>
+                    </ul>{% endblock %}
+       
+{% block body %}<h1> Reclemation </h1>
+Découvrez notre gamme de produits de qualité supérieure qui répondent à tous vos besoins.
+
+
+
+{% endblock %}
+

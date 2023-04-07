@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}list Student{% endblock %}
+
+{% block body %}
+
+<table border ="1" id="t" class="table table-hover table-dark">
+  <thead class="thead-dark">
+  <tr>
+    <td >NSC</td>
+    <td >Email</td>
+</tr>
+</thead>
+<tbody id="all">
+    {% for student in students %}
+<tr>
+
+   <td>
+
+{{ student.nsc }}
+
+   </td>
+   <td>
+
+{{ student.email }}
+
+   </td>
+{#
+<td>
+
+<a href="{{ path('updateStudent', {'id': student.id}) }}"> modifier</a>
+
+<a href="{{ path('deleteStudent', {'id': student.id}) }}"> supprimer</a>
+
+   </td>
+#}
+   
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+{% endblock %}
