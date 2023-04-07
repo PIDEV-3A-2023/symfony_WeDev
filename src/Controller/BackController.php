@@ -15,7 +15,7 @@ class BackController extends AbstractController
         //$r=$this->getDoctrine()->getRepository(Station::class);
         //$messtation = $r->findAll();
         return $this->render('main/dashboard.html.twig', [
-            'liss' => $messtation,
+            'lissa' => $messtation,
         ]);
     }
 
