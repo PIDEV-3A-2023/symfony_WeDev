@@ -30,15 +30,5 @@ class MainController extends AbstractController
         return $this->render('user/register.html.twig', [
             
         ]);
-    }
-    #[Route('/dashboard', name: 'app_dashboard')]
-    public function dashboard(): Response
-    {
-        $r=$this->getDoctrine()->getRepository(Station::class);
-        $messtation = $r->findAll();
-        return $this->render('main/dashboard.html.twig', [
-            'liss' => $messtation,
-        ]);
-    }
-    
+    } 
 }

@@ -9,15 +9,25 @@ use App\Entity\Station;
 
 class BackController extends AbstractController
 {
-    #[Route('/Dashboard', name: 'app_back')]
-    public function index(): Response
+    #[Route('/dashboard', name: 'app_dashboard')]
+    public function dashboard(): Response
     {
-        return $this->render('back/index.html.twig', [
-            'controller_name' => 'BackController',
+        $r=$this->getDoctrine()->getRepository(Station::class);
+        $messtation = $r->findAll();
+        return $this->render('main/dashboard.html.twig', [
+            'liss' => $messtation,
         ]);
     }
 
-    #[Route('/bs', name: 'app_mestation')]
+    #[Route('/velob', name: 'app_velob')]
+    public function velob(): Response
+    {
+        return $this->render('velo/velo.html.twig', [
+
+        ]);
+    }
+    
+    #[Route('/stationb', name: 'app_stationb')]
     public function stationb(): Response
     {
         $r=$this->getDoctrine()->getRepository(Station::class);
@@ -27,4 +37,27 @@ class BackController extends AbstractController
         ]);
     }
 
+    #[Route('/evenementb', name: 'app_evenementb')]
+    public function evenementb(): Response
+    {
+        return $this->render('evenement/evenement.html.twig', [
+
+        ]);
+    }
+
+    #[Route('/reclamationb', name: 'app_reclamationb')]
+    public function reclamationb(): Response
+    {
+        return $this->render('reclamation/reclamation.html.twig', [
+
+        ]);
+    }
+
+    #[Route('/profileb', name: 'app_profileb')]
+    public function profileb(): Response
+    {
+        return $this->render('user/profile.html.twig', [
+
+        ]);
+    }
 }
