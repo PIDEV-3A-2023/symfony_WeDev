@@ -9,20 +9,11 @@ use App\Entity\Station;
 
 class BackController extends AbstractController
 {
-    #[Route('/dashboard', name: 'app_dashboard')]
-    public function dashboard(): Response
-    {
-        //$r=$this->getDoctrine()->getRepository(Station::class);
-        //$messtation = $r->findAll();
-        return $this->render('main/dashboard.html.twig', [
-            'lissa' => $messtation,
-        ]);
-    }
 
     #[Route('/velob', name: 'app_velob')]
     public function velob(): Response
     {
-        return $this->render('velo/velo.html.twig', [
+        return $this->render('velo/velob.html.twig', [
 
         ]);
     }
@@ -32,7 +23,7 @@ class BackController extends AbstractController
     {
         $r=$this->getDoctrine()->getRepository(Station::class);
         $messtation = $r->findAll();
-        return $this->render('reservation/stationback.html.twig', [
+        return $this->render('reservation/stationb.html.twig', [
             'liss' => $messtation,
         ]);
     }
@@ -40,7 +31,7 @@ class BackController extends AbstractController
     #[Route('/evenementb', name: 'app_evenementb')]
     public function evenementb(): Response
     {
-        return $this->render('evenement/evenement.html.twig', [
+        return $this->render('evenement/evenementb.html.twig', [
 
         ]);
     }
@@ -48,7 +39,7 @@ class BackController extends AbstractController
     #[Route('/reclamationb', name: 'app_reclamationb')]
     public function reclamationb(): Response
     {
-        return $this->render('reclamation/reclamation.html.twig', [
+        return $this->render('reclamation/reclamationb.html.twig', [
 
         ]);
     }
@@ -56,7 +47,7 @@ class BackController extends AbstractController
     #[Route('/profileb', name: 'app_profileb')]
     public function profileb(): Response
     {
-        return $this->render('user/profile.html.twig', [
+        return $this->render('user/profileb.html.twig', [
 
         ]);
     }

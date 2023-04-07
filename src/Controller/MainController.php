@@ -31,4 +31,13 @@ class MainController extends AbstractController
             
         ]);
     } 
+    #[Route('/dashboard', name: 'app_dashboard')]
+    public function dashboard(): Response
+    {
+        $r=$this->getDoctrine()->getRepository(Station::class);
+        $messtation = $r->findAll();
+        return $this->render('main/dashboard.html.twig', [
+            'lissa' => $messtation,
+        ]);
+    }
 }
