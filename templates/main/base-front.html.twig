@@ -103,20 +103,27 @@ details > p {
         <div class="page-content">
 
           <!-- ***** Banner Start ***** -->
+
+
+          
           {% block body %}
           <div class="main-banner">
-            <div class="row">
-              <div class="col-lg-7">
-                <div class="header-text">
-                  <h6>Bienvenue chez EcoBikeGo</h6>
-                  <h4><em>DÉCOUVREZ</em> NOS VÉLOS ÉLECTRIQUES POPULAIRES ICI</h4>
-                  <div class="main-button">
-                    <a href="{{ path('app_velo') }}">Parcourir maintenant</a>
-                  </div>
-                </div>
-              </div>
-            </div>
+  <div class="row">
+    <div class="col-lg-7">
+      <div>
+        <div class="header-text">
+          <h6>Bienvenue chez EcoBikeGo</h6>
+          <h4><em>DÉCOUVREZ</em> NOS VÉLOS ÉLECTRIQUES POPULAIRES ICI</h4>
+          <div class="main-button">
+            <a href="{{ path('app_velo') }}">Parcourir maintenant</a>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="banner-image"></div>
+</div>
+
           <!-- ***** Banner End ***** -->
           
 
@@ -294,16 +301,15 @@ details > p {
 
   <!-- Scripts -->
   <!-- Bootstrap core JavaScript -->
-  <script src="front-office/vendor/jquery/jquery.min.js"></script>
-  <script src="front-office/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="{{asset('front-office/vendor/jquery/jquery.min.js')}}"></script>
+  <script src="{{asset('front-office/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
 
-  <script src="front-office/assets/js/isotope.min.js"></script>
-  <script src="front-office/assets/js/owl-carousel.js"></script>
-  <script src="front-office/assets/js/tabs.js"></script>
-  <script src="front-office/assets/js/popup.js"></script>
-  <script src="front-office/assets/js/custom.js"></script>
+  <script src="{{asset('front-office/assets/js/isotope.min.js')}}"></script>
+  <script src="{{asset('front-office/assets/js/owl-carousel.js')}}"></script>
+  <script src="{{asset('front-office/assets/js/tabs.js')}}"></script>
+  <script src="{{asset('front-office/assets/js/popup.js')}}"></script>
+  <script src="{{asset('front-office/assets/js/custom.js')}}"></script>
 
-{% endblock %}
   </body>
 
 </html>

@@ -774,12 +774,25 @@ Banner Style
 */
 
 .main-banner {
-  background-image: url(../images/mohsen.jpg);
+  background-image: url('../images/mohsen.jpg');
   background-position: center center;
   background-size: cover;
   min-height: 380px;
   border-radius: 23px;
   padding: 80px 60px;
+  position: relative;
+}
+
+.banner-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url('../images/mohsen.jpg');
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.2s ease-out;
 }
 
 .main-banner h6 {
