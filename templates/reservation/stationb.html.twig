@@ -1,0 +1,166 @@
+{% extends 'main/base-back.html.twig' %}
+
+{% block title %}nos stations{% endblock %}
+
+{% block nav %}<!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+
+      <div class="layout-container">
+        <!-- Menu -->
+
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+          <div class="app-brand demo">
+            <a href="{{ path('app_dashboard') }}" class="app-brand-link">
+              <img src="{{asset('back-office/assets/img/logo.png')}}" width="50">
+              <span class="app-brand-text demo menu-text fw-bolder ms-2">EcoBikeGo</span>
+            </a>
+
+            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+              <i class="bx bx-chevron-left bx-sm align-middle"></i>
+            </a>
+          </div>
+
+          <div class="menu-inner-shadow"></div>
+
+          <ul class="menu-inner py-1">
+            <!-- Dashboard -->
+            <li class="menu-item">
+              <a href="{{ path('app_dashboard') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Analytics">Dashboard</div>
+              </a>
+            </li>
+
+
+
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Pages</span>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div >Gestion User</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{ path('app_profileb') }}" class="menu-link">
+                    <div data-i18n="Account">Accounts</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="pages-account-settings-notifications.html" class="menu-link">
+                    <div data-i18n="Notifications">Notifications</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="pages-account-settings-connections.html" class="menu-link">
+                    <div data-i18n="Connections">Connections</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item active open">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Authentications">Gestion Stations</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{ path('app_stationb') }}" class="menu-link" >
+                    <div data-i18n="Basic">Mes reservations</div>
+                  </a>
+                </li>
+                <li class="menu-item active">
+                  <a href="{{ path('app_stationb') }}" class="menu-link" >
+                    <div data-i18n="Basic">Mes Stations</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Misc">Gestion Vélos</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{ path('app_velob') }}" class="menu-link">
+                    <div data-i18n="Error">liste de velos</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="pages-misc-under-maintenance.html" class="menu-link">
+                    <div data-i18n="Under Maintenance">Under Maintenance</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Extended components -->
+            <li class="menu-item">
+              <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-copy"></i>
+                <div data-i18n="Extended UI">Gestion Evénements</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{ path('app_evenementb') }}" class="menu-link">
+                    <div data-i18n="Perfect Scrollbar">nos evenements</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="extended-ui-text-divider.html" class="menu-link">
+                    <div data-i18n="Text Divider">Text Divider</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-detail"></i>
+                <div data-i18n="Form Elements">Gestion Réclamations</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{ path('app_reclamationb') }}" class="menu-link">
+                    <div data-i18n="Basic Inputs">liste des reclamations</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="forms-input-groups.html" class="menu-link">
+                    <div data-i18n="Input groups">Input groups</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+          </ul>
+        </aside>
+        <!-- / Menu -->{% endblock %}
+{% block body %}<br><br>
+<div class="container"><h4>Nos Stations </h1>
+<br><br>
+<table class="table table-striped table-dark"><thead class="thead-dark">
+    <tr>
+        <th>nom de station</th>
+        <th>localisation de station</th>
+        <th>velos disponibles</th>
+        <th>Paramétre</th>
+    </tr></thead>
+    {%for k in liss %}
+    <tr>
+        <td>{{k.getNomStation() }}</td>
+        <td>{{k.getLocalisationStation()}}</td>
+        <td>{{k.getVeloStation()}}</td>
+        <td>
+                <button class="btn btn-outline-success">modifier</button><button class="btn btn-outline-danger">supprimer</button></form></td>
+    </tr>
+    {%endfor%}
+
+</table>
+<button class="btn btn-dark"><a href="#">ajouter une nouvelle station</a></div></button>
+<br><br><br>
+
+</div>
+{% endblock %}
