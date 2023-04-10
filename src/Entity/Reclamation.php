@@ -1,36 +1,67 @@
 <?php
 
 namespace App\Entity;
-use Doctrine\DBAL\Types\Types;
-use repository;
-use Doctrine\ORM\Mapping as ORM;
-use App\Repository\ReclamationRepository;
 
-#[ORM\Entity(repositoryClass: ReclamationRepository::class)]
-#[ORM\Table(name: "reclamation")]
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Reclamation
+ *
+ * @ORM\Table(name="reclamation", indexes={@ORM\Index(name="reclamation_r1", columns={"IdUser"}), @ORM\Index(name="reclamation_r2", columns={"id_type"})})
+ * @ORM\Entity
+ */
 class Reclamation
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(name: "id_rec", type: "integer")]
-    private ?int $idRec = null;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_rec", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idRec;
 
-    #[ORM\Column(name: "date_rec", type: "date", nullable: true)]
-    private ?\DateTimeInterface $dateRec = null;
+    /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="date_rec", type="date", nullable=true)
+     */
+    private $dateRec;
 
-    #[ORM\Column(name: "description_rec", type: "string", length: 255, nullable: true)]
-    private ?string $descriptionRec = null;
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="description_rec", type="string", length=255, nullable=true)
+     */
+    private $descriptionRec;
 
-    #[ORM\Column(name: "image", type: "string", length: 30)]
-    private string $image;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="string", length=30, nullable=false)
+     */
+    private $image;
 
-    #[ORM\ManyToOne(targetEntity: User::class)]
-    #[ORM\JoinColumn(name: "IdUser", referencedColumnName: "IdUser")]
-    private ?User $user = null;
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="IdUser", referencedColumnName="IdUser")
+     * })
+     */
+    private $iduser;
 
-    #[ORM\ManyToOne(targetEntity: TypeRec::class)]
-    #[ORM\JoinColumn(name: "id_type", referencedColumnName: "id_type")]
-    private ?TypeRec $typeRec = null;
+    /**
+     * @var \TypeRec
+     *
+     * @ORM\ManyToOne(targetEntity="TypeRec")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_type", referencedColumnName="id_type")
+     * })
+     */
+    private $idType;
 
     public function getIdRec(): ?int
     {
@@ -73,27 +104,29 @@ class Reclamation
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getIduser(): ?User
     {
-        return $this->user;
+        return $this->iduser;
     }
 
-    public function setUser(?User $user): self
+    public function setIduser(?User $iduser): self
     {
-        $this->user = $user;
+        $this->iduser = $iduser;
 
         return $this;
     }
 
-    public function getTypeRec(): ?TypeRec
+    public function getIdType(): ?TypeRec
     {
-        return $this->typeRec;
+        return $this->idType;
     }
 
-    public function setTypeRec(?TypeRec $typeRec): self
+    public function setIdType(?TypeRec $idType): self
     {
-        $this->typeRec = $typeRec;
+        $this->idType = $idType;
 
         return $this;
     }
+
+
 }

@@ -57,7 +57,7 @@ details > p {
   <!-- ***** Preloader End ***** -->
 
   <!-- ***** Header Area Start ***** -->
-  <header class="header-area header-sticky">
+  <header class="header-area header-sticky fixed-top">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -109,7 +109,8 @@ details > p {
           {% block body %}
           <div class="main-banner">
   <div class="row">
-    <div class="col-lg-7">
+   
+    <div class="col-lg-7"> 
       <div>
         <div class="header-text">
           <h6>Bienvenue chez EcoBikeGo</h6>
@@ -121,7 +122,7 @@ details > p {
       </div>
     </div>
   </div>
-  <div class="banner-image"></div>
+
 </div>
 
           <!-- ***** Banner End ***** -->
@@ -283,9 +284,6 @@ details > p {
   </div>
   
 
-      
-
-
   <footer>
     <div class="container">
       <div class="row">
@@ -297,7 +295,7 @@ details > p {
       </div>
     </div>
   </footer>
-
+{% endblock %}
 
   <!-- Scripts -->
   <!-- Bootstrap core JavaScript -->
@@ -309,7 +307,23 @@ details > p {
   <script src="{{asset('front-office/assets/js/tabs.js')}}"></script>
   <script src="{{asset('front-office/assets/js/popup.js')}}"></script>
   <script src="{{asset('front-office/assets/js/custom.js')}}"></script>
+<script>
+const banner = document.querySelector('.main-banner');
+const bannerImage = document.querySelector('.banner-image');
 
+banner.addEventListener('mousemove', (event) => {
+  const mouseX = event.clientX / window.innerWidth;
+  const mouseY = event.clientY / window.innerHeight;
+  const translateX = mouseX * 20 - 5;
+  const translateY = mouseY * 30 - 5;
+
+  banner.style.transform = `translate(${translateX}px, ${translateY}px)`;
+});
+
+banner.addEventListener('mouseleave', () => {
+  bannerImage.style.transform = 'none';
+});
+</script>
   </body>
 
 </html>

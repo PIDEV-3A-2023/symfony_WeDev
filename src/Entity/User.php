@@ -1,49 +1,96 @@
 <?php
 
 namespace App\Entity;
-use Doctrine\DBAL\Types\Types;
-use repository;
-use Doctrine\ORM\Mapping as ORM;
-use App\Repository\UserRecRepository;
 
-#[ORM\Table(name: 'user')]
-#[ORM\Entity(repositoryClass: UserRecRepository::class)]
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * User
+ *
+ * @ORM\Table(name="user")
+ * @ORM\Entity
+ */
 class User
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer', name: 'IdUser')]
-    private int $iduser;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="IdUser", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $iduser;
 
-    #[ORM\Column(type: 'string', length: 20, name: 'NomUser')]
-    private string $nomuser;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="NomUser", type="string", length=20, nullable=false)
+     */
+    private $nomuser;
 
-    #[ORM\Column(type: 'string', length: 30, name: 'PrenomUser')]
-    private string $prenomuser;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="PrenomUser", type="string", length=30, nullable=false)
+     */
+    private $prenomuser;
 
-    #[ORM\Column(type: 'date', name: 'DateNaiss')]
-    private \DateTimeInterface $datenaiss;
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="DateNaiss", type="date", nullable=false)
+     */
+    private $datenaiss;
 
-    #[ORM\Column(type: 'string', length: 50, name: 'NumTel')]
-    private string $numtel;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="NumTel", type="string", length=50, nullable=false)
+     */
+    private $numtel;
 
-    #[ORM\Column(type: 'string', length: 50, name: 'Email')]
-    private string $email;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Email", type="string", length=50, nullable=false)
+     */
+    private $email;
 
-    #[ORM\Column(type: 'string', length: 30, name: 'Adresse')]
-    private string $adresse;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Adresse", type="string", length=30, nullable=false)
+     */
+    private $adresse;
 
-    #[ORM\Column(type: 'string', length: 1048, name: 'ImgUser')]
-    private string $imguser;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ImgUser", type="string", length=1048, nullable=false)
+     */
+    private $imguser;
 
-    #[ORM\Column(type: 'string', length: 20, name: 'Mdp')]
-    private string $mdp;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Mdp", type="string", length=20, nullable=false)
+     */
+    private $mdp;
 
-    #[ORM\Column(type: 'string', length: 20, name: 'Role')]
-    private string $role;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Role", type="string", length=20, nullable=false)
+     */
+    private $role;
 
-    #[ORM\Column(type: 'integer', name: 'EtatCompte')]
-    private int $etatcompte;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="EtatCompte", type="integer", nullable=false)
+     */
+    private $etatcompte;
 
     public function getIduser(): ?int
     {
@@ -169,4 +216,6 @@ class User
 
         return $this;
     }
+
+
 }

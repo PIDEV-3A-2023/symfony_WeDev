@@ -1,0 +1,29 @@
+{% block body %}
+<div class="container">
+
+
+<br><table class="table table-striped table-dark">
+<thead class="thead-dark">
+    <tr>
+        <th>Date de début</th>
+        <th>Date de fin</th>
+        <th>velos disponibles</th>
+        <th>(nom)id de station</th>
+        <th>id d user</th>
+        <th>id de velo</th>
+
+    </tr></thead>
+    {%for k in liss %}
+    <tr>
+        <td>{{k.getDateDebut().format('d-m-Y / H:i:s') }}</td>
+        <td>{{k.getDateFin().format('d-m-Y / H:i:s')}}</td>
+        <td>{{k.getPrixr()}}</td>
+        <td>{{k.getNbr() }}</td>
+        <td>{{k.getNbr()}}</td>
+        <td>{{k.getNbr()}}</td>
+    </tr>
+    {%endfor%}
+
+</table>
+</div>
+{% endblock %}

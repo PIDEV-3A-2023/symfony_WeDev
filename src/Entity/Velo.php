@@ -1,63 +1,101 @@
 <?php
 
 namespace App\Entity;
-use repository;
-use Doctrine\ORM\Mapping as ORM;
-use App\Repository\VeloRepository;
 
-#[ORM\Table(name: 'velo')]
-#[ORM\Entity(repositoryClass: VeloRepository::class)]
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Velo
+ *
+ * @ORM\Table(name="velo", indexes={@ORM\Index(name="id_categorie", columns={"id_categorie"}), @ORM\Index(name="id_station", columns={"id_station"})})
+ * @ORM\Entity
+ */
 class Velo
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
-    #[ORM\Column(type: 'integer', name: 'id_velo')]
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_velo", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
     private $idVelo;
 
-    #[ORM\Column(type: 'string', length: 20, nullable: false, name: 'titre')]
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="titre", type="string", length=20, nullable=false)
+     */
     private $titre;
 
-    #[ORM\Column(type: 'float', precision: 10, scale: 0, nullable: false, name: 'prix')]
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=false)
+     */
     private $prix;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: false, name: 'image')]
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="string", length=0, nullable=false)
+     */
     private $image;
 
-    #[ORM\Column(type: 'integer', nullable: false, name: 'qte')]
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="qte", type="integer", nullable=false)
+     */
     private $qte;
 
-    #[ORM\ManyToOne(targetEntity: Station::class)]
-    #[ORM\JoinColumn(name: 'id_station', referencedColumnName: 'id_station')]
-    private $idStation;
-
-    #[ORM\ManyToOne(targetEntity: Categorie::class)]
-    #[ORM\JoinColumn(name: 'id_categorie', referencedColumnName: 'id_categorie')]
+    /**
+     * @var \Categorie
+     *
+     * @ORM\ManyToOne(targetEntity="Categorie")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_categorie", referencedColumnName="id_categorie")
+     * })
+     */
     private $idCategorie;
 
-    public function getIdVelo()
+    /**
+     * @var \Station
+     *
+     * @ORM\ManyToOne(targetEntity="Station")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_station", referencedColumnName="id_station")
+     * })
+     */
+    private $idStation;
+
+    public function getIdVelo(): ?int
     {
         return $this->idVelo;
     }
 
-    public function getTitre()
+    public function getTitre(): ?string
     {
         return $this->titre;
     }
 
-    public function setTitre($titre)
+    public function setTitre(string $titre): self
     {
         $this->titre = $titre;
+
         return $this;
     }
 
-    public function getPrix()
+    public function getPrix(): ?float
     {
         return $this->prix;
     }
 
-    public function setPrix($prix)
+    public function setPrix(float $prix): self
     {
         $this->prix = $prix;
+
         return $this;
     }
 
@@ -66,42 +104,48 @@ class Velo
         return $this->image;
     }
 
-    public function setImage($image)
+    public function setImage(string $image): self
     {
         $this->image = $image;
+
         return $this;
     }
 
-    public function getQte()
+    public function getQte(): ?int
     {
         return $this->qte;
     }
 
-    public function setQte($qte)
+    public function setQte(int $qte): self
     {
         $this->qte = $qte;
+
         return $this;
     }
 
-    public function getIdStation()
-    {
-        return $this->idStation;
-    }
-
-    public function setIdStation($idStation)
-    {
-        $this->idStation = $idStation;
-        return $this;
-    }
-
-    public function getIdCategorie()
+    public function getIdCategorie(): ?Categorie
     {
         return $this->idCategorie;
     }
 
-    public function setIdCategorie($idCategorie)
+    public function setIdCategorie(?Categorie $idCategorie): self
     {
         $this->idCategorie = $idCategorie;
+
         return $this;
     }
+
+    public function getIdStation(): ?Station
+    {
+        return $this->idStation;
+    }
+
+    public function setIdStation(?Station $idStation): self
+    {
+        $this->idStation = $idStation;
+
+        return $this;
+    }
+
+
 }

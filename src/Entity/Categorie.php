@@ -3,22 +3,37 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Repository;
-use App\Repository\CategorieRepository;
 
-#[ORM\Entity(repositoryClass: CategorieRepository::class)]
+/**
+ * Categorie
+ *
+ * @ORM\Table(name="categorie")
+ * @ORM\Entity
+ */
 class Categorie
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $idCategorie = null;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_categorie", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idCategorie;
 
-    #[ORM\Column(length: 30)]
-    private ?string $nomCategorie = null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom_categorie", type="string", length=30, nullable=false)
+     */
+    private $nomCategorie;
 
-    #[ORM\Column(length: 30)]
-    private ?string $descCategorie = null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="desc_categorie", type="string", length=30, nullable=false)
+     */
+    private $descCategorie;
 
     public function getIdCategorie(): ?int
     {
@@ -48,5 +63,6 @@ class Categorie
 
         return $this;
     }
+
 
 }
