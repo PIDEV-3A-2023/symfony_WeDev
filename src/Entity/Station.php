@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use repository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\StationRepository;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -16,6 +15,7 @@ class Station
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private ?int $idStation = null;
+
     #[ORM\Column(type: 'string', length: 30)]
     #[Assert\NotBlank]
     #[Assert\Length(
@@ -24,10 +24,12 @@ class Station
         minMessage: 'Le nom de station doit comporter au moins {{ limit }} caractères',
         maxMessage: 'Le nom de station ne peut pas dépasser {{ limit }} caractères',
     )]
-    
     private string $nomStation;
+
     #[ORM\Column(type: 'string', length: 30)]
+    #[Assert\NotBlank]
     private string $localisationStation;
+
     #[ORM\Column(type: 'integer')]
     #[Assert\PositiveOrZero]
     private int $veloStation;
@@ -39,31 +41,40 @@ class Station
     {
         return $this->idStation;
     }
+
     public function getNomStation(): ?string
     {
         return $this->nomStation;
     }
+
     public function setNomStation(string $nomStation): self
     {
         $this->nomStation = $nomStation;
+
         return $this;
     }
+
     public function getLocalisationStation(): ?string
     {
         return $this->localisationStation;
     }
+
     public function setLocalisationStation(string $localisationStation): self
     {
         $this->localisationStation = $localisationStation;
+
         return $this;
     }
+
     public function getVeloStation(): ?int
     {
         return $this->veloStation;
     }
+
     public function setVeloStation(int $veloStation): self
     {
         $this->veloStation = $veloStation;
+
         return $this;
     }
 }

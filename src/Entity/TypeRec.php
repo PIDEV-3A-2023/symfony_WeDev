@@ -1,32 +1,23 @@
 <?php
 
 namespace App\Entity;
-
+use repository;
 use Doctrine\ORM\Mapping as ORM;
+use App\repository\TypeRecRepository;
 
-/**
- * TypeRec
- *
- * @ORM\Table(name="type_rec")
- * @ORM\Entity
- */
+#[ORM\Entity(repositoryClass: TypeRecRepository::class)]
 class TypeRec
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_type", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idType;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private ?int $idType = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="etat_rec", type="string", length=20, nullable=false)
-     */
-    private $etatRec;
+    #[ORM\Column(type: 'string', length: 20)]
+    private string $etatRec;
+
+    // Constructor, getters, and setters
+    // ...
 
     public function getIdType(): ?int
     {
@@ -44,6 +35,4 @@ class TypeRec
 
         return $this;
     }
-
-
 }
