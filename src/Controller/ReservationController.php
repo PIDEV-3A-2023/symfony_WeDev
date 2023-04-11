@@ -7,9 +7,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\ReservationVelo;
 use Symfony\Component\HttpFoundation\Request;
-use App\Repository\ReservationVeloRepository;
+use App\Repository\ReservationVeloType;
 use Doctrine\Persistence\ManagerRegistry;
-use App\Form\ReservationType;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ReservationController extends AbstractController
@@ -18,7 +18,7 @@ class ReservationController extends AbstractController
     public function index(Request $request): Response
     {
         $reservation = new ReservationVelo();     
-        $form = $this->createForm(ReservationType::class, $reservation);
+        $form = $this->createForm(ReservationVelo::class, $reservation);
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             $reservation = $form->getData();
@@ -35,7 +35,7 @@ class ReservationController extends AbstractController
     Request $request)
 {
     $reservation= new ReservationVelo();
-$form=$this->createForm(ReservationType::class,$reservation);
+$form=$this->createForm(ReservationVelo::class,$reservation);
                    $form->handleRequest($request);
                    if($form->isSubmitted()){
                     //Action d'ajout

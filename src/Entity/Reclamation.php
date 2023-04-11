@@ -72,4 +72,28 @@ class Reclamation
 
         return $this;
     }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getTypeRec(): ?TypeRec
+    {
+        return $this->typeRec;
+    }
+
+    public function setTypeRec(?TypeRec $typeRec): self
+    {
+        $this->typeRec = $typeRec;
+
+        return $this;
+    }
 }
