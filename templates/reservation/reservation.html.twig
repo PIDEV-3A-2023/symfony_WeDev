@@ -1,29 +1,68 @@
+{% extends 'main/base-front.html.twig' %}
+{% block title %}Mes reservations{% endblock %}
 {% block body %}
 <div class="container">
 
 
-<br><table class="table table-striped table-dark">
-<thead class="thead-dark">
+<br><table class="table table-hover table-dark">
+<thead class="thead-darmes">
+    <tr>          
+        <th colspan="9" align="center"><b>Mes reservations</b></th rowspan="2"><th>Annulation</th>
+    </tr>
     <tr>
         <th>Date de début</th>
         <th>Date de fin</th>
-        <th>velos disponibles</th>
-        <th>(nom)id de station</th>
-        <th>id d user</th>
-        <th>id de velo</th>
-
+        <th>nom station</th>
+        <th>Ville</th>
+        <th>nom de vélo</th>
+        <th>catégorie</th>
+        <th>Prixr</th>
+        <th>nombre de vélos</th>
+        <th>total</th>
     </tr></thead>
-    {%for k in liss %}
+    <script>var x=0;</script>
+    {%for mes in messi %}
     <tr>
-        <td>{{k.getDateDebut().format('d-m-Y / H:i:s') }}</td>
-        <td>{{k.getDateFin().format('d-m-Y / H:i:s')}}</td>
-        <td>{{k.getPrixr()}}</td>
-        <td>{{k.getNbr() }}</td>
-        <td>{{k.getNbr()}}</td>
-        <td>{{k.getNbr()}}</td>
-    </tr>
-    {%endfor%}
+        <td>{{ mes.getDateDebut()|date('d-m-Y / H:i:s') }}</td>
+        <td>{{ mes.getDateFin()|date('d-m-Y / H:i:s') }}</td>
+        <td>{{ mes.getIdStation().nomStation }}</td>
+        <td>{{ mes.getIdStation().localisationStation }}</td>
+        <td>{{ mes.getIdVelo().titre }}</td>
+        <td>{{ mes.getIdVelo().getCategorie().getNomCategorie() }}</td>
+        <td>{{ mes.getPrixr() }}</td>
+        <td>{{ mes.getNbr() }}</td>
+        <td><form method="POST" action="{{ path('app_delstation', {'id': k.getIdStation()}) }}" onsubmit="return confirm('Are you sure you want to delete this item?')">
+                <button class="btn btn-outline-danger">supprimer</button>
+                </form></td>
+        <td style="background-color: lightblue;color: black;">{{ mes.getNbr() * mes.getPrixr() }}</td>
+    </tr><script>x+={{ mes.getNbr() * mes.getPrixr() }};</script>
 
+    {%endfor%}
+    <tr><td colspan="7" ></td><td colspan="2" style="background-color: lightblue;color: black;"><div id="a">Initial text</div></td></tr>
+<script>document.getElementById("a").innerHTML = "Total: " + x + " TND";</script>
 </table>
-</div>
+</div></div>
+<div class="row">
+<div class="col-lg-4">
+                  <div class="item">
+                  </div>
+                </div>
+                <div class="col-lg-4" align="center">
+                  <div class="item" >
+                    <div class="icon">
+                      <img src="assets/images/service-01.jpg" alt="" style="max-width: 60px; border-radius: 50%;">
+                    </div>
+                    <h4>Bike SOS</h4>
+                    <p>EcoBikeGo répare également vos vélos !.</p>
+                    <p>1 - Apportez votre vélo dans l'une de nos succursales,<br>
+2 - Nous effectuons un diagnostic précis des réparations à effectuer,<br>
+3 - Nous vous envoyons un devis détaillé,<br>
+4 - Vous récupérez votre vélo en moins d'une semaine !</p>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="item">
+                  </div>
+                </div>
+              </div>
 {% endblock %}

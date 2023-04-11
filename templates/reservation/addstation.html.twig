@@ -3,6 +3,7 @@
 {% block body %}
 <div class="container"><br>
 <button type="button" class="btn btn-dark"><a href="{{ path('app_stationb') }}"> retour</a></button>
+<div align="CENTER">
 <br><br>
 <h1> Ajouter Station</h1>
 <div>
@@ -18,11 +19,12 @@
        <td>{{ form_widget(formA.nomStation) }}
         {{ form_errors(formA.nomStation) }}</td>
     </tr>
-    <tr>
-        <td>{{ form_label(formA.localisationStation, "Ville") }}</td>
-        <td>{{ form_widget(formA.localisationStation) }}
-        {{ form_errors(formA.localisationStation) }}</td>
-    </tr>
+<tr>
+    <td>{{ form_label(formA.localisationStation, "Ville") }}</td>
+    <td>{{ form_widget(formA.localisationStation, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(formA.localisationStation) }}</td>
+</tr>
+
     <tr>
         <td>{{ form_label(formA.veloStation, "Nombre de vélos") }}</td>
         <td>{{ form_widget(formA.veloStation) }}
@@ -30,17 +32,19 @@
     </tr>
     </table>
 </fieldset>
-
+<br><br><br>
 <div>
-    <button class="btn btn-primary" type="submit">Ajouter</button>
+    <button class="btn btn-primary" type="submit">{{button_label|default('Ajouter')}}</button>
 </div>
 
 {{ form_end(formA) }}
 
 </div>
 </div>
-<div class="container"></div>
-<br><br><br><br><br><br><br><br>
+</div>
+
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
 {% endblock %}
   
 

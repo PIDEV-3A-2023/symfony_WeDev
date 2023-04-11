@@ -4,7 +4,7 @@ namespace App\Entity;
 use Doctrine\DBAL\Types\Types;
 use repository;
 use Doctrine\ORM\Mapping as ORM;
-use App\repository\UserRecRepository;
+use App\Repository\UserRecRepository;
 
 #[ORM\Table(name: 'user')]
 #[ORM\Entity(repositoryClass: UserRecRepository::class)]

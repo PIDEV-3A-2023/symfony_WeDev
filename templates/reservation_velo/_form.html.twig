@@ -1,0 +1,72 @@
+
+<div align="center">
+{{ form_start(form,{'attr': {'novalidate': 'novalidate'}}) }}
+
+<fieldset Style="backgroud-color:white;">
+    <legend>Informtions sur la reservation</legend>
+    <table>
+    <tr>
+        <td>{{ form_label(form.dateDebut, "date de debut de la reservation") }}</td>
+       <td>{{ form_widget(form.dateDebut) }}
+        {{ form_errors(form.dateDebut) }}</td>
+    </tr>
+<tr>
+    <td>{{ form_label(form.dateFin, "date de fin de la reservation") }}</td>
+    <td>{{ form_widget(form.dateFin, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.dateFin) }}</td>
+</tr>
+
+    <tr>
+        <td>{{ form_label(form.idVelo, "nom de vélos") }}</td>
+        <td>{{ form_widget(form.idVelo) }}
+        {{ form_errors(form.idVelo) }}</td>
+    </tr>
+    <tr>
+        <td>{{ form_label(form.nbr, "Nombre de vélos à réserver") }}</td>
+        <td>{{ form_widget(form.nbr) }}
+        {{ form_errors(form.nbr) }}</td>
+    </tr>
+
+    <tr>
+        <td>{{ form_label(form.prixr, "prix de la reservation") }}</td>
+        <td>{{ form_widget(form.prixr) }}
+        {{ form_errors(form.prixr) }}</td>
+    </tr>
+    <div Style="display: none;">
+    
+        {{ form_label(form.idStation, "station") }}
+        {{ form_widget(form.idStation) }}
+        {{ form_errors(form.idStation) }}
+    
+    
+        {{ form_label(form.iduser, "user") }}
+        {{ form_widget(form.iduser) }}
+        {{ form_errors(form.iduser) }}
+    
+   </div>
+    </table>
+</fieldset>
+<br><br><br>
+<div>
+    <button class="btn btn-info" type="submit">{{button_label|default('Reserver')}}</button>
+</div></div>
+<script>function updateTotalPrice() {
+  const numberOfBikes = parseInt(document.getElementById("reservation_velo_nbr").value);
+  const bikeType = document.getElementById("reservation_velo_idVelo").value;
+  let totalPrice;
+
+  if (bikeType === "8") {
+    totalPrice = numberOfBikes * 140;
+  } else if (bikeType === "10") {
+    totalPrice = numberOfBikes * 200;
+  } else {
+    totalPrice = numberOfBikes * 250;
+  }
+
+  document.getElementById("reservation_velo_prixr").value = totalPrice;
+}
+
+setInterval(updateTotalPrice, 2000); // Update every 2 seconds
+
+</script>
+{{ form_end(form) }}

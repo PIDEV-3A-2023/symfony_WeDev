@@ -4,7 +4,8 @@ namespace App\Entity;
 use Doctrine\DBAL\Types\Types;
 use repository;
 use Doctrine\ORM\Mapping as ORM;
-use App\repository\ReservationVeloRepository;
+use App\Repository\ReservationVeloRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 #[ORM\Table(name: "reservation_velo")]
@@ -16,13 +17,18 @@ class ReservationVelo
     #[ORM\Column(type: "integer", name: "id_reservation")]
     private ?int $idReservation = null;
 
+    
     #[ORM\Column(type: "datetime", name: "date_debut", nullable: true)]
+    #[Assert\NotBlank]
+    
     private ?\DateTimeInterface $dateDebut = null;
 
     #[ORM\Column(type: "datetime", name: "date_fin", nullable: true)]
+    #[Assert\NotBlank]
     private ?\DateTimeInterface $dateFin = null;
 
     #[ORM\Column(type: "integer", name: "nbr", options: ["default" => 1])]
+    #[Assert\Positive]
     private int $nbr = 1;
 
     #[ORM\Column(type: "float", name: "prixr")]

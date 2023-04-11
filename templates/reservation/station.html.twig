@@ -16,6 +16,8 @@
 
 {% block body %} <diV class="container"><h4>Nos Stations </h1><br>
 Découvrez notre gamme de produits de qualité supérieure qui répondent à tous vos besoins.<br><br>
+<a href="{{ path('app_reservation') }}"><button type="button" class="btn btn-success btn-lg">Ma liste de reservation</button></a>
+<br><br><br>
 <table class="table table-striped table-dark">
     <tr>
         <th>nom de station</th>
@@ -29,11 +31,13 @@ Découvrez notre gamme de produits de qualité supérieure qui répondent à tou
         <td>{{k.getLocalisationStation()}}</td>
         <td>{{k.getVeloStation()}}</td>
         <td>
+                <form method="POST" action="{{ path('app_reservation_velo_new', {'id': k.getIdStation()}) }}">
                 <button class="btn btn-outline-success">reserver</button></form></td>
     </tr>
     {%endfor%}
 
 </table>
+
 <br><br><br>
 <div>EcoBikeGo vous offre la possibilité de vivre <b>des expériences</b> et <b>des aventures uniques</b> dans une atmosphère insulaire unique.<br>
 

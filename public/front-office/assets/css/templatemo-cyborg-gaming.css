@@ -41,6 +41,8 @@ figure, header, nav, section, article, aside, footer, figcaption {
   outline: 0;
 }
 
+
+
 header.header-sticky {
   position: fixed;
   top: 0;

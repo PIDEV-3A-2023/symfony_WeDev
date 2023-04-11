@@ -1,10 +1,9 @@
-{% extends 'base.html.twig' %}
-{% block title %}ajouter reservation{% endblock %}
-{% block content %}
-    <h1>New Reservation</h1>
+{% extends 'main/base-front.html.twig' %}   
+{% block title %}Reserver Velo{% endblock %}
+{% block body %}
+    <h1>faire une Reservation de Velo</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button type="submit">Save</button>
-    {{ form_end(form) }}
+    {{ include('reservation_velo/_form.html.twig') }}
+
+    <a href="{{ path('app_station') }}">retour</a>
 {% endblock %}

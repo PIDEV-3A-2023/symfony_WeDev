@@ -3,7 +3,7 @@
 namespace App\Entity;
 use repository;
 use Doctrine\ORM\Mapping as ORM;
-use App\repository\VeloRepository;
+use App\Repository\VeloRepository;
 
 #[ORM\Table(name: 'velo')]
 #[ORM\Entity(repositoryClass: VeloRepository::class)]
@@ -104,4 +104,8 @@ class Velo
         $this->idCategorie = $idCategorie;
         return $this;
     }
+    public function getCategorie()
+{
+    return $this->idCategorie;
+}
 }

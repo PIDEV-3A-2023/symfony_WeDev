@@ -2,10 +2,15 @@
 
 namespace App\Form;
 
+use App\Entity\Velo;
+use App\Entity\User;
+use App\Entity\Station;
 use App\Entity\ReservationVelo;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
 
 class ReservationVeloType extends AbstractType
 {
@@ -16,9 +21,19 @@ class ReservationVeloType extends AbstractType
             ->add('dateFin')
             ->add('nbr')
             ->add('prixr')
-            ->add('idVelo')
-            ->add('idStation')
-            ->add('iduser')
+            ->add('idVelo', EntityType::class, [
+                'class' => Velo::class,
+                'choice_label' => 'titre',
+            ])
+            ->add('idStation', EntityType::class, [
+                'class' => Station::class,
+                'choice_label' => 'nomStation',
+            ])
+            ->add('iduser', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => 'nomuser',
+            ])
+            
         ;
     }
 
