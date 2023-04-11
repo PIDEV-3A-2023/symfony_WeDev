@@ -165,7 +165,7 @@
                 <th>catégorie</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody><script>var x=0;</script>
             {% for k in liss %}
             <tr>
                 <td>{{ k.getDateDebut()|date('d-m-Y / H:i:s') }}</td>
@@ -179,8 +179,12 @@
                 <td>{{ k.getIdVelo().titre }}</td>
                 <td>{{ k.getIdVelo().getCategorie().getNomCategorie() }}</td>
             </tr>
+            <script>x+={{ k.getNbr() * k.getPrixr() }};</script>
             {% endfor %}
+            
+            <tr><td colspan="7" ></td><td colspan="2" style="background-color: lightblue;color: black;"><div id="a">Initial text</div></td><td></td></tr>
         </tbody>
     </table>
+    <script>document.getElementById("a").innerHTML = "Total: " + x + " TND";</script>
 </div>
 {% endblock %}

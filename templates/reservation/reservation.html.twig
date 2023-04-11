@@ -7,7 +7,7 @@
 <br><table class="table table-hover table-dark">
 <thead class="thead-darmes">
     <tr>          
-        <th colspan="9" align="center"><b>Mes reservations</b></th rowspan="2"><th>Annulation</th>
+        <th colspan="9" align="center"><b>Mes reservations</b></th ><th rowspan="2">Annulation</th>
     </tr>
     <tr>
         <th>Date de début</th>
@@ -31,14 +31,15 @@
         <td>{{ mes.getIdVelo().getCategorie().getNomCategorie() }}</td>
         <td>{{ mes.getPrixr() }}</td>
         <td>{{ mes.getNbr() }}</td>
-        <td><form method="POST" action="{{ path('app_delstation', {'id': k.getIdStation()}) }}" onsubmit="return confirm('Are you sure you want to delete this item?')">
+        
+        <td style="background-color: lightblue;color: black;">{{ mes.getNbr() * mes.getPrixr() }}</td>
+        <td><form method="POST" action="{{ path('app_reservation_velo_delete', {'idReservation': mes.idReservation}) }}" onsubmit="return confirm('Are you sure you want to delete this item?')">
                 <button class="btn btn-outline-danger">supprimer</button>
                 </form></td>
-        <td style="background-color: lightblue;color: black;">{{ mes.getNbr() * mes.getPrixr() }}</td>
     </tr><script>x+={{ mes.getNbr() * mes.getPrixr() }};</script>
 
     {%endfor%}
-    <tr><td colspan="7" ></td><td colspan="2" style="background-color: lightblue;color: black;"><div id="a">Initial text</div></td></tr>
+    <tr><td colspan="7" ></td><td colspan="2" style="background-color: lightblue;color: black;"><div id="a">Initial text</div></td><td></td></tr>
 <script>document.getElementById("a").innerHTML = "Total: " + x + " TND";</script>
 </table>
 </div></div>

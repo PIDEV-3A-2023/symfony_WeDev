@@ -10,6 +10,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
 #[Route('/reservation/velo')]
 class ReservationVeloController extends AbstractController
 {
@@ -43,31 +47,33 @@ class ReservationVeloController extends AbstractController
         ]);
     }
 
-    #[Route('/{idReservation}/edit', name: 'app_reservation_velo_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, ReservationVelo $reservationVelo, ReservationVeloRepository $reservationVeloRepository): Response
+
+    // #[Route('/{idReservation}', name: 'app_reservation_velo_delete', methods: ['POST'])]
+    // public function delete(Request $request, ReservationVelo $reservationVelo, ReservationVeloRepository $reservationVeloRepository): Response
+    // {
+    //     $r=$this->getDoctrine()->getRepository(ReservationVelo::class);
+    //     $messtation = $r->findAll();
+    //     if ($this->isCsrfTokenValid('delete'.$reservationVelo->getIdReservation(), $request->request->get('_token'))) {
+    //         $reservationVeloRepository->remove($reservationVelo, true);
+    //     }
+
+    //     return $this->redirectToRoute('app_reservation', [ 'messi' => $messtation,], Response::HTTP_SEE_OTHER);
+    // }
+
+    #[Route('/{idReservation}', name: 'app_reservation_velo_delete')]
+    public function delecteC($idReservation, ReservationVeloRepository $rep, 
+    ManagerRegistry $doctrine): Response
     {
-        $form = $this->createForm(ReservationVeloType::class, $reservationVelo);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $reservationVeloRepository->save($reservationVelo, true);
-
-            return $this->redirectToRoute('app_reservation_velo_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('reservation_velo/edit.html.twig', [
-            'reservation_velo' => $reservationVelo,
-            'form' => $form,
-        ]);
+        //récupérer la classe à supprimer
+        $reservation=$rep->find($idReservation);
+        //Action de suppression
+        //récupérer l'Entitye manager
+        $em=$doctrine->getManager();
+        $em->remove($reservation);
+        //La maj au niveau de la bd
+        $em->flush();
+        return $this->redirectToRoute('app_reservation');
     }
 
-    #[Route('/{idReservation}', name: 'app_reservation_velo_delete', methods: ['POST'])]
-    public function delete(Request $request, ReservationVelo $reservationVelo, ReservationVeloRepository $reservationVeloRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$reservationVelo->getIdReservation(), $request->request->get('_token'))) {
-            $reservationVeloRepository->remove($reservationVelo, true);
-        }
-
-        return $this->redirectToRoute('app_reservation_velo_index', [], Response::HTTP_SEE_OTHER);
-    }
+ 
 }
