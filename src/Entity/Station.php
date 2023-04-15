@@ -41,6 +41,12 @@ class Station
     {
         return $this->idStation;
     }
+    public function setIdStation(?Station $station): void
+{
+    $this->idStation = $station;
+}
+
+
 
     public function getNomStation(): ?string
     {
@@ -76,5 +82,10 @@ class Station
         $this->veloStation = $veloStation;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->nomStation; // assuming that the Station entity has a 'name' property
     }
 }

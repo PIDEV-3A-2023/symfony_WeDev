@@ -31,7 +31,7 @@ Découvrez notre gamme de produits de qualité supérieure qui répondent à tou
         <td>{{k.getLocalisationStation()}}</td>
         <td>{{k.getVeloStation()}}</td>
         <td>
-                <form method="POST" action="{{ path('app_reservation_velo_new', {'id': k.getIdStation()}) }}">
+                <form method="POST" action="{{ path('app_reservation_velo_new', {'mohsen': k.getIdStation()}) }}">
                 <button class="btn btn-outline-success">reserver</button></form></td>
     </tr>
     {%endfor%}

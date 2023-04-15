@@ -2,37 +2,44 @@
 
 namespace App\Controller;
 
+use App\Entity\Station;
 use App\Entity\ReservationVelo;
 use App\Form\ReservationVeloType;
+use App\Repository\StationRepository;
 use App\Repository\ReservationVeloRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\Form\FormBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Doctrine\ORM\EntityManagerInterface;
 
 #[Route('/reservation/velo')]
 class ReservationVeloController extends AbstractController
 {
-   
+    private $entityManager;
 
-    #[Route('/add', name: 'app_reservation_velo_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ReservationVeloRepository $reservationVeloRepository): Response
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+    
+    #[Route('/{mohsen}/add', name: 'app_reservation_velo_new', methods: ['GEt', 'POST'])]
+    public function new($mohsen, Request $request, ReservationVeloRepository $reservationVeloRepository, StationRepository $stationRepository): Response
     {
         $reservationVelo = new ReservationVelo();
+        $station = $this->entityManager->getRepository(Station::class)->find($mohsen);
+        $reservationVelo->setIdStation($station);    
         $form = $this->createForm(ReservationVeloType::class, $reservationVelo);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $reservationVeloRepository->save($reservationVelo, true);
-
             return $this->redirectToRoute('app_reservation', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->renderForm('reservation/addreservation.html.twig', [
             'reservation_velo' => $reservationVelo,
             'form' => $form,
