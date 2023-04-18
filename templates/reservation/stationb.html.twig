@@ -143,13 +143,13 @@
 <div class="container">
     <h4>Nos Stations</h4>
     <br>
-    <table class="table table-striped table-dark">
-        <thead>
+    <table class="table  table-bordered table-striped" style="background-color: #e3eeed;">
+        <thead  style="background-color: #abdbe3;">
             <tr>
                 <th>nom de station</th>
                 <th>localisation de station</th>
                 <th>velos disponibles</th>
-                <th>Paramétre</th>
+                <th colspan="2">Paramétre</th>
             </tr>
         </thead>
         {% for k in liss %}
@@ -158,11 +158,10 @@
             <td>{{ k.getLocalisationStation() }}</td>
             <td>{{ k.getVeloStation() }}</td>
             <td>
-            <table><tr>
-               <td> <form method="POST" action="{{ path('app_modstation', {'id': k.getIdStation()}) }}"><button class="btn btn-outline-success">modifier</button></form></td>
+             <form method="POST" action="{{ path('app_modstation', {'id': k.getIdStation()}) }}"><button class="btn btn-outline-success">modifier</button></form></td>
                 <td><form method="POST" action="{{ path('app_delstation', {'id': k.getIdStation()}) }}" onsubmit="return confirm('Are you sure you want to delete this item?')">
                 <button class="btn btn-outline-danger">supprimer</button>
-                </form></td></tr></table>
+                </form>
 
             </td>
         </tr>
