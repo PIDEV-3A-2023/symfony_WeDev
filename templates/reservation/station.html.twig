@@ -1,20 +1,23 @@
 {% extends 'main/base-front.html.twig' %}
 
 {% block title %}nos stations{% endblock %}
-
-{% block nav %}<ul class="nav">
+                    {% block nav %}
+                    <ul class="nav">
                         <li><a href="{{ path('app_accueil') }}" >Accueil </a></li>
                         <li><a href="{{ path('app_velo') }}">Nos velos</a></li>
                         <li><a href="{{ path('app_station') }}" class="active">Nos stations</a></li>
                         <li><a href="{{ path('app_evenement') }}">Evenements</a></li>
-                        <li><a href="{{ path('app_reclamation') }}" >Reclamation</a></li>
-                        <li><details ><summary><a >Profile <img src="front-office/assets/images/profile-header.jpg" alt=""></a></summary>
+                        <li><a href="{{ path('app_reclamation') }}">Reclamation</a></li>
+                        <li><details ><summary><a >Profile <img src="front-office/assets/images/stream-06.jpg" alt=""></a></summary>
                         <a  href="{{ path('app_profile') }}" class="link-unstyled">mon profile</a><a href="{{ path('app_login') }}" class="link-unstyled">deconnexion</a> 
                         </details>
                         </li>
-                    </ul>{% endblock %}
+                    </ul> 
+                    {% endblock %}
 
-{% block body %} <diV class="container"><h4>Nos Stations </h1><br>
+{% block body %} <diV class="container">
+<div class="row">
+<h4>Nos Stations </h1><br>
 Découvrez notre gamme de produits de qualité supérieure qui répondent à tous vos besoins.<br><br>
 <a href="{{ path('app_reservation') }}"><button type="button" class="btn btn-success btn-lg">Ma liste de reservation</button></a>
 <br><br><br>
@@ -45,5 +48,6 @@ Nous offrons des services de <b>location de vélos gratuits</b> pour tous les ad
  Que vous soyez une personne ou un groupe, nous vous apportons <b>nos conseils</b> et <b>notre expertise</b>, et mettons à votre disposition tous nos équipements et accessoires.<br>
 
 Les réservations sont fortement <b>recommandées</b>, surtout pour les weekends et les grands groupes de plus de 10 personnes.</assetdivs>
+</div>
 </div>
 {% endblock %}

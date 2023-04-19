@@ -160,15 +160,12 @@
 {% block body %}
 <div class="container" >
 <br>
-<div class="row">
-
-<div class="col-7"></div></div>
+<h1>mes reservation</h1>
         <div class="row">
-    
     <table class="table table-striped  table-bordered" style="background-color: #e3eeed;">
-        <thead  style="background-color: #abdbe3;">
+        <thead  style="background-color: #8e90ff;">
         <tr>
-                <th colspan="4">reservation:</th>
+                <th colspan="5">reservation:</th>
                 <th colspan="2">station:</th>
                 
                 <th colspan="2">client:</th>
@@ -180,6 +177,7 @@
                 <th>Date de fin</th>
                 <th>Prixr</th>
                 <th>Nbr</th>
+                <th>Total</th>
 
                 <th>nom station</th>
                 <th>Ville</th>
@@ -198,6 +196,7 @@
                 <td>{{ k.getDateFin()|date('d-m-Y / H:i:s') }}</td>
                 <td>{{ k.getPrixr() }}</td>
                 <td>{{ k.getNbr() }}</td>
+                <td>{{ k.getNbr() * k.getPrixr() }}</td>
                 <td>{{ k.getIdStation().nomStation }}</td>
                 <td>{{ k.getIdStation().localisationStation }}</td>
                 <td>{{ k.getIdUser().nomuser}}/{{ k.getIdUser().prenomuser }}</td>
@@ -208,7 +207,7 @@
             <script>x+={{ k.getNbr() * k.getPrixr() }};</script>
             {% endfor %}
             
-            <tr><td colspan="7" style="background-color: red;"></td><td colspan="2" style="background-color: red;"><div id="a">Initial text</div></td><td></td></tr>
+            <tr><td colspan="3"></td><td colspan="2" style="background-color: red; color:white;"><div id="a">Initial text</div></td><td></td></tr>
         </tbody>
     </table>
     </div>

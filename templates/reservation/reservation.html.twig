@@ -1,9 +1,22 @@
 {% extends 'main/base-front.html.twig' %}
 {% block title %}Mes reservations{% endblock %}
+{% block nav %}
+                    <ul class="nav">
+                        <li><a href="{{ path('app_accueil') }}" >Accueil </a></li>
+                        <li><a href="{{ path('app_velo') }}">Nos velos</a></li>
+                        <li><a href="{{ path('app_station') }}" class="active">Nos stations</a></li>
+                        <li><a href="{{ path('app_evenement') }}">Evenements</a></li>
+                        <li><a href="{{ path('app_reclamation') }}">Reclamation</a></li>
+                        <li><details ><summary><a >Profile <img src="front-office/assets/images/stream-06.jpg" alt=""></a></summary>
+                        <a  href="{{ path('app_profile') }}" class="link-unstyled">mon profile</a><a href="{{ path('app_login') }}" class="link-unstyled">deconnexion</a> 
+                        </details>
+                        </li>
+                    </ul> 
+                    {% endblock %}
 {% block body %}
 <div class="container">
-
-
+<div class="row">
+<div class="col">
 <br><table class="table table-hover table-dark">
 <thead class="thead-darmes">
     <tr>          
@@ -65,5 +78,6 @@
                   <div class="item">
                   </div>
                 </div>
+              </div>
               </div>
 {% endblock %}

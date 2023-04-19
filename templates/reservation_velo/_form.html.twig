@@ -55,12 +55,12 @@
   const bikeType = document.getElementById("reservation_velo_idVelo").value;
   let totalPrice;
 
-  if (bikeType === "8") {
+  if (bikeType === "38") {
     totalPrice = numberOfBikes * 140;
-  } else if (bikeType === "10") {
+  } else if (bikeType === "21") {
     totalPrice = numberOfBikes * 200;
   } else {
-    totalPrice = numberOfBikes * 250;
+    totalPrice = numberOfBikes * 300;
   }
 
   document.getElementById("reservation_velo_prixr").value = totalPrice;
