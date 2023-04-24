@@ -13,11 +13,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\StationRepository;
 use App\Form\StationType;
 use App\Entity\Station;
+use App\Entity\Velo;
 
-#[Route('/stationb')]
+#[Route('/station')]
 class StationbController extends AbstractController
 {
-    #[Route('/', name: 'app_stationb')]
+    #[Route('/b', name: 'app_stationb')]
     public function stationb(): Response
     {
         $r=$this->getDoctrine()->getRepository(Station::class);
@@ -26,6 +27,20 @@ class StationbController extends AbstractController
             'liss' => $messtation,'wael'=>'','siwael'=>''
         ]);
     }
+
+    #[Route('/', name: 'app_station')]
+    public function station( ): Response
+    { 
+        $r=$this->getDoctrine()->getRepository(Station::class);
+        $messtation = $r->findAll();
+
+        $bsekel=$this->getDoctrine()->getRepository(Velo::class)->findAll();
+        return $this->render('reservation/station.html.twig', [
+            'darajet' => $bsekel,
+            'liss' => $messtation,
+        ]);
+    }
+
     #[Route('/add', name: 'app_addstation')]
     public function addstation(Request $request): Response
     {

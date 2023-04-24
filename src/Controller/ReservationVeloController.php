@@ -27,6 +27,25 @@ class ReservationVeloController extends AbstractController
         $this->entityManager = $entityManager;
     }
     
+    #[Route('/', name: 'app_reservation')]
+    public function mesres(): Response
+    {   $r=$this->getDoctrine()->getRepository(ReservationVelo::class);
+        $messtation = $r->findAll();
+        return $this->render('reservation/reservation.html.twig', [
+            'messi' => $messtation,
+        ]);
+    }
+
+    #[Route('/b', name: 'app_reservationb')]
+    public function reservationb(): Response
+    {
+        $r=$this->getDoctrine()->getRepository(ReservationVelo::class);
+        $messtation = $r->findAll();
+        return $this->render('reservation/reservationb.html.twig', [
+            'liss' => $messtation,
+        ]);
+    }
+
     #[Route('/{mohsen}/add', name: 'app_reservation_velo_new', methods: ['GEt', 'POST'])]
     public function new($mohsen, Request $request, ReservationVeloRepository $reservationVeloRepository, StationRepository $stationRepository): Response
     {
@@ -66,19 +85,6 @@ class ReservationVeloController extends AbstractController
             'reservation_velo' => $reservationVelo,
         ]);
     }
-
-
-    // #[Route('/{idReservation}', name: 'app_reservation_velo_delete', methods: ['POST'])]
-    // public function delete(Request $request, ReservationVelo $reservationVelo, ReservationVeloRepository $reservationVeloRepository): Response
-    // {
-    //     $r=$this->getDoctrine()->getRepository(ReservationVelo::class);
-    //     $messtation = $r->findAll();
-    //     if ($this->isCsrfTokenValid('delete'.$reservationVelo->getIdReservation(), $request->request->get('_token'))) {
-    //         $reservationVeloRepository->remove($reservationVelo, true);
-    //     }
-
-    //     return $this->redirectToRoute('app_reservation', [ 'messi' => $messtation,], Response::HTTP_SEE_OTHER);
-    // }
 
     #[Route('/{idReservation}', name: 'app_reservation_velo_delete')]
     public function delecteC($idReservation, ReservationVeloRepository $rep, 
