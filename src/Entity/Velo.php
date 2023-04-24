@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Velo
@@ -26,6 +27,7 @@ class Velo
      * @var string
      *
      * @ORM\Column(name="titre", type="string", length=20, nullable=false)
+     *  @Assert\NotBlank(message="Le champ 'titre' est obligatoire")
      */
     private $titre;
 
@@ -33,6 +35,7 @@ class Velo
      * @var float
      *
      * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=false)
+     *  @Assert\NotBlank(message="Le champ 'prix' est obligatoire")
      */
     private $prix;
 
@@ -47,6 +50,7 @@ class Velo
      * @var int
      *
      * @ORM\Column(name="qte", type="integer", nullable=false)
+     * * @Assert\NotBlank(message="Le champ 'Nom' est obligatoire")
      */
     private $qte;
 

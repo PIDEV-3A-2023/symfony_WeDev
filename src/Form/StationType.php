@@ -6,7 +6,6 @@ use App\Entity\Station;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class StationType extends AbstractType
 {
@@ -16,8 +15,6 @@ class StationType extends AbstractType
             ->add('nomStation')
             ->add('localisationStation')
             ->add('veloStation')
-            //->add('submit', SubmitType::class, [
-                //'label' => 'Submit',]);
         ;
     }
 
