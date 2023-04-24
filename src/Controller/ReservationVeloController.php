@@ -17,6 +17,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityManagerInterface;
 
+
 #[Route('/reservation/velo')]
 class ReservationVeloController extends AbstractController
 {
@@ -37,12 +38,14 @@ class ReservationVeloController extends AbstractController
     }
 
     #[Route('/b', name: 'app_reservationb')]
-    public function reservationb(): Response
+    public function reservationb(Request $request): Response
     {
+        $categoryFilter = $request->query->get('category-filter');
         $r=$this->getDoctrine()->getRepository(ReservationVelo::class);
         $messtation = $r->findAll();
         return $this->render('reservation/reservationb.html.twig', [
             'liss' => $messtation,
+            'categoryFilter' => $categoryFilter,
         ]);
     }
 
@@ -68,6 +71,9 @@ class ReservationVeloController extends AbstractController
             $station->setVeloStation($nnbr);
             $this->entityManager->persist($station);
             $this->entityManager->flush();
+
+// Appel de la méthode sendsms depuis OffreRepository
+//$reservationVeloRepository->sendsms();
 
             return $this->redirectToRoute('app_reservation', [], Response::HTTP_SEE_OTHER);
             }

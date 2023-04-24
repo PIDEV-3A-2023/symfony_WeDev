@@ -133,28 +133,96 @@
                 </li>
               </ul>
             </li>
-          <div class="border py-4 px-4 mb-2 rounded-md shadow-sm border-gray-100"><div class="flex items-center justify-between">
-        <h5>Filtre Avancé</h5><br>
-
-          </div>
-          <button class="btn btn-outline-danger" style="font-size:13px;">Réinitialiser le filtre</button>
           
-          <input list="ice-cream-flavors" id="filter-name" name="ice-cream-choice">
-<label for="ice-cream-choice">Choose a flavor:</label>
 
+          
 
+          <div id="amazzing_filter" class="af block vertical-layout displayLeftColumn hide-zero-matches dim-zero-matches">
+	<h2 class="title_block">
+		Filtrer	</h2>
+	<div class="block_content">
+						<div class="clearAll">
+       <button class="btn btn-outline-danger" style="font-size:13px;">Réinitialiser le filtre</button>
+			
+		</div>
 
+												<div class="af_filter clearfix p has-slider" >
+<h5 class="af_subtitle toggle-content">Station</h5>
+<input type="text" id="filter-name" placeholder="Nom de Station">
+				
+					    <h5 class="af_subtitle toggle-content">Prix</h5>
+							<input type="number" id="filter-min-price" name="min-price" class="form-control" placeholder="Minimum total">
+              <input type="number" id="filter-max-price" name="max-price" class="form-control" placeholder="Maximum total">
+	
+															<div class="af_filter clearfix m type-1 cut-off" >
+			
+					<h5 class="af_subtitle toggle-content">Type Velo</h5>
 
-<datalist id="ice-cream-flavors">
-    <option value="femme">
-    <option value="tout terrin">
-    <option value="racing">
-    <option value="enfant">
-</datalist>
-          </div>
+				<div class="af_filter_content">
+																																						
+		<ul class="">
+										<li class="item-m-687 no-matches">
+			<label for="m-687" >
+													<input type="checkbox" id="m-687" >
+												<span class="name">femme</span>		</label>
+								</li>
+									<li class="item-m-486 no-matches">
+			<label for="m-486" >
+													<input type="checkbox" id="m-486" >
+												<span class="name">tout terrin</span>		</label>
+								</li>
+									<li class="item-m-918 no-matches">
+			<label for="m-918" class="af-checkbox-label">
+													<input type="checkbox" id="m-918" >
+												<span class="name">racing</span></label>
+								</li>
+									<li class="item-m-680 no-matches">
+			<label for="m-680" class="af-checkbox-label">
+													<input type="checkbox" id="m-680">
+												<span class="name">enfant</span></label>
+								</li>
+		</ul>
+	
+								</div>
+
+					<h5 class="af_subtitle toggle-content">CATÉGORIE</h5>
+
+				<div class="af_filter_content">
+																																						
+		<ul class="">
+									<li class="item-m-718 no-matches">
+			<label for="m-718" class="af-checkbox-label">
+													<input type="checkbox" id="m-718" name="VTC électrique">
+												<span class="name">VTC électrique</span>		</label>
+								</li>
+									<li class="item-m-13 no-matches">
+			<label for="m-13" class="af-checkbox-label">
+													<input type="checkbox" id="m-13" name="VTT">
+												<span class="name">VTT</span></label>
+								</li>
+									<li class="item-m-343 no-matches">
+
+			<label for="m-19" class="af-checkbox-label">
+													<input type="checkbox" id="m-19" name="scooteur">
+												<span class="name">scooteur</span></label>
+								</li>
+  
+<input type="checkbox" name="category-filter[]" value="VTC électrique" onclick="applyFilter()"> VTC électrique
+<input type="checkbox" name="category-filter[]" value="VTT" onclick="applyFilter()"> VTT
+<input type="checkbox" name="category-filter[]" value="scooteur" onclick="applyFilter()"> Scooteur
+
+		</ul>
+								</div>
+									
+							</div>
+		<div class="btn-holder hidden">
+			<a href="#" class="btn btn-primary full-width viewFilteredProducts hidden">
+				Voir les Produits 
+			</a>
+					</div>
+	</div>
+</div>
           </ul>
-
-
 
         </aside>
 
@@ -335,7 +403,7 @@ new Chart(ctx4, config4);
 
 </div><br>
 <div class="row">
-    <table class="table table-striped  table-bordered" style="background-color: #e3eeed;" id="customers-table">
+    <table class="table table-striped  table-bordered" style="background-color: #e3eeed;"  id="customers-table">
         <thead  style="background-color: #8e90ff;">
         <tr>
                 <th colspan="5">reservation:</th>
@@ -364,7 +432,9 @@ new Chart(ctx4, config4);
         </thead>
         <tbody><script>var x=0;</script>
             {% for k in liss %}
-            <tr data-name="{{ k.getIdVelo().titre }}">
+            {% set bikeCategory = k.getIdVelo().getCategorie().getNomCategorie() %}
+    {% if not categoryFilter or bikeCategory in categoryFilter %}
+            <tr data-name="{{ k.getIdStation().nomStation }}">
                 <td>{{ k.getDateDebut()|date('d-m-Y / H:i:s') }}</td>
                 <td>{{ k.getDateFin()|date('d-m-Y / H:i:s') }}</td>
                 <td>{{ k.getPrixr() }}</td>
@@ -377,6 +447,8 @@ new Chart(ctx4, config4);
                 <td>{{ k.getIdVelo().titre }}</td>
                 <td>{{ k.getIdVelo().getCategorie().getNomCategorie() }}</td>
             </tr>
+                {% endif %}
+
             <script>x+={{ k.getNbr() * k.getPrixr() }};</script>
             {% endfor %}
             
@@ -386,22 +458,52 @@ new Chart(ctx4, config4);
     </div>
     <script>document.getElementById("a").innerHTML = "Total: " + x + " TND";</script>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-       const filterInput = document.querySelector('#filter-name');
-const tableRows = document.querySelectorAll('#customers-table tbody tr');
+       (function() {
+  // Get the filter input and table rows
+  const filterInput = document.querySelector('#filter-name');
+  const tableRows = document.querySelectorAll('#customers-table tbody tr');
+  const tbody = document.querySelector('#customers-table tbody');
 
-filterInput.addEventListener('keyup', () => {
-  const filterValue = filterInput.value.toLowerCase();
-  tableRows.forEach(row => {
-    const name = row.getAttribute('data-name').toLowerCase();
-    if (name.indexOf(filterValue) > -1) {
-      row.style.display = '';
-    } else {
-      row.style.display = 'none';
-    }
+  // Filter rows based on user input
+  filterInput.addEventListener('keyup', () => {
+    const filterValue = filterInput.value.toLowerCase();
+    tableRows.forEach(row => {
+      const name = row.getAttribute('data-name').toLowerCase();
+      if (name.indexOf(filterValue) > -1) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
   });
-});
+
+  // Filter rows based on category checkboxes
+  function applyFilter() {
+    const checkboxes = document.getElementsByName('category-filter[]');
+    const checkedValues = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+    const rows = tbody.getElementsByTagName('tr');
+    for (let i = 0; i < rows.length; i++) {
+      const categoryName = rows[i].getElementsByTagName('td')[11].textContent.trim();
+      if (checkedValues.includes(categoryName)) {
+        rows[i].style.display = '';
+      } else {
+        rows[i].style.display = 'none';
+      }
+    }
+  }
+
+  // Add event listeners to category checkboxes
+  const checkboxes = document.getElementsByName('category-filter[]');
+  checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
+      applyFilter();
+    });
+  });
+})();
 
     </script>
+
+
 {% endblock %}
