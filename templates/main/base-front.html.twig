@@ -57,7 +57,7 @@ details > p {
   <!-- ***** Preloader End ***** -->
 
   <!-- ***** Header Area Start ***** -->
-  <header class="header-area header-sticky fixed-top">
+  <header class="header-area header-sticky">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -83,7 +83,7 @@ details > p {
                         <li><a href="{{ path('app_station') }}">Nos stations</a></li>
                         <li><a href="{{ path('app_evenement') }}">Evenements</a></li>
                         <li><a href="{{ path('app_reclamation') }}">Reclamation</a></li>
-                        <li><details ><summary><a >Profile <img src="front-office/assets/images/stream-06.jpg" alt=""></a></summary>
+                        <li><details ><summary><a >Profile <img src="front-office/assets/images/profile-header.jpg" alt=""></a></summary>
                         <a  href="{{ path('app_profile') }}" class="link-unstyled">mon profile</a><a href="{{ path('app_login') }}" class="link-unstyled">deconnexion</a> 
                         </details>
                         </li>
@@ -103,28 +103,20 @@ details > p {
         <div class="page-content">
 
           <!-- ***** Banner Start ***** -->
-
-
-          
           {% block body %}
           <div class="main-banner">
-  <div class="row">
-   
-    <div class="col-lg-7"> 
-      <div>
-        <div class="header-text">
-          <h6>Bienvenue chez EcoBikeGo</h6>
-          <h4><em>DÉCOUVREZ</em> NOS VÉLOS ÉLECTRIQUES POPULAIRES ICI</h4>
-          <div class="main-button">
-            <a href="{{ path('app_velo') }}">Parcourir maintenant</a>
+            <div class="row">
+              <div class="col-lg-7">
+                <div class="header-text">
+                  <h6>Bienvenue chez EcoBikeGo</h6>
+                  <h4><em>DÉCOUVREZ</em> NOS VÉLOS ÉLECTRIQUES POPULAIRES ICI</h4>
+                  <div class="main-button">
+                    <a href="{{asset('browse.html')}}">Browse Now</a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
           <!-- ***** Banner End ***** -->
           
 
@@ -237,7 +229,7 @@ details > p {
           <div class="gaming-library">
             <div class="col-lg-12">
               <div class="heading-section">
-                <h4><em>zz</em> Library</h4>
+                <h4><em>Your Gaming</em> Library</h4>
               </div>
               <div class="item">
                 <ul>
@@ -284,6 +276,9 @@ details > p {
   </div>
   
 
+      
+
+
   <footer>
     <div class="container">
       <div class="row">
@@ -295,35 +290,20 @@ details > p {
       </div>
     </div>
   </footer>
-{% endblock %}
+
 
   <!-- Scripts -->
   <!-- Bootstrap core JavaScript -->
-  <script src="{{asset('front-office/vendor/jquery/jquery.min.js')}}"></script>
-  <script src="{{asset('front-office/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
+  <script src="front-office/vendor/jquery/jquery.min.js"></script>
+  <script src="front-office/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-  <script src="{{asset('front-office/assets/js/isotope.min.js')}}"></script>
-  <script src="{{asset('front-office/assets/js/owl-carousel.js')}}"></script>
-  <script src="{{asset('front-office/assets/js/tabs.js')}}"></script>
-  <script src="{{asset('front-office/assets/js/popup.js')}}"></script>
-  <script src="{{asset('front-office/assets/js/custom.js')}}"></script>
-<script>
-const banner = document.querySelector('.main-banner');
-const bannerImage = document.querySelector('.banner-image');
+  <script src="front-office/assets/js/isotope.min.js"></script>
+  <script src="front-office/assets/js/owl-carousel.js"></script>
+  <script src="front-office/assets/js/tabs.js"></script>
+  <script src="front-office/assets/js/popup.js"></script>
+  <script src="front-office/assets/js/custom.js"></script>
 
-banner.addEventListener('mousemove', (event) => {
-  const mouseX = event.clientX / window.innerWidth;
-  const mouseY = event.clientY / window.innerHeight;
-  const translateX = mouseX * 20 - 5;
-  const translateY = mouseY * 30 - 5;
-
-  banner.style.transform = `translate(${translateX}px, ${translateY}px)`;
-});
-
-banner.addEventListener('mouseleave', () => {
-  bannerImage.style.transform = 'none';
-});
-</script>
+{% endblock %}
   </body>
 
 </html>

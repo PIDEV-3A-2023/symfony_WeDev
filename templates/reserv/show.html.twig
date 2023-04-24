@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reserv{% endblock %}
+
+{% block body %}
+    <h1>Reserv</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>IdRes</th>
+                <td>{{ reserv.idRes }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reserv_index') }}">back to list</a>
+
+    <a href="{{ path('app_reserv_edit', {'idRes': reserv.idRes}) }}">edit</a>
+
+    {{ include('reserv/_delete_form.html.twig') }}
+{% endblock %}

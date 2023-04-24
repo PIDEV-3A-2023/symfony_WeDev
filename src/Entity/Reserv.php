@@ -22,16 +22,6 @@ class Reserv
     private $idRes;
 
     /**
-     * @var \Event
-     *
-     * @ORM\ManyToOne(targetEntity="Event")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_event", referencedColumnName="id_event")
-     * })
-     */
-    private $idEvent;
-
-    /**
      * @var \User
      *
      * @ORM\ManyToOne(targetEntity="User")
@@ -41,10 +31,33 @@ class Reserv
      */
     private $iduser;
 
+    /**
+     * @var \Event
+     *
+     * @ORM\ManyToOne(targetEntity="Event")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_event", referencedColumnName="id_event")
+     * })
+     */
+    private $idEvent;
+
     public function getIdRes(): ?int
     {
         return $this->idRes;
     }
+
+    public function getIduser(): ?User
+    {
+        return $this->iduser;
+    }
+
+public function setIdUser(User $user): self
+{
+    $this->iduser = $user;
+
+    return $this;
+}
+
 
     public function getIdEvent(): ?Event
     {
@@ -54,18 +67,6 @@ class Reserv
     public function setIdEvent(?Event $idEvent): self
     {
         $this->idEvent = $idEvent;
-
-        return $this;
-    }
-
-    public function getIduser(): ?User
-    {
-        return $this->iduser;
-    }
-
-    public function setIduser(?User $iduser): self
-    {
-        $this->iduser = $iduser;
 
         return $this;
     }

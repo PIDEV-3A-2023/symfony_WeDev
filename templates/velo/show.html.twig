@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Velo{% endblock %}
+
+{% block body %}
+    <h1>Velo</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>IdVelo</th>
+                <td>{{ velo.idVelo }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ velo.titre }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ velo.prix }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>
+                    {% if velo.image %}
+                        <img src="{{ asset('uploads/velo/images/'~velo.image) }}" alt="{{ velo.titre }}">
+                    {% else %}
+                        No image
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Qte</th>
+                <td>{{ velo.qte }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_velo_index') }}">back to list</a>
+
+    <a href="{{ path('app_velo_edit', {'idVelo': velo.idVelo}) }}">edit</a>
+
+    {{ include('velo/_delete_form.html.twig') }}
+{% endblock %}

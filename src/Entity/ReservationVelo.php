@@ -51,6 +51,16 @@ class ReservationVelo
     private $prixr = '0';
 
     /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="iduser", referencedColumnName="IdUser")
+     * })
+     */
+    private $iduser;
+
+    /**
      * @var \Velo
      *
      * @ORM\ManyToOne(targetEntity="Velo")
@@ -69,16 +79,6 @@ class ReservationVelo
      * })
      */
     private $idStation;
-
-    /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="iduser", referencedColumnName="IdUser")
-     * })
-     */
-    private $iduser;
 
     public function getIdReservation(): ?int
     {
@@ -133,6 +133,18 @@ class ReservationVelo
         return $this;
     }
 
+    public function getIduser(): ?User
+    {
+        return $this->iduser;
+    }
+
+    public function setIduser(?User $iduser): self
+    {
+        $this->iduser = $iduser;
+
+        return $this;
+    }
+
     public function getIdVelo(): ?Velo
     {
         return $this->idVelo;
@@ -153,18 +165,6 @@ class ReservationVelo
     public function setIdStation(?Station $idStation): self
     {
         $this->idStation = $idStation;
-
-        return $this;
-    }
-
-    public function getIduser(): ?User
-    {
-        return $this->iduser;
-    }
-
-    public function setIduser(?User $iduser): self
-    {
-        $this->iduser = $iduser;
 
         return $this;
     }

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Event
@@ -13,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Event
 {
-    /**
+/**
      * @var int
      *
      * @ORM\Column(name="id_event", type="integer", nullable=false)
@@ -26,6 +27,9 @@ class Event
      * @var string
      *
      * @ORM\Column(name="nom_event", type="string", length=50, nullable=false)
+     * 
+     * @Assert\NotBlank(message="Le nom de l'événement ne peut pas être vide.")
+     * @Assert\Length(max=50, maxMessage="Le nom de l'événement ne peut pas dépasser {{ limit }} caractères.")
      */
     private $nomEvent;
 
@@ -33,8 +37,12 @@ class Event
      * @var \DateTime
      *
      * @ORM\Column(name="date_event", type="date", nullable=false)
+     * 
+     
+    
      */
     private $dateEvent;
+
 
     /**
      * @var string
@@ -46,7 +54,7 @@ class Event
     /**
      * @var string
      *
-     * @ORM\Column(name="photo_event", type="string", length=255, nullable=false)
+     * @ORM\Column(name="photo_event", type="string", length=0, nullable=false)
      */
     private $photoEvent;
 
@@ -98,12 +106,12 @@ class Event
         return $this;
     }
 
-    public function getPhotoEvent(): ?string
+    public function getPhotoEvent()
     {
         return $this->photoEvent;
     }
 
-    public function setPhotoEvent(string $photoEvent): self
+    public function setPhotoEvent($photoEvent): self
     {
         $this->photoEvent = $photoEvent;
 
@@ -122,5 +130,9 @@ class Event
         return $this;
     }
 
+       public function __toString()
+    {
+        return $this->idEvent;
+    }
 
 }

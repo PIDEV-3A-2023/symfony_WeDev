@@ -1,0 +1,76 @@
+{% extends 'main/base-back.html.twig' %}
+
+{% block title %}Event {% endblock %}
+
+{% block body %}
+<!-- Search -->
+<form method="post" action="{{ path('app_event_search') }}">
+    <div class="navbar-nav align-items-center">
+        <div class="nav-item d-flex align-items-center">
+            <i class="bx bx-search fs-4 lh-0"></i>
+            <input
+                type="text"
+                class="form-control border-0 shadow-none"
+                placeholder="Search..."
+                aria-label="Search..."
+                name="niveau"
+            />
+            <button type="submit">Chercher</button>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="sort">Trier par date:</label>
+        <select class="form-control" id="sort" name="sort">
+            <option value="ASC">Date croissante</option>
+            <option value="DESC">Date décroissante</option>
+        </select>
+    </div>
+</form>
+<!-- /Search -->
+
+<br>
+<div class="container">
+      <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+    <h1>Liste des événements search by name  ✅</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdEvent</th>
+                <th>NomEvent</th>
+                <th>DateEvent</th>
+                <th>LocateEvent</th>
+                <th>PhotoEvent</th>
+                <th>DispoplaceEvent</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for event in events %}
+            <tr>
+                <td>{{ event.idEvent }}</td>
+                <td>{{ event.nomEvent }}</td>
+                <td>{{ event.dateEvent ? event.dateEvent|date('Y-m-d') : '' }}</td>
+                <td>{{ event.locateEvent }}</td>
+                <td>{{ event.photoEvent }}</td>
+                <td>{{ event.dispoplaceEvent }}</td>
+                <td>
+                    <a href="{{ path('app_event_show', {'idEvent': event.idEvent}) }}" class="btn btn-dark">show</a>
+                    <a href="{{ path('app_event_edit', {'idEvent': event.idEvent}) }}" class="btn btn-dark">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_event_new') }}">Create new</a>
+    
+    </div>
+{% endblock %}

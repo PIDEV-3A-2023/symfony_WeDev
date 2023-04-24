@@ -1,23 +1,44 @@
 {% extends 'main/base-front.html.twig' %}
 
-{% block title %}nos stations{% endblock %}
-
-{% block nav %}<ul class="nav">
-                        <li><a href="{{ path('app_accueil') }}" >Accueil </a></li>
-                        <li><a href="{{ path('app_velo') }}">Nos velos</a></li>
-                        <li><a href="{{ path('app_station') }}">Nos stations</a></li>
-                        <li><a href="{{ path('app_evenement') }}" class="active">Evenements</a></li>
-                        <li><a href="{{ path('app_reclamation') }}" >Reclamation</a></li>
-                        <li><details ><summary><a >Profile <img src="front-office/assets/images/profile-header.jpg" alt=""></a></summary>
-                        <a  href="{{ path('app_profile') }}" class="link-unstyled">mon profile</a><a href="{{ path('app_login') }}" class="link-unstyled">deconnexion</a> 
-                        </details>
-                        </li>
-                    </ul>{% endblock %}
-
-{% block body %}<h1> Evenement </h1>
-Découvrez notre gamme de produits de qualité supérieure qui répondent à tous vos besoins.
+{% block body %}
+  <h1>Nos événements</h1>
 
 
+  <div class="row">
+{% for event in events %}
+    <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+            {% if event.photoEvent %}
+                <img src="{{ asset('uploads/event_photos/'~event.photoEvent) }}" alt="{{ event.nomEvent }}" style="max-width: 100%; height: 200px;">
+            {% else %}
+                No image
+            {% endif %}
+            <div class="card-body">
+                <p class="card-title">{{ event.nomEvent }}</p>
+                <p class="card-text">{{ event.dateEvent|date('d/m/Y') }}</p>
+                <p class="card-text">{{ event.dispoplaceEvent }}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <a href="{{ path('app_event_reserver', { 'idEvent': event.idEvent }) }}" class="btn btn-sm btn-outline-secondary">Réserver</a>
+                        {% if hasReservations[event.idEvent] %}
+                            <a href="{{ path('app_event_qr_code', {'idEvent': event.idEvent}) }}" class="btn btn-primary">Code QR</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+  </div>
+
+  {% for label, messages in app.flashes() %}
+    <div class="alert alert-{{ label }}">
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+    </div>
+  {% endfor %}
 
 {% endblock %}
 
