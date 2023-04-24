@@ -17,9 +17,52 @@
 
 {% block body %} <diV class="container">
 <div class="row">
-<h4>Nos Stations </h1><br>
-Découvrez notre gamme de produits de qualité supérieure qui répondent à tous vos besoins.<br><br>
+<div class="col-lg-8" align="center">
+<h1>Nos Stations </h>
+</div><div class="col-lg-4" align="right">
 <a href="{{ path('app_reservation') }}"><button type="button" class="btn btn-success btn-lg">Ma liste de reservation</button></a>
+<br></div></div>
+<p>Découvrez notre gamme de produits de qualité supérieure qui répondent à tous vos besoins.</p>
+<br><br>
+<div class="row">
+<div class="col-lg-1">
+
+</div><div class="col-lg-10">
+
+
+<div class="featured-games header-text">
+
+                <div class="heading-section">
+                  <h4><em>Featured</em> Games</h4>
+                </div>
+
+
+                <div class="owl-features owl-carousel">
+{%for o in darajet %}
+                  <div class="item">
+                    <div class="thumb">
+                      <img width="200px" src="{{ asset('tsawir/velo/' ~ o.image) }}" alt="femme">
+                      <div class="hover-effect">
+                        <h6>{{o.getCategorie().nomCategorie }}</h6>
+                      </div>
+                    </div>
+                    <h4>{{o.qte }}<br><span>{{o.titre }}</span></h4>
+                    <ul>
+                      <li><i class="fa fa-dollar"></i> {{o.prix }}</li>
+                      
+                    </ul>
+                  </div>
+{%endfor%}
+
+         
+                </div>
+              </div>
+
+
+
+</div>
+</div><br>
+<div class="row">
 <br><br><br>
 <table class="table table-striped table-dark">
     <tr>
@@ -34,8 +77,13 @@ Découvrez notre gamme de produits de qualité supérieure qui répondent à tou
         <td>{{k.getLocalisationStation()}}</td>
         <td>{{k.getVeloStation()}}</td>
         <td>
+        {% if k.getVeloStation() > 0 %}
                 <form method="POST" action="{{ path('app_reservation_velo_new', {'mohsen': k.getIdStation()}) }}">
-                <button class="btn btn-outline-success">reserver</button></form></td>
+                <button class="btn btn-outline-success">reserver</button></form>
+                {% else %}
+                <p>pas de velos pour le moment</p>
+                {% endif %}
+                </td>
     </tr>
     {%endfor%}
 

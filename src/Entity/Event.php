@@ -2,9 +2,8 @@
 
 namespace App\Entity;
 use Doctrine\DBAL\Types\Types;
-use repository;
 use Doctrine\ORM\Mapping as ORM;
-use App\repository\EventRepository;
+use App\Repository\EventRepository;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event

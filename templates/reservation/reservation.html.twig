@@ -46,7 +46,7 @@
         <td>{{ mes.getNbr() }}</td>
         
         <td style="background-color: lightblue;color: black;">{{ mes.getNbr() * mes.getPrixr() }}</td>
-        <td><form method="POST" action="{{ path('app_reservation_velo_delete', {'idReservation': mes.idReservation}) }}" onsubmit="return confirm('Are you sure you want to delete this item?')">
+        <td><form method="POST" action="{{ path('app_reservation_velo_delete', {'idReservation': mes.idReservation}) }}" onsubmit="return confirm('Are you sure you want to delete this reservation?')">
                 <button class="btn btn-outline-danger">supprimer</button>
                 </form></td>
     </tr><script>x+={{ mes.getNbr() * mes.getPrixr() }};</script>

@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Entity;
-use repository;
 use Doctrine\ORM\Mapping as ORM;
-use App\repository\TypeRecRepository;
+use App\Repository\TypeRecRepository;
 
 #[ORM\Entity(repositoryClass: TypeRecRepository::class)]
 class TypeRec

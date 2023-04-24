@@ -1,0 +1,43 @@
+{% extends 'main/base-back.html.twig' %}
+
+{% block title %}Velo index{% endblock %}
+
+{% block body %}
+<br>
+<div class="container">
+    <h1>Velo index</h1>
+<br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdVelo</th>
+                <th>Titre</th>
+                <th>Prix</th>
+                <th>Image</th>
+                <th>Qte</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for velo in velos %}
+            <tr>
+                <td>{{ velo.idVelo }}</td>
+                <td>{{ velo.titre }}</td>
+                <td>{{ velo.prix }}</td>
+                <td>{{ velo.image }}</td>
+                <td>{{ velo.qte }}</td>
+                <td>
+                    <a href="{{ path('app_velo_show', {'idVelo': velo.idVelo}) }}">show</a>--
+                    <a href="{{ path('app_velo_edit', {'idVelo': velo.idVelo}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_velo_new') }}">Create new</a></div>
+{% endblock %}

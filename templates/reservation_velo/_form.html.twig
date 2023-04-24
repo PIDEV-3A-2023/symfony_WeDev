@@ -1,13 +1,12 @@
 
 <div align="center">
 {{ form_start(form,{'attr': {'novalidate': 'novalidate'}}) }}
-
-<fieldset Style="backgroud-color:white;">
+<fieldset style="background-color : #212529;">
     <legend>Informtions sur la reservation</legend>
     <table>
-    <tr>
+    <tr >
         <td>{{ form_label(form.dateDebut, "date de debut de la reservation") }}</td>
-       <td>{{ form_widget(form.dateDebut) }}
+       <td>{{ form_widget(form.dateDebut, {'attr': {'class': 'form-control'}}) }}
         {{ form_errors(form.dateDebut) }}</td>
     </tr>
 <tr>
@@ -18,21 +17,26 @@
 
     <tr>
         <td>{{ form_label(form.idVelo, "nom de vélos") }}</td>
-        <td>{{ form_widget(form.idVelo) }}
+        <td>{{ form_widget(form.idVelo, {'attr': {'class': 'form-control'}}) }}
         {{ form_errors(form.idVelo) }}</td>
     </tr>
     <tr>
         <td>{{ form_label(form.nbr, "Nombre de vélos à réserver") }}</td>
-        <td>{{ form_widget(form.nbr) }}
-        {{ form_errors(form.nbr) }}</td>
+        <td>{{ form_widget(form.nbr, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.nbr) }}
+        {% for flashError in app.flashes('error') %}
+    <div class="alert alert-danger" role="alert">
+        {{ flashError }}
+    </div>
+{% endfor %}
+</td>
     </tr>
-
     <tr>
         <td>{{ form_label(form.prixr, "prix de la reservation") }}</td>
-        <td>{{ form_widget(form.prixr) }}
+        <td>{{ form_widget(form.prixr, {'attr': {'class': 'form-control'}}) }}
         {{ form_errors(form.prixr) }}</td>
     </tr>
-    <div >
+    <div style="display: none;">
     
         {{ form_label(form.idStation, "station") }}
         {{ form_widget(form.idStation) }}
@@ -50,12 +54,40 @@
 <div>
     <button class="btn btn-info" type="submit">{{button_label|default('Reserver')}}</button>
 </div></div>
-<script>function updateTotalPrice() {
+<script>
+const now = new Date();
+
+// create variables for the date and time components
+const year = now.getFullYear();
+const month = ('0' + (now.getMonth() + 1)).slice(-2);
+const day = ('0' + now.getDate()).slice(-2);
+const hours = ('0' + now.getHours()).slice(-2);
+const minutes = ('0' + now.getMinutes()).slice(-2);
+const seconds = ('0' + now.getSeconds()).slice(-2);
+
+// Set the date and time for the reservation
+document.getElementById("reservation_velo_dateDebut_date_month").value = 04; // 04
+document.getElementById("reservation_velo_dateDebut_date_day").value = day; // 24
+document.getElementById("reservation_velo_dateDebut_date_year").value = year; // 2023
+document.getElementById("reservation_velo_dateDebut_time_hour").value = 11; // 12
+document.getElementById("reservation_velo_dateDebut_time_minute").value = minutes; // 34
+
+document.getElementById("reservation_velo_dateFin_date_month").value = 04; // 04
+document.getElementById("reservation_velo_dateFin_date_day").value = day; // 24
+document.getElementById("reservation_velo_dateFin_date_year").value = year; // 2023
+document.getElementById("reservation_velo_dateFin_time_hour").value = 16; // 12
+document.getElementById("reservation_velo_dateFin_time_minute").value = minutes; // 34
+
+
+
+
+
+function updateTotalPrice() {
   const numberOfBikes = parseInt(document.getElementById("reservation_velo_nbr").value);
   const bikeType = document.getElementById("reservation_velo_idVelo").value;
   let totalPrice;
 
-  if (bikeType === "38") {
+  if (bikeType === "42") {
     totalPrice = numberOfBikes * 140;
   } else if (bikeType === "21") {
     totalPrice = numberOfBikes * 200;

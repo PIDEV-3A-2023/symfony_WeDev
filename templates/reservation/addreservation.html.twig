@@ -1,7 +1,20 @@
 {% extends 'main/base-front.html.twig' %}   
 {% block title %}Reserver Velo{% endblock %}
+{% block css %}
+
+input[type=text],[type=number] , select, textarea {
+
+  padding: 7px;
+  border: 2px solid #20c997;
+  border-radius: 10px;
+  resize: vertical;
+}
+td,fieldset{
+    color: #20c997;}
+
+{% endblock %}
 {% block body %}
-    <h1>faire une Reservation de Velo</h1>
+    <h1 style="text-align:center;">faire une Reservation de Velo</h1><br>
 
     {{ include('reservation_velo/_form.html.twig') }}
 

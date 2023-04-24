@@ -33,12 +33,25 @@ class ReservationVeloController extends AbstractController
         $reservationVelo = new ReservationVelo();
         $station = $this->entityManager->getRepository(Station::class)->find($mohsen);
         $reservationVelo->setIdStation($station);    
+        $nbr=$station->getVeloStation();
         $form = $this->createForm(ReservationVeloType::class, $reservationVelo);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $reservationVeloRepository->save($reservationVelo, true);
+            $formData = $form->getData();
+            $rnbr = $formData->getNbr();
+            if($rnbr > $nbr){
+                $this->addFlash('error', 'nombre de velos non disponible: le max est '.$nbr);
+            }
+            else {
+            $nnbr=$nbr-$rnbr;
+            $station->setVeloStation($nnbr);
+            $this->entityManager->persist($station);
+            $this->entityManager->flush();
+
             return $this->redirectToRoute('app_reservation', [], Response::HTTP_SEE_OTHER);
+            }
         }
         return $this->renderForm('reservation/addreservation.html.twig', [
             'reservation_velo' => $reservationVelo,
@@ -73,6 +86,13 @@ class ReservationVeloController extends AbstractController
     {
         //récupérer la classe à supprimer
         $reservation=$rep->find($idReservation);
+        $rnbr=$reservation->getNbr();
+        $ids=$reservation->getIdStation()->getIdStation();
+        $station = $this->entityManager->getRepository(Station::class)->find($ids); 
+        $nbr=$station->getVeloStation();  
+        $nnbr=$nbr+$rnbr;    
+        $station->setVeloStation($nnbr);
+
         //Action de suppression
         //récupérer l'Entitye manager
         $em=$doctrine->getManager();

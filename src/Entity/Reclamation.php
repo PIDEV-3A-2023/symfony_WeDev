@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 use Doctrine\DBAL\Types\Types;
-use repository;
+
 use Doctrine\ORM\Mapping as ORM;
-use App\repository\ReclamationRepository;
+use App\Repository\ReclamationRepository;
 
 #[ORM\Entity(repositoryClass: ReclamationRepository::class)]
 #[ORM\Table(name: "reclamation")]

@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Entity;
-use repository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\VeloRepository;
+
 
 #[ORM\Table(name: 'velo')]
 #[ORM\Entity(repositoryClass: VeloRepository::class)]

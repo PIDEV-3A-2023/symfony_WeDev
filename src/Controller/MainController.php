@@ -3,8 +3,9 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
+use App\Entity\ReservationVelo;
 use App\Entity\Station;
 
 class MainController extends AbstractController
@@ -36,8 +37,11 @@ class MainController extends AbstractController
     {
         $r=$this->getDoctrine()->getRepository(Station::class);
         $messtation = $r->findAll();
+        $r2=$this->getDoctrine()->getRepository(ReservationVelo::class);
+        $mesreservation = $r2->findAll();
         return $this->render('main/dashboard.html.twig', [
             'lissa' => $messtation,
+            'lissr' => $mesreservation
         ]);
     }
     #[Route('/', name: 'app_accueil')]
@@ -48,7 +52,7 @@ class MainController extends AbstractController
         ]);
     }
     
-    #[Route('/velo', name: 'app_velo')]
+    #[Route('/veloaaa', name: 'app_velo')]
     public function velo(): Response
     {
         return $this->render('velo/velo.html.twig', [

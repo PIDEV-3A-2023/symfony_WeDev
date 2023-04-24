@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Entity;
-use repository;
+
 use Doctrine\ORM\Mapping as ORM;
-use App\repository\ReservRepository;
+use App\Repository\ReservRepository;
 
 
 #[ORM\Table(name: "reserv")]

@@ -3,8 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use repository;
-use App\repository\CategorieRepository;
+use App\Repository\CategorieRepository;
 
 #[ORM\Entity(repositoryClass: CategorieRepository::class)]
 class Categorie
