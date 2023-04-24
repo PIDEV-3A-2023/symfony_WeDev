@@ -14,7 +14,7 @@
                         </li>
                     </ul>{% endblock %}
 
-{% block body %} <diV class="container"><h4>Nos Stations </h1><br>
+{% block body %}<h4>Nos Stations </h1><br>
 Découvrez notre gamme de produits de qualité supérieure qui répondent à tous vos besoins.<br><br>
 <table class="table table-striped table-dark">
     <tr>
@@ -27,7 +27,7 @@ Découvrez notre gamme de produits de qualité supérieure qui répondent à tou
     <tr>
         <td>{{k.getNomStation() }}</td>
         <td>{{k.getLocalisationStation()}}</td>
-        <td>{{k.getVeloStation()}}</td>
+        <td>{{k.getLocalisationStation()}}</td>
         <td>
                 <button class="btn btn-outline-success">reserver</button></form></td>
     </tr>
@@ -41,5 +41,5 @@ Nous offrons des services de <b>location de vélos gratuits</b> pour tous les ad
  Que vous soyez une personne ou un groupe, nous vous apportons <b>nos conseils</b> et <b>notre expertise</b>, et mettons à votre disposition tous nos équipements et accessoires.<br>
 
 Les réservations sont fortement <b>recommandées</b>, surtout pour les weekends et les grands groupes de plus de 10 personnes.</assetdivs>
-</div>
+
 {% endblock %}

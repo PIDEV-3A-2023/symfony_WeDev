@@ -1,15 +1,12 @@
 {% extends 'main/base-back.html.twig' %}
-
-{% block station%}
-<br><table class="table">
-    <thead class="table-info">
-    <tr><b>
+{% block stationa %}
+<br><table class="table table-striped">
+    <tr>
         <th>nom de station</th>
         <th>localisation de station</th>
         <th>velos disponibles</th>
-</b>
+
     </tr>
-    </thead>
     {%for k in lissa %}
     <tr>
         <td>{{k.getNomStation() }}</td>

@@ -46,7 +46,7 @@ class Event
     /**
      * @var string
      *
-     * @ORM\Column(name="photo_event", type="string", length=255, nullable=false)
+     * @ORM\Column(name="photo_event", type="blob", length=0, nullable=false)
      */
     private $photoEvent;
 
@@ -98,12 +98,12 @@ class Event
         return $this;
     }
 
-    public function getPhotoEvent(): ?string
+    public function getPhotoEvent()
     {
         return $this->photoEvent;
     }
 
-    public function setPhotoEvent(string $photoEvent): self
+    public function setPhotoEvent($photoEvent): self
     {
         $this->photoEvent = $photoEvent;
 

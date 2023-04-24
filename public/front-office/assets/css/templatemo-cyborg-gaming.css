@@ -41,15 +41,6 @@ figure, header, nav, section, article, aside, footer, figcaption {
   outline: 0;
 }
 
-header.header-sticky {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 999;
-}
-
-
 .clearfix:after {
   content: ".";
   display: block;
@@ -783,25 +774,12 @@ Banner Style
 */
 
 .main-banner {
-  background-image: url('../images/mohsen.jpg');
+  background-image: url(../images/mohsen.jpg);
   background-position: center center;
   background-size: cover;
   min-height: 380px;
   border-radius: 23px;
   padding: 80px 60px;
-  position: relative;
-}
-
-.banner-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-image: url('../images/mohsen.jpg');
-  background-size: cover;
-  background-position: center;
-  width: 99%;
-  height: 99%;
-  transition: transform 0.2s ease-out;
 }
 
 .main-banner h6 {
