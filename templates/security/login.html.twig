@@ -1,0 +1,25 @@
+{% extends 'user/login.html.twig' %}
+{% block body %}
+	<div class="container">
+		<div class="row">
+			<h3 class="mt-5 mb-5">Connexion !</h3>
+			<div class="col-md-6 offset-md3">
+				<form action="{{ path('security_login') }}" method="post">
+					<div class="form-group">
+						<input placeholder="Pseudo..." required name="_username" type="text" class="form-control">
+					</div>
+					<div class="form-group">
+						<input placeholder="Mote de passe..." required name="_password" type="password" class="form-control">
+					</div>
+					<div class="checkbox mb-3">
+						<label>
+							<input type="checkbox" name="_remember_me">Remember me
+						</div>
+						<div class="form-group">
+							<button class="btn btn-info mt-2 text-white">Connexion</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	{% endblock %}

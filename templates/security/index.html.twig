@@ -1,0 +1,48 @@
+{% extends 'main/base-back.html.twig' %}
+
+{% block title %}Hello MainController!
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h3 class="mt-5 mb-5">liste des utilisateur</h3>
+		{% for message in app.flashes('notice') %}
+			<div class="alert alert-success mt-4 mb-b">
+				{{ message }}
+			</div>
+		{% endfor %}
+		<table class="table" ">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Nom</th>
+					<th scope="col">Prenom</th>
+					<th scope="col">Mail</th>
+					<th scope="col">Numero</th>
+					<th scope="col">Role</th>
+					<th scope="col">Date Naissance</th>
+					<th scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for data in list %}
+					<tr>
+						<th scope="row">{{ data.id }}</th>
+						<td>{{ data.nomUser }}</td>
+						<td>{{ data.prenomUser }}</td>
+						<td>{{ data.email }}</td>
+						<td>{{ data.numero }}</td>
+						<td>{{ data.role }}</td>
+						<td>{{ data.dateNaissance|date("m/d/Y") }}</td>
+						<td>
+							<a class="btn btn-warning" href="{{ path('update',{'id': data.id }) }}">Update</a>
+							<a class="btn btn-danger" href="{{ path('delete',{'id': data.id }) }}">Delete</a>
+						</td>
+					</tr>
+				{% endfor %}
+
+			</tbody>
+		</table>
+
+	</div>
+{% endblock %}

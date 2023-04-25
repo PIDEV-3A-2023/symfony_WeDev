@@ -1,3 +1,6 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+send_sms:
+  path: /send-sms
+  controller: App\Controller\SmsController::sendSms

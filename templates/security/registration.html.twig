@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<div class="container">
+		<div class="row">
+			<h3 class="mt-5 mb-5">Inscription sur le site</h3>
+			<div class="col-md-6 offset-md3">
+				{{ form_start(form) }}
+				<div class="form-group">
+					{{ form_label(form.nomUser, null, {'label_attr': {'class': 'text-white'}}) }}
+					{{ form_widget(form.nomUser, {'attr': {'class': 'form-control', 'placeholder': ' nom User'}}) }}
+				</div>
+				<div class="form-group">
+					{{ form_label(form.prenomUser, null, {'label_attr': {'class': 'text-white'}}) }}
+					{{ form_widget(form.prenomUser, {'attr': {'class': 'form-control', 'placeholder': 'prenom User'}}) }}
+				</div>
+				<div class="form-group">
+					{{ form_errors(form.pseudo) }}
+					{{ form_label(form.pseudo, null, {'label_attr': {'class': 'text-white'}}) }}
+					{{ form_widget(form.pseudo, {'attr': {'class': 'form-control', 'placeholder': 'pseudo'}}) }}
+				</div>
+				<div class="form-group">
+					{{ form_label(form.email, null, {'label_attr': {'class': 'text-white'}}) }}
+					{{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'email'}}) }}
+				</div>
+				<div class="form-group">
+					{{ form_label(form.numero, null, {'label_attr': {'class': 'text-white'}}) }}
+					{{ form_widget(form.numero, {'attr': {'class': 'form-control', 'placeholder': 'numero'}}) }}
+				</div>
+				<div class="form-group">
+					{{ form_errors(form.password) }}
+					{{ form_label(form.password, null, {'label_attr': {'class': 'text-white'}}) }}
+					{{ form_widget(form.password, {'attr': {'class': 'form-control', 'placeholder': 'password'}}) }}
+				</div>
+				<div class="form-group">
+					{{ form_errors(form.confirm_password) }}
+					{{ form_label(form.confirm_password, null, {'label_attr': {'class': 'text-white'}}) }}
+					{{ form_widget(form.confirm_password, {'attr': {'class': 'form-control', 'placeholder': ' confirm password'}}) }}
+				</div>
+				<div class="form-group">
+					{{ form_label(form.image, null, {'label_attr': {'class': 'text-white'}}) }}
+					{{ form_widget(form.image, {'attr': {'class': 'form-control', 'placeholder': 'image'}}) }}
+				</div>
+				<div class="form-group">
+					{{ form_label(form.dateNaissance, null, {'label_attr': {'class': 'text-white'}}) }}
+					{{ form_widget(form.dateNaissance, {'attr': {'class': 'form-control', 'placeholder': ' date Naissance'}}) }}
+				</div>
+				<div class="form-group">
+					{{ form_label(form.role, null, {'label_attr': {'class': 'text-white'}}) }}
+					{{ form_widget(form.role, {'attr': {'class': 'form-control', 'placeholder': 'role'}}) }}
+				</div>
+				{% if sms_response  %}
+					<div>{{ sms_response }}</div>
+				{% endif %}
+				<div class="form-group">
+					<button class="btn btn-info mt-2 text-white">Submit</button>
+				</div>
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
+{% endblock %}

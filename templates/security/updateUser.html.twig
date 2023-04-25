@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<div class="container">
+		<div class="row">
+			<h3 class="mt-5 mb-5">Modifier user</h3>
+			<div class="col-md-6 offset-md3">
+				{{ form_start(form) }}
+				<div class="form-group">
+					{{ form_label(form.nomUser) }}
+					{{ form_widget(form.nomUser,{'attr':{'class':'form-control'}}) }}
+				</div>
+				<div class="form-group">
+					{{ form_label(form.prenomUser) }}
+					{{ form_widget(form.prenomUser,{'attr':{'class':'form-control'}}) }}
+				</div>
+				<div class="form-group">
+					{{ form_label(form.email) }}
+					{{ form_widget(form.email,{'attr':{'class':'form-control'}}) }}
+				</div>
+				<div class="form-group">
+					{{ form_label(form.numero) }}
+					{{ form_widget(form.numero,{'attr':{'class':'form-control'}}) }}
+				</div>
+				<div class="form-group">
+					{{ form_label(form.password) }}
+					{{ form_widget(form.password,{'attr':{'class':'form-control'}}) }}
+				</div>
+				<div class="form-group">
+					{{ form_label(form.confirm_password) }}
+					{{ form_widget(form.confirm_password,{'attr':{'class':'form-control'}}) }}
+				</div>
+				<div class="form-group">
+					{{ form_label(form.image) }}
+					{{ form_widget(form.image,{'attr':{'class':'form-control'}}) }}
+				</div>
+				<div class="form-group">
+					{{ form_label(form.dateNaissance) }}
+					{{ form_widget(form.dateNaissance,{'attr':{'class':'form-control'}}) }}
+				</div>
+				<div class="form-group">
+					{{ form_label(form.role) }}
+					{{ form_widget(form.role,{'attr':{'class':'form-control'}}) }}
+				</div>
+				<div class="form-group">
+					<button class="btn btn-info mt-2 text-white">Modifier</button>
+				</div>
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
+{% endblock %}

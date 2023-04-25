@@ -4,143 +4,84 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * User
- *
- * @ORM\Table(name="user")
- * @ORM\Entity
- */
-class User
+
+#[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\Table(name: '`user`')]
+#[UniqueEntity(fields: "pseudo", message: "le pseudo que vous avez indiqué es deja utilisé")]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+class User implements UserInterface
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="IdUser", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $iduser;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="NomUser", type="string", length=20, nullable=false)
-     */
-    private $nomuser;
+    #[ORM\Column(length: 255)]
+    private ?string $nomUser = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="PrenomUser", type="string", length=30, nullable=false)
-     */
-    private $prenomuser;
+    #[ORM\Column(length: 255)]
+    private ?string $prenomUser = null;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="DateNaiss", type="date", nullable=false)
-     */
-    private $datenaiss;
+    #[ORM\Column(length: 255)]
+    #[Assert\Email()]
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="NumTel", type="string", length=50, nullable=false)
-     */
-    private $numtel;
+    private ?string $email = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="Email", type="string", length=50, nullable=false)
-     */
-    private $email;
+    #[ORM\Column(length: 255)]
+    private ?string $numero = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="Adresse", type="string", length=30, nullable=false)
-     */
-    private $adresse;
+    #[ORM\Column(length: 255)]
+    private ?string $pseudo = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="ImgUser", type="string", length=1048, nullable=false)
-     */
-    private $imguser;
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="Mdp", type="string", length=20, nullable=false)
-     */
-    private $mdp;
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Role $role = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="Role", type="string", length=20, nullable=false)
-     */
-    private $role;
+    #[ORM\Column(length: 255)]
+    #[Assert\Length(min: 8, minMessage: "votre mote de passe doit faire minimum 8 caractéres")]
+    private ?string $password = null;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="EtatCompte", type="integer", nullable=false)
-     */
-    private $etatcompte;
+    #[Assert\EqualTo(propertyPath: "password", message: "vous n'avez pas tabé la même mote de passe")]
+    public $confirm_password;
 
-    public function getIduser(): ?int
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $dateNaissance = null;
+
+    #[ORM\Column(type: 'boolean')]
+    private $isVerified = false;
+
+    public function getId(): ?int
     {
-        return $this->iduser;
+        return $this->id;
     }
 
-    public function getNomuser(): ?string
+    public function getNomUser(): ?string
     {
-        return $this->nomuser;
+        return $this->nomUser;
     }
 
-    public function setNomuser(string $nomuser): self
+    public function setNomUser(string $nomUser): self
     {
-        $this->nomuser = $nomuser;
+        $this->nomUser = $nomUser;
 
         return $this;
     }
 
-    public function getPrenomuser(): ?string
+    public function getPrenomUser(): ?string
     {
-        return $this->prenomuser;
+        return $this->prenomUser;
     }
 
-    public function setPrenomuser(string $prenomuser): self
+    public function setPrenomUser(string $prenomUser): self
     {
-        $this->prenomuser = $prenomuser;
-
-        return $this;
-    }
-
-    public function getDatenaiss(): ?\DateTimeInterface
-    {
-        return $this->datenaiss;
-    }
-
-    public function setDatenaiss(\DateTimeInterface $datenaiss): self
-    {
-        $this->datenaiss = $datenaiss;
-
-        return $this;
-    }
-
-    public function getNumtel(): ?string
-    {
-        return $this->numtel;
-    }
-
-    public function setNumtel(string $numtel): self
-    {
-        $this->numtel = $numtel;
+        $this->prenomUser = $prenomUser;
 
         return $this;
     }
@@ -157,65 +98,115 @@ class User
         return $this;
     }
 
-    public function getAdresse(): ?string
+    public function getNumero(): ?string
     {
-        return $this->adresse;
+        return $this->numero;
     }
 
-    public function setAdresse(string $adresse): self
+    public function setNumero(string $numero): self
     {
-        $this->adresse = $adresse;
+        $this->numero = $numero;
 
         return $this;
     }
 
-    public function getImguser(): ?string
+    public function getPseudo(): ?string
     {
-        return $this->imguser;
+        return $this->pseudo;
     }
 
-    public function setImguser(string $imguser): self
+    public function setPseudo(string $pseudo): self
     {
-        $this->imguser = $imguser;
+        $this->pseudo = $pseudo;
 
         return $this;
     }
 
-    public function getMdp(): ?string
+    public function getImage(): ?string
     {
-        return $this->mdp;
+        return $this->image;
     }
 
-    public function setMdp(string $mdp): self
+    public function setImage(string $image): self
     {
-        $this->mdp = $mdp;
+        $this->image = $image;
 
         return $this;
     }
 
-    public function getRole(): ?string
+
+    public function getRole(): ?Role
     {
         return $this->role;
     }
 
-    public function setRole(string $role): self
+    public function setRole(?Role $role): self
     {
         $this->role = $role;
 
         return $this;
     }
 
-    public function getEtatcompte(): ?int
+    public function getPassword(): ?string
     {
-        return $this->etatcompte;
+        return $this->password;
     }
 
-    public function setEtatcompte(int $etatcompte): self
+    public function setPassword(string $password): self
     {
-        $this->etatcompte = $etatcompte;
+        $this->password = $password;
 
         return $this;
     }
 
+    public function getSalt()
+    {
+        // Return the salt to use for hashing the user's password
+        return null;
+    }
 
+    public function getUsername()
+    {
+        // Return the username used to authenticate the user
+        return $this->nomUser;
+    }
+
+    public function eraseCredentials()
+    {
+        // Remove sensitive data from the user
+    }
+
+    public function getUserIdentifier()
+    {
+        return $this->getUsername();
+    }
+    public function getRoles()
+    {
+        // Return an array of roles assigned to the user
+        return [$this->role->getNomRole()];
+    }
+
+    public function getDateNaissance(): ?\DateTimeInterface
+    {
+        return $this->dateNaissance;
+    }
+
+    public function setDateNaissance(\DateTimeInterface $dateNaissance): self
+    {
+        $this->dateNaissance = $dateNaissance;
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
+    }
 }
