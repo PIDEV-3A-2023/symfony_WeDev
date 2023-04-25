@@ -14,8 +14,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3Validator;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityManagerInterface;
+
 
 
 #[Route('/reservation/velo')]
@@ -38,14 +40,25 @@ class ReservationVeloController extends AbstractController
     }
 
     #[Route('/b', name: 'app_reservationb')]
-    public function reservationb(Request $request): Response
+    public function reservationb(Request $request ,ReservationVeloRepository $reservationVeloRepository): Response
     {
-        $categoryFilter = $request->query->get('category-filter');
+        
+        $search = $request->query->get('search');
+        $category = $request->query->get('category');
+        $price = $request->query->get('price');
+        if ($search || $category || $price) {
+            $messtation = $reservationVeloRepository->findBySearch($search, $category, $price);
+            $r2=$this->getDoctrine()->getRepository(ReservationVelo::class);
+        $messtation2 = $r2->findAll();
+        } else {
+            $r2=$this->getDoctrine()->getRepository(ReservationVelo::class);
+        $messtation2 = $r2->findAll();
         $r=$this->getDoctrine()->getRepository(ReservationVelo::class);
-        $messtation = $r->findAll();
+        $messtation = $r->findAll();  }
         return $this->render('reservation/reservationb.html.twig', [
             'liss' => $messtation,
-            'categoryFilter' => $categoryFilter,
+            'liss2' => $messtation2,
+  
         ]);
     }
 
@@ -60,9 +73,11 @@ class ReservationVeloController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+           // $score = $recaptcha3Validator->getLastResponse()->getScore();
             $reservationVeloRepository->save($reservationVelo, true);
             $formData = $form->getData();
             $rnbr = $formData->getNbr();
+            //$score = $recaptcha3Validator->getLastResponse()->getScore();
             if($rnbr > $nbr){
                 $this->addFlash('error', 'nombre de velos non disponible: le max est '.$nbr);
             }
@@ -73,7 +88,7 @@ class ReservationVeloController extends AbstractController
             $this->entityManager->flush();
 
 // Appel de la méthode sendsms depuis OffreRepository
-//$reservationVeloRepository->sendsms();
+            $reservationVeloRepository->sendsms();
 
             return $this->redirectToRoute('app_reservation', [], Response::HTTP_SEE_OTHER);
             }

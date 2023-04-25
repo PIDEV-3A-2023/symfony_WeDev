@@ -7,6 +7,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Twilio\Rest\Client;
 
+
 require_once __DIR__ . '/../../vendor/autoload.php';
 /**
  * @extends ServiceEntityRepository<ReservationVelo>
@@ -49,15 +50,39 @@ class ReservationVeloRepository extends ServiceEntityRepository
     {
         //require ('vendor\autoload.php');
         $sid = "AC6f7e613707d043a92b9f2a0d7114ddfe" ; 
-        $token = "e914e391fca762e7c11f39d254b96675" ; 
+        $token = "609aa220e3ccfa362e7ce740dc46fbc0" ; 
         $client = new Client ($sid, $token);
 
         $message = $client->messages
             ->create("+21655249321", // to
-                ["body" => "vous avez un nouveau offre sur BePro!", "from" => "+16813213290"]
+                ["body" => "vous avez une nouvelle reservation!", "from" => "+16813213290"]
             );
 
     }
+    public function findBySearch($search, $category, $price)
+    { 
+        $qb = $this->createQueryBuilder('r')
+                ->leftJoin('r.idStation', 's')
+                ->leftJoin('r.idVelo', 'v')
+                ->where('r.idReservation LIKE :search OR s.nomStation LIKE :search OR v.titre LIKE :search');
+        
+        if ($category) {
+            $qb->andWhere('v.titre LIKE :category')
+                ->setParameter('category', $category);
+        }
+        
+        if ($price) {
+            $qb->andWhere('r.prixr*r.nbr <= :price')
+                ->setParameter('price', $price);
+        }
+        
+        $qb->setParameter('search', '%'.$search.'%')
+            ->orderBy('r.prixr*r.nbr', 'ASC');
+    
+        return $qb->getQuery()->getResult();
+    }
+    
+
 
 //    /**
 //     * @return ReservationVelo[] Returns an array of ReservationVelo objects

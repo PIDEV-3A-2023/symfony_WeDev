@@ -10,6 +10,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3Validator;
+
+
 
 
 class ReservationVeloType extends AbstractType
@@ -32,9 +36,12 @@ class ReservationVeloType extends AbstractType
             ->add('iduser', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'nomuser',
-            ])
-            
-        ;
+            ]);
+           // ->add('captcha', Recaptcha3Type::class, [
+             //  'constraints' => new Recaptcha3 (),
+              //      'message' => 'ReservationVelo',
+    
+           // ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

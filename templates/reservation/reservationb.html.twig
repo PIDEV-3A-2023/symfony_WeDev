@@ -139,87 +139,42 @@
 
           <div id="amazzing_filter" class="af block vertical-layout displayLeftColumn hide-zero-matches dim-zero-matches">
 	<h2 class="title_block">
-		Filtrer	</h2>
+		Filtre avancé	</h2>
 	<div class="block_content">
 						<div class="clearAll">
-       <button class="btn btn-outline-danger" style="font-size:13px;">Réinitialiser le filtre</button>
+       <button class="btn btn-outline-danger" style="font-size:13px;">Réinitialiser le filtre</button><br>
 			
 		</div>
 
 												<div class="af_filter clearfix p has-slider" >
-<h5 class="af_subtitle toggle-content">Station</h5>
-<input type="text" id="filter-name" placeholder="Nom de Station">
-				
-					    <h5 class="af_subtitle toggle-content">Prix</h5>
-							<input type="number" id="filter-min-price" name="min-price" class="form-control" placeholder="Minimum total">
-              <input type="number" id="filter-max-price" name="max-price" class="form-control" placeholder="Maximum total">
+			
+	
 	
 															<div class="af_filter clearfix m type-1 cut-off" >
-			
-					<h5 class="af_subtitle toggle-content">Type Velo</h5>
 
 				<div class="af_filter_content">
 																																						
-		<ul class="">
-										<li class="item-m-687 no-matches">
-			<label for="m-687" >
-													<input type="checkbox" id="m-687" >
-												<span class="name">femme</span>		</label>
-								</li>
-									<li class="item-m-486 no-matches">
-			<label for="m-486" >
-													<input type="checkbox" id="m-486" >
-												<span class="name">tout terrin</span>		</label>
-								</li>
-									<li class="item-m-918 no-matches">
-			<label for="m-918" class="af-checkbox-label">
-													<input type="checkbox" id="m-918" >
-												<span class="name">racing</span></label>
-								</li>
-									<li class="item-m-680 no-matches">
-			<label for="m-680" class="af-checkbox-label">
-													<input type="checkbox" id="m-680">
-												<span class="name">enfant</span></label>
-								</li>
-		</ul>
 	
 								</div>
 
-					<h5 class="af_subtitle toggle-content">CATÉGORIE</h5>
-
 				<div class="af_filter_content">
 																																						
-		<ul class="">
-									<li class="item-m-718 no-matches">
-			<label for="m-718" class="af-checkbox-label">
-													<input type="checkbox" id="m-718" name="VTC électrique">
-												<span class="name">VTC électrique</span>		</label>
-								</li>
-									<li class="item-m-13 no-matches">
-			<label for="m-13" class="af-checkbox-label">
-													<input type="checkbox" id="m-13" name="VTT">
-												<span class="name">VTT</span></label>
-								</li>
-									<li class="item-m-343 no-matches">
 
-			<label for="m-19" class="af-checkbox-label">
-													<input type="checkbox" id="m-19" name="scooteur">
-												<span class="name">scooteur</span></label>
-								</li>
   
-<input type="checkbox" name="category-filter[]" value="VTC électrique" onclick="applyFilter()"> VTC électrique
-<input type="checkbox" name="category-filter[]" value="VTT" onclick="applyFilter()"> VTT
-<input type="checkbox" name="category-filter[]" value="scooteur" onclick="applyFilter()"> Scooteur
+<form class="intro-y col-span-12 flex flex-wrap sm:flex-no-wrap items-center" id="search-form">
+					<h5 class="af_subtitle toggle-content">recherche par nom station</h5>
+    <input type="text" class="input w-full border flex-1" name="search" placeholder="Recherche...">
+    					<h5 class="af_subtitle toggle-content">recherche par type velo</h5>
+    <input type="text" class="input w-full border flex-1" name="category" placeholder="Catégorie...">
+    					<h5 class="af_subtitle toggle-content">recherche par prix</h5>
+    <input type="text" class="input w-full border flex-1" name="price" placeholder="Prix..."><br>
+    <button class="btn"type="submit" class="button bg-theme-1 text-white shadow-md">Rechercher</button>
+</form>
 
-		</ul>
 								</div>
 									
 							</div>
-		<div class="btn-holder hidden">
-			<a href="#" class="btn btn-primary full-width viewFilteredProducts hidden">
-				Voir les Produits 
-			</a>
-					</div>
+		
 	</div>
 </div>
           </ul>
@@ -250,7 +205,7 @@ vélos réservés par ville
 <script>
   const chartData = {};
 
-  {% for k in liss %}
+  {% for k in liss2 %}
     if (!chartData["{{ k.getIdStation().localisationStation }}"]) {
       chartData["{{ k.getIdStation().localisationStation }}"] = {{ k.getNbr() }};
     } else {
@@ -299,7 +254,7 @@ vélos réservés par type
 <script>
   const chartData1 = {};
 
-  {% for k in liss %}
+  {% for k in liss2 %}
     if (!chartData1["{{ k.getIdVelo().titre }}"]) {
       chartData1["{{ k.getIdVelo().titre }}"] = {{ k.getNbr() }};
     } else {
@@ -354,7 +309,7 @@ revenue  par mois
 const labels = [];
 const data = {};
 
-{% for k in liss %}
+{% for k in liss2 %}
     if (!data["{{ k.getDateDebut()|date("M") }}"]) {
       data["{{ k.getDateDebut()|date("M") }}"] = {{ k.getNbr() * k.getPrixr() }};
     } else {
@@ -432,8 +387,7 @@ new Chart(ctx4, config4);
         </thead>
         <tbody><script>var x=0;</script>
             {% for k in liss %}
-            {% set bikeCategory = k.getIdVelo().getCategorie().getNomCategorie() %}
-    {% if not categoryFilter or bikeCategory in categoryFilter %}
+            
             <tr data-name="{{ k.getIdStation().nomStation }}">
                 <td>{{ k.getDateDebut()|date('d-m-Y / H:i:s') }}</td>
                 <td>{{ k.getDateFin()|date('d-m-Y / H:i:s') }}</td>
@@ -447,7 +401,6 @@ new Chart(ctx4, config4);
                 <td>{{ k.getIdVelo().titre }}</td>
                 <td>{{ k.getIdVelo().getCategorie().getNomCategorie() }}</td>
             </tr>
-                {% endif %}
 
             <script>x+={{ k.getNbr() * k.getPrixr() }};</script>
             {% endfor %}
