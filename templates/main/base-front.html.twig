@@ -80,10 +80,10 @@ details > p {
                     <!-- ***** Menu Start ***** -->
                     {% block nav %}
                     <ul class="nav">
-                        <li><a href="{{ path('app_accueil') }}" class="active">Accueil </a></li>
+                        <li><a href="{{ path('app_accueil') }}" class="active">Accueil</a></li>
                         <li><a href="{{ path('app_velo') }}">Nos velos</a></li>
                         <li><a href="{{ path('app_station') }}">Nos stations</a></li>
-                        <li><a href="{{ path('app_evenement') }}">Evenements</a></li>
+                        <li><a href="{{ path('app_reserv_index') }}">Evenements</a></li>
                         <li><a href="{{ path('app_reclamation') }}">Reclamation</a></li>
                         <li><details ><summary><a >Profile <img src="front-office/assets/images/stream-06.jpg" alt=""></a></summary>
                         <a  href="{{ path('app_profile') }}" class="link-unstyled">mon profile</a><a href="{{ path('app_login') }}" class="link-unstyled">deconnexion</a> 
@@ -118,7 +118,7 @@ details > p {
           <h6>Bienvenue chez EcoBikeGo</h6>
           <h4><em>DÉCOUVREZ</em> NOS VÉLOS ÉLECTRIQUES POPULAIRES ICI</h4>
           <div class="main-button">
-            <a href="{{ path('app_velo') }}">Parcourir maintenant</a>
+            <a href="{{ path('app_station') }}">Parcourir maintenant</a>
           </div>
         </div>
       </div>
@@ -301,6 +301,8 @@ details > p {
 
   <!-- Scripts -->
   <!-- Bootstrap core JavaScript -->
+      <script src="{{asset('back-office/assets/vendor/libs/jquery/jquery.js')}}"></script>
+
   <script src="{{asset('front-office/vendor/jquery/jquery.min.js')}}"></script>
   <script src="{{asset('front-office/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
 

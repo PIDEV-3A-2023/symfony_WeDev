@@ -51,22 +51,6 @@ class MainController extends AbstractController
 
         ]);
     }
-    
-    #[Route('/veloaaa', name: 'app_velo')]
-    public function velo(): Response
-    {
-        return $this->render('velo/velo.html.twig', [
-
-        ]);
-    }  
-
-    #[Route('/evenement', name: 'app_evenement')]
-    public function evenement(): Response
-    {
-        return $this->render('evenement/evenement.html.twig', [
-
-        ]);
-    }
 
     #[Route('/reclamation', name: 'app_reclamation')]
     public function reclamation(): Response
@@ -83,23 +67,7 @@ class MainController extends AbstractController
 
         ]);
     }
-    #[Route('/velob', name: 'app_velob')]
-    public function velob(): Response
-    {
-        return $this->render('velo/velob.html.twig', [
-
-        ]);
-    }
     
-    
-
-    #[Route('/evenementb', name: 'app_evenementb')]
-    public function evenementb(): Response
-    {
-        return $this->render('evenement/evenementb.html.twig', [
-
-        ]);
-    }
 
     #[Route('/reclamationb', name: 'app_reclamationb')]
     public function reclamationb(): Response

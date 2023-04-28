@@ -23,12 +23,8 @@
                 <th>Image</th>
                 <td>
                     {% if velo.image %}
-                    <img width="200px" src="{{ asset('tsawir/velo/' ~ velo.image) }}" alt="femme">
-
-
-
+                        <img src="{{ asset('tsawir/velo/'~velo.image) }}" alt="{{ velo.titre }}" width="200">
                     {% else %}
-                    
                         No image
                     {% endif %}
                 </td>
@@ -41,8 +37,22 @@
     </table>
 
     <a href="{{ path('app_velo_index') }}">back to list</a>
+ 
+
 
     <a href="{{ path('app_velo_edit', {'idVelo': velo.idVelo}) }}">edit</a>
 
-    {{ include('velo/_delete_form.html.twig') }}</div>
+    {{ include('velo/_delete_form.html.twig') }}
+
+    </form>
+
+</div>
+</script>
+   {% if app.flashes('success') %}
+    <div class="alert alert-success">
+        {% for message in app.flashes('success') %}
+            {{ message }}
+        {% endfor %}
+    </div>
+{% endif %}
 {% endblock %}

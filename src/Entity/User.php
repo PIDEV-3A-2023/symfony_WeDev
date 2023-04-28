@@ -168,4 +168,8 @@ class User
 
         return $this;
     }
+    public function __toString()
+    {
+        return $this->nomuser; // assuming that the Station entity has a 'name' property
+    }
 }

@@ -10,9 +10,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\DataTransformerInterface;
-use Symfony\Component\Form\Exception\TransformationFailedException;
-use Symfony\Component\HttpFoundation\File\File;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 
 class VeloType extends AbstractType
@@ -34,7 +32,8 @@ class VeloType extends AbstractType
             ])
         ;
     }
-
+    
+    
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

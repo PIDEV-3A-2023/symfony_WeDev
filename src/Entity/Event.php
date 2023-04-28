@@ -92,4 +92,8 @@ class Event
 
         return $this;
     }
+    public function __toString()
+    {
+        return $this->nomEvent; // assuming that the Station entity has a 'name' property
+    }
 }
