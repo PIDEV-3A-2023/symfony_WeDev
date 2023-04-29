@@ -38,37 +38,32 @@ details > p {
   margin: 0;
   box-shadow: 1px 1px 2px #00ff00;
 }
-
-{% block css %}{% endblock %}
 </style>
   </head>
 
 <body>
 {% block all %}
   <!-- ***** Preloader Start ***** -->
-  <div id="js-preloader" class="js-preloader">
-    <div class="preloader-inner">
-      <span class="dot"></span>
-      <div class="dots">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  </div>
-  <!-- ***** Preloader End ***** -->
 
-  <!-- ***** Header Area Start ***** -->
-  <header class="header-area header-sticky fixed-top">
+  <!-- ***** Preloader End ***** -->
+<!-- ***** Header Area Start ***** -->
+  <header class="header-area header-sticky">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
-                    <a href="{{ path('app_accueil') }}" class="logo">
-                        <img src="front-office/assets/images/logo.png" alt="">
-                    </a>
+                    
+         
+                  
                     <!-- ***** Logo End ***** -->
+                    {% block css %}
+                     <link rel="stylesheet" href="{{asset('front-office/assets/css/fontawesome.css')}}">
+    <link rel="stylesheet" href="{{asset('front-office/assets/css/templatemo-cyborg-gaming.css')}}">
+    <link rel="stylesheet" href="{{asset('front-office/assets/css/owl.css')}}">
+    <link rel="stylesheet" href="{{asset('front-office/assets/css/animate.css')}}">
+    <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+    {% endblock %}
                     <!-- ***** Search start ***** -->
                     <div class="search-input">
                       <form id="search" action="#">
@@ -79,17 +74,7 @@ details > p {
                     <!-- ***** Search End ***** -->
                     <!-- ***** Menu Start ***** -->
                     {% block nav %}
-                    <ul class="nav">
-                        <li><a href="{{ path('app_accueil') }}" class="active">Accueil</a></li>
-                        <li><a href="{{ path('app_velo') }}">Nos velos</a></li>
-                        <li><a href="{{ path('app_station') }}">Nos stations</a></li>
-                        <li><a href="{{ path('app_evenement') }}">Evenements</a></li>
-                        <li><a href="{{ path('app_reclamation_index') }}">Reclamation</a></li>
-                        <li><details ><summary><a >Profile <img src="front-office/assets/images/stream-06.jpg" alt=""></a></summary>
-                        <a  href="{{ path('app_profile') }}" class="link-unstyled">mon profile</a><a href="{{ path('app_login') }}" class="link-unstyled">deconnexion</a> 
-                        </details>
-                        </li>
-                    </ul> 
+                   
                     {% endblock %}
                     <!-- ***** Menu End ***** -->
                 </nav>
@@ -105,28 +90,20 @@ details > p {
         <div class="page-content">
 
           <!-- ***** Banner Start ***** -->
-
-
-          
           {% block body %}
           <div class="main-banner">
-  <div class="row">
-   
-    <div class="col-lg-7"> 
-      <div>
-        <div class="header-text">
-          <h6>Bienvenue chez EcoBikeGo</h6>
-          <h4><em>DÉCOUVREZ</em> NOS VÉLOS ÉLECTRIQUES POPULAIRES ICI</h4>
-          <div class="main-button">
-            <a href="{{ path('app_station') }}">Parcourir maintenant</a>
+            <div class="row">
+              <div class="col-lg-7">
+                <div class="header-text">
+                  <h6>Bienvenue chez EcoBikeGo</h6>
+                  <h4><em>DÉCOUVREZ</em> NOS VÉLOS ÉLECTRIQUES POPULAIRES ICI</h4>
+                  <div class="main-button">
+                 
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
           <!-- ***** Banner End ***** -->
           
 
@@ -140,7 +117,7 @@ details > p {
                 <div class="row">
                   <div class="col-lg-3 col-sm-6">
                     <div class="item">
-                      <img src="front-office/assets/images/popular-01.jpg" alt="">
+                      <img src="{{asset('front-office/cyborg-1.0.0/assets/images/popular-05.jpg')}}" alt="">
                       <h4>Fortnite<br><span>Sandbox</span></h4>
                       <ul>
                         <li><i class="fa fa-star"></i> 4.8</li>
@@ -160,7 +137,7 @@ details > p {
                   </div>
                   <div class="col-lg-3 col-sm-6">
                     <div class="item">
-                      <img src="front-office/assets/images/popular-03.jpg" alt="">
+                      <img src="{{asset('front-office/assets/images/popular-03.jpg" ')}}"alt="">
                       <h4>Dota2<br><span>Steam-X</span></h4>
                       <ul>
                         <li><i class="fa fa-star"></i> 4.8</li>
@@ -183,7 +160,7 @@ details > p {
                       <div class="row">
                         <div class="col-lg-6 col-sm-6">
                           <div class="item inner-item">
-                            <img src="front-office/assets/images/popular-05.jpg" alt="">
+                            <img src="{{asset('front-office/assets/images/popular-05.jpg')}}" alt="">
                             <h4>Mini Craft<br><span>Legendary</span></h4>
                             <ul>
                               <li><i class="fa fa-star"></i> 4.8</li>
@@ -193,7 +170,7 @@ details > p {
                         </div>
                         <div class="col-lg-6 col-sm-6">
                           <div class="item">
-                            <img src="front-office/assets/images/popular-06.jpg" alt="">
+                            <img src="{{asset('front-office/assets/images/popular-06.jpg')}}" alt="">
                             <h4>Eagles Fly<br><span>Matrix Games</span></h4>
                             <ul>
                               <li><i class="fa fa-star"></i> 4.8</li>
@@ -206,7 +183,7 @@ details > p {
                   </div>
                   <div class="col-lg-3 col-sm-6">
                     <div class="item">
-                      <img src="front-office/assets/images/popular-07.jpg" alt="">
+                      <img src="{{asset('front-office/assets/images/popular-07.jpg')}}" alt="">
                       <h4>Warface<br><span>Max 3D</span></h4>
                       <ul>
                         <li><i class="fa fa-star"></i> 4.8</li>
@@ -216,7 +193,7 @@ details > p {
                   </div>
                   <div class="col-lg-3 col-sm-6">
                     <div class="item">
-                      <img src="front-office/assets/images/popular-08.jpg" alt="">
+                      <img src="{{asset('front-office/assets/images/popular-08.jpg')}}" alt="">
                       <h4>Warcraft<br><span>Legend</span></h4>
                       <ul>
                         <li><i class="fa fa-star"></i> 4.8</li>
@@ -243,7 +220,7 @@ details > p {
               </div>
               <div class="item">
                 <ul>
-                  <li><img src="front-office/assets/images/game-01.jpg" alt="" class="templatemo-item"></li>
+                  <li><img src="{{asset('front-office/assets/images/game-01.jpg')}}" alt="" class="templatemo-item"></li>
                   <li><h4>Dota 2</h4><span>Sandbox</span></li>
                   <li><h4>Date Added</h4><span>24/08/2036</span></li>
                   <li><h4>Hours Played</h4><span>634 H 22 Mins</span></li>
@@ -253,7 +230,7 @@ details > p {
               </div>
               <div class="item">
                 <ul>
-                  <li><img src="front-office/assets/images/game-02.jpg" alt="" class="templatemo-item"></li>
+                  <li><img src="{{asset('front-office/assets/images/game-02.jpg')}}" alt="" class="templatemo-item"></li>
                   <li><h4>Fortnite</h4><span>Sandbox</span></li>
                   <li><h4>Date Added</h4><span>22/06/2036</span></li>
                   <li><h4>Hours Played</h4><span>740 H 52 Mins</span></li>
@@ -263,7 +240,7 @@ details > p {
               </div>
               <div class="item last-item">
                 <ul>
-                  <li><img src="front-office/assets/images/game-03.jpg" alt="" class="templatemo-item"></li>
+                  <li><img src="{{asset('front-office/assets/images/game-03.jpg')}}" alt="" class="templatemo-item"></li>
                   <li><h4>CS-GO</h4><span>Sandbox</span></li>
                   <li><h4>Date Added</h4><span>21/04/2036</span></li>
                   <li><h4>Hours Played</h4><span>892 H 14 Mins</span></li>
@@ -286,6 +263,9 @@ details > p {
   </div>
   
 
+      
+
+
   <footer>
     <div class="container">
       <div class="row">
@@ -297,37 +277,22 @@ details > p {
       </div>
     </div>
   </footer>
-{% endblock %}
+
 
   <!-- Scripts -->
   <!-- Bootstrap core JavaScript -->
-      <script src="{{asset('back-office/assets/vendor/libs/jquery/jquery.js')}}"></script>
-
+  {% block js %}
   <script src="{{asset('front-office/vendor/jquery/jquery.min.js')}}"></script>
-  <script src="{{asset('front-office/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
+  <script src="front-office/vendor/bootstrap/js/bootstrap.min.js"></script>
 
   <script src="{{asset('front-office/assets/js/isotope.min.js')}}"></script>
   <script src="{{asset('front-office/assets/js/owl-carousel.js')}}"></script>
   <script src="{{asset('front-office/assets/js/tabs.js')}}"></script>
   <script src="{{asset('front-office/assets/js/popup.js')}}"></script>
   <script src="{{asset('front-office/assets/js/custom.js')}}"></script>
-<script>
-const banner = document.querySelector('.main-banner');
-const bannerImage = document.querySelector('.banner-image');
 
-banner.addEventListener('mousemove', (event) => {
-  const mouseX = event.clientX / window.innerWidth;
-  const mouseY = event.clientY / window.innerHeight;
-  const translateX = mouseX * 20 - 5;
-  const translateY = mouseY * 30 - 5;
-
-  banner.style.transform = `translate(${translateX}px, ${translateY}px)`;
-});
-
-banner.addEventListener('mouseleave', () => {
-  bannerImage.style.transform = 'none';
-});
-</script>
+{% endblock %}
+{% endblock %}
   </body>
 
 </html>

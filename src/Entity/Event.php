@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 use Doctrine\DBAL\Types\Types;
+use repository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\EventRepository;
 

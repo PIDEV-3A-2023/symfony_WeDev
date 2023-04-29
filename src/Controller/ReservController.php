@@ -10,8 +10,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+namespace App\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Endroid\QrCode\QrCode;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Event;
 use App\Entity\User;
+use App\Entity\Reserv;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Endroid\QrCode\Factory\QrCodeFactory;
 
@@ -34,7 +43,7 @@ class ReservController extends AbstractController
     #[Route('/new', name: 'app_reserv_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $reserv = new Reserv();   
+        $reserv = new Reserv();
         $form = $this->createForm(ReservType::class, $reserv);
         $form->handleRequest($request);
 
@@ -94,7 +103,7 @@ class ReservController extends AbstractController
 #[Route('/reserver/{idEvent}', name: 'app_event_reserver', methods: ['GET'])]
 public function reserver(int $idEvent, EntityManagerInterface $entityManager): Response
 {
-  $iduser = 28; // Exemple : l'ID de l'utilisateur est 28
+  $iduser = 35; // Exemple : l'ID de l'utilisateur est 28
 $user = $entityManager->getRepository(User::class)->find($iduser);
     $event = $entityManager->getRepository(Event::class)->find($idEvent);
 

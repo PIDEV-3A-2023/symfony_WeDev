@@ -1,99 +1,87 @@
 <?php
 
 namespace App\Entity;
+
 use Doctrine\DBAL\Types\Types;
+
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ReclamationRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ReclamationRepository::class)]
-#[ORM\Table(name: "reclamation")]
 class Reclamation
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(name: "id_rec", type: "integer")]
-    private ?int $idRec = null;
+    #[ORM\Column]
+    private ?int $id = null;
 
-    #[ORM\Column(name: "date_rec", type: "date", nullable: true)]
-    private ?\DateTimeInterface $dateRec = null;
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $date_rec = null;
 
-    #[ORM\Column(name: "description_rec", type: "string", length: 255, nullable: true)]
-    private ?string $descriptionRec = null;
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"la description est obligatoire")]
+    private ?string $description_rec = null;
 
-    #[ORM\Column(name: "image", type: "string", length: 30)]
-    private string $image;
+    #[ORM\Column]
+    private ?int $etat_rec =null;
 
-    #[ORM\ManyToOne(targetEntity: User::class)]
-    #[ORM\JoinColumn(name: "IdUser", referencedColumnName: "IdUser")]
-    private ?User $user = null;
+    #[ORM\ManyToOne(inversedBy: 'type')]
+    private ?TypeRec $type = null;
 
-    #[ORM\ManyToOne(targetEntity: TypeRec::class)]
-    #[ORM\JoinColumn(name: "id_type", referencedColumnName: "id_type")]
-    private ?TypeRec $typeRec = null;
 
-    public function getIdRec(): ?int
+
+    public function getId(): ?int
     {
-        return $this->idRec;
+        return $this->id;
     }
-
+    public function getEtatRec(): ?int
+    {
+        return $this->etat_rec;
+    }
     public function getDateRec(): ?\DateTimeInterface
     {
-        return $this->dateRec;
+        return $this->date_rec;
     }
 
-    public function setDateRec(?\DateTimeInterface $dateRec): self
+    public function setDateRec(\DateTimeInterface $date_rec): self
     {
-        $this->dateRec = $dateRec;
+        $this->date_rec = $date_rec;
 
         return $this;
     }
 
     public function getDescriptionRec(): ?string
     {
-        return $this->descriptionRec;
+        return $this->description_rec;
     }
 
-    public function setDescriptionRec(?string $descriptionRec): self
+    public function setDescriptionRec(string $description_rec): self
     {
-        $this->descriptionRec = $descriptionRec;
+        $this->description_rec = $description_rec;
 
         return $this;
     }
-
-    public function getImage(): ?string
+    public function setEtatRec(int $etat_rec): self
     {
-        return $this->image;
-    }
-
-    public function setImage(string $image): self
-    {
-        $this->image = $image;
+        $this->etat_rec = $etat_rec;
 
         return $this;
     }
+   
 
-    public function getUser(): ?User
+    public function getType(): ?TypeRec
     {
-        return $this->user;
+        return $this->type;
     }
 
-    public function setUser(?User $user): self
+    public function setType(?TypeRec $type): self
     {
-        $this->user = $user;
+        $this->type = $type;
 
         return $this;
     }
-
-    public function getTypeRec(): ?TypeRec
-    {
-        return $this->typeRec;
-    }
-
-    public function setTypeRec(?TypeRec $typeRec): self
-    {
-        $this->typeRec = $typeRec;
-
-        return $this;
-    }
+  
+  
 }

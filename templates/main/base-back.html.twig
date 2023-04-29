@@ -171,11 +171,17 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="{{ path('app_event_index') }}" class="menu-link">
-                    <div data-i18n="Perfect Scrollbar">Resrvation Evenements</div>
+                  <a  href="{{ path('app_event_index') }}" class="menu-link">
+                    <div data-i18n="Perfect Scrollbar">Evenements</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a  href="{{ path('app_reserv_index') }}" class="menu-link">
+                    <div data-i18n="Text Divider">Resrvation Evenements</div>
                   </a>
                 </li>
               </ul>
+              
             </li>
 
 
@@ -191,7 +197,7 @@
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="forms-input-groups.html" class="menu-link">
+                  <a href="{{ path('app_type_rec_index') }}" class="menu-link">
                     <div data-i18n="Input groups">Input groups</div>
                   </a>
                 </li>
@@ -417,6 +423,10 @@
                 
                 <div class="col-12 col-lg-7 order-2 order-md-3 order-lg-2 mb-4">
                   <div class="card">
+                                          
+{% block type %}{% endblock %}
+               
+ {% block rec %}{% endblock %} 
                   {% block station %}
                     <div class="row row-bordered g-0">
                       <div class="col-md-8">

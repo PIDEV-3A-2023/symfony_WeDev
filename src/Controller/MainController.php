@@ -25,7 +25,7 @@ class MainController extends AbstractController
             
         ]);
     }
-    #[Route('/register1', name: 'app_register1')]
+    #[Route('/register', name: 'app_register')]
     public function register(): Response
     {
         return $this->render('user/register.html.twig', [
@@ -48,14 +48,6 @@ class MainController extends AbstractController
     public function index(): Response
     {
         return $this->render('main/accueil.html.twig', [
-
-        ]);
-    }
-
-    #[Route('/reclamation', name: 'app_reclamation')]
-    public function reclamation(): Response
-    {
-        return $this->render('reclamation/reclamation.html.twig', [
 
         ]);
     }

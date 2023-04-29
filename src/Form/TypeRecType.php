@@ -2,25 +2,26 @@
 
 namespace App\Form;
 
-use App\Entity\Reserv;
+use App\Entity\TypeRec;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ReservType extends AbstractType
+class TypeRecType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('event')
-            ->add('user')
+            
+            ->add('nom')
+          
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Reserv::class,
+            'data_class' => TypeRec::class,
         ]);
     }
 }

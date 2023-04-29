@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use repository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ReservRepository;
 
@@ -18,7 +18,7 @@ class Reserv
     #[ORM\ManyToOne(targetEntity: "Event")]
 
         #[ORM\JoinColumn(name: "id_event", referencedColumnName: "id_event")]
-    private ?Event $event = null;
+    private ?Event $idEvent = null;
 
     #[ORM\ManyToOne(targetEntity: "User")]
 
@@ -49,9 +49,25 @@ class Reserv
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setIdUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+    public function __toString()
+    {
+        return $this->idRes; // assuming that the Station entity has a 'name' property
+    }
+
+    public function getIdEvent(): ?Event
+    {
+        return $this->idEvent;
+    }
+
+    public function setIdEvent(?Event $idEvent): self
+    {
+        $this->idEvent = $idEvent;
 
         return $this;
     }

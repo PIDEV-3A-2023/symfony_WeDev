@@ -1,4 +1,4 @@
-{% extends 'main/base-front.html.twig' %}
+{% extends 'main/base-back.html.twig' %}
 
 {% block title %}Reserv index{% endblock %}
 
@@ -22,7 +22,7 @@
                 <td>{{ reserv.idRes }}</td>
                 <td>
                     <a href="{{ path('app_reserv_show', {'idRes': reserv.idRes}) }}" class="btn btn-dark">show</a>
-                    <a href="{{ path('app_reserv_edit', {'idRes': reserv.idRes}) }}" class="btn btn-dark">edit</a>
+ 
                 </td>
             </tr>
         {% else %}
@@ -33,5 +33,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_reserv_new') }}">Create new</a>
+
 {% endblock %}
