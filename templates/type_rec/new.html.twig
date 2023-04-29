@@ -1,0 +1,11 @@
+{% extends 'base-back.html.twig' %}
+
+
+
+{% block type %}
+    <h3>Ajouter un nouveau type de reclamation</h3>
+
+    {{ include('type_rec/_form.html.twig') }}
+
+    <a href="{{ path('app_type_rec_index') }}">back to list</a>
+{% endblock %}

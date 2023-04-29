@@ -1,0 +1,52 @@
+{% extends 'base-back.html.twig' %}
+
+{% block title %}Reclamation index{% endblock %}
+
+{% block rec %}
+    <h1>Reclamation </h1>
+
+    <table class="table">
+        <thead>
+        <style>
+        thead th {
+  color: red; /* Set the text color to white */
+} </style>
+            <tr>
+                <th>Id</th>
+                <th>Date_rec</th>
+                <th>Description_rec</th>
+               <th>Type</th>
+                <th>etat reclamation</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reclamation in reclamations %}
+            <tr>
+            <style>
+td {
+  color: red; /* Set the text color to white */
+}</style>
+                <td>{{ reclamation.id }}</td>
+                <td>{{ reclamation.dateRec ? reclamation.dateRec|date('Y-m-d') : '' }}</td>
+                <td>{{ reclamation.descriptionRec }}</td>
+           
+              
+                 <td>{{ reclamation.EtatRec}}</td>
+
+              
+                <td>
+                    <a href="{{ path('app_reclamation_show', {'id': reclamation.id}) }}">show</a>
+                    <a href="{{ path('app_reclamation_edit', {'id': reclamation.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reclamation_new') }}">Create new</a>
+{% endblock %}
