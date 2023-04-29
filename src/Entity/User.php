@@ -3,47 +3,53 @@
 namespace App\Entity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\UserRecRepository;
+use App\Repository\UserRepository;
+use Symfony\Component\Security\Core\User\UserInterface;
+
 
 #[ORM\Table(name: 'user')]
-#[ORM\Entity(repositoryClass: UserRecRepository::class)]
-class User
+#[ORM\Entity(repositoryClass: UserRepository::class)]
+class User implements UserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', name: 'IdUser')]
-    private int $iduser;
+    private ?int $iduser= null;
 
     #[ORM\Column(type: 'string', length: 20, name: 'NomUser')]
-    private string $nomuser;
+    private ?string $nomuser= null;
 
     #[ORM\Column(type: 'string', length: 30, name: 'PrenomUser')]
-    private string $prenomuser;
+    private ?string $prenomuser= null;
 
     #[ORM\Column(type: 'date', name: 'DateNaiss')]
     private \DateTimeInterface $datenaiss;
 
     #[ORM\Column(type: 'string', length: 50, name: 'NumTel')]
-    private string $numtel;
+    private ?string $numtel= null;
 
-    #[ORM\Column(type: 'string', length: 50, name: 'Email')]
-    private string $email;
+    #[ORM\Column(type: 'string', length: 50, name: 'Email',unique: true)]
+    private ?string $email= null;
 
     #[ORM\Column(type: 'string', length: 30, name: 'Adresse')]
-    private string $adresse;
+    private ?string $adresse= null;
 
     #[ORM\Column(type: 'string', length: 1048, name: 'ImgUser')]
-    private string $imguser;
+    private ?string $imguser= null;
 
-    #[ORM\Column(type: 'string', length: 20, name: 'Mdp')]
-    private string $mdp;
+    #[ORM\Column]
+    private ?string $mdp ;
 
-    #[ORM\Column(type: 'string', length: 20, name: 'Role')]
-    private string $role;
+
+     /**
+     * @ORM\Column(type="json")
+     */
+    private array $roles = [];
+    private array $role = [];
 
     #[ORM\Column(type: 'integer', name: 'EtatCompte')]
-    private int $etatcompte;
-
+    private ?int $etatcompte = null;
+/////////////////////////////////////////////////////
     public function getIduser(): ?int
     {
         return $this->iduser;
@@ -108,6 +114,58 @@ class User
 
         return $this;
     }
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    public function getUsername(): string
+    {
+        return (string) $this->email;
+    }
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->mdp;
+    }
+    public function setPassword(string $mdp): self
+    {
+        $this->mdp = $mdp;
+    
+        return $this;
+    }
+    
+
+    public function getmdp(): string
+    {
+        return $this->mdp;
+    }
+
+    public function setmdp(string $mdp): self
+    {
+        $this->mdp = $mdp;
+
+        return $this;
+    }
+
+    public function getSalt(): ?string
+    {
+        return null;
+    }
 
     public function getAdresse(): ?string
     {
@@ -133,30 +191,6 @@ class User
         return $this;
     }
 
-    public function getMdp(): ?string
-    {
-        return $this->mdp;
-    }
-
-    public function setMdp(string $mdp): self
-    {
-        $this->mdp = $mdp;
-
-        return $this;
-    }
-
-    public function getRole(): ?string
-    {
-        return $this->role;
-    }
-
-    public function setRole(string $role): self
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
     public function getEtatcompte(): ?int
     {
         return $this->etatcompte;
@@ -170,6 +204,23 @@ class User
     }
     public function __toString()
     {
-        return $this->nomuser; // assuming that the Station entity has a 'name' property
+        return $this->nomuser;
+    }
+
+    public function getRole(): array
+    {
+        return $this->role;
+    }
+
+    public function setRole(array $role): self
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 }

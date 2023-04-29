@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<title>User index</title>
+
+{% block body %}
+    <h1>User index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Iduser</th>
+                <th>Nomuser</th>
+                <th>Prenomuser</th>
+                <th>Datenaiss</th>
+                <th>Numtel</th>
+                <th>Email</th>
+                <th>Adresse</th>
+                <th>Imguser</th>
+                <th>Mdp</th>
+                <th>Etatcompte</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.iduser }}</td>
+                <td>{{ user.nomuser }}</td>
+                <td>{{ user.prenomuser }}</td>
+                <td>{{ user.datenaiss ? user.datenaiss|date('Y-m-d') : '' }}</td>
+                <td>{{ user.numtel }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.adresse }}</td>
+                <td>{{ user.imguser }}</td>
+                <td>{{ user.mdp }}</td>
+                <td>{{ user.etatcompte }}</td>
+                <td>
+                    <a href="{{ path('app_user_show', {'iduser': user.iduser}) }}">show</a>
+                    <a href="{{ path('app_user_edit', {'iduser': user.iduser}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_user_new') }}">Create new</a>
+{% endblock %}

@@ -25,7 +25,7 @@ class MainController extends AbstractController
             
         ]);
     }
-    #[Route('/register', name: 'app_register')]
+    #[Route('/register1', name: 'app_register1')]
     public function register(): Response
     {
         return $this->render('user/register.html.twig', [
