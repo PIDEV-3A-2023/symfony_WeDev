@@ -88,7 +88,7 @@ class ReservationVeloController extends AbstractController
             $this->entityManager->flush();
 
 // Appel de la méthode sendsms depuis OffreRepository
-            $reservationVeloRepository->sendsms();
+            //$reservationVeloRepository->sendsms();
 
             return $this->redirectToRoute('app_reservation', [], Response::HTTP_SEE_OTHER);
             }
