@@ -2,7 +2,7 @@
 
 {% block title %}Reserv index{% endblock %}
 
-{% block body %}
+{% block body %}<br><div class="container">
        <style>
         .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
         .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
@@ -12,14 +12,21 @@
     <table class="table">
         <thead>
             <tr>
-                <th>IdRes</th>
-                <th>actions</th>
+                 <th>Reserv</th>
+    <th> Event</th>
+    <th>nom user</th>
+    <th>prenom user</th>
+    <th>option</th>
             </tr>
         </thead>
         <tbody>
         {% for reserv in reservs %}
             <tr>
                 <td>{{ reserv.idRes }}</td>
+              
+                <td>{{ reserv.getIdEvent().nomEvent }}</td>
+                <td>{{ reserv.getUser().nomuser }}</td>
+                <td>{{ reserv.getUser().prenomuser }}</td>
                 <td>
                     <a href="{{ path('app_reserv_show', {'idRes': reserv.idRes}) }}" class="btn btn-dark">show</a>
  

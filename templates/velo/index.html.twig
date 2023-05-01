@@ -29,9 +29,9 @@
                 <td><img src="{{ asset('tsawir/velo/'~velo.image) }}" alt="{{ velo.titre }}" width="70"></td>
                 <td>{{ velo.qte }}</td>
                 <td>
-                    <a href="{{ path('app_velo_show', {'idVelo': velo.idVelo}) }}">show</a>--
-                    <a href="{{ path('app_sahar_edit', {'idVelo': velo.idVelo}) }}">edit</a>--
-                     <a href="{{ path('app_velo_generate_word_file', {'idVelo': velo.idVelo}) }}">edit</a>
+                    <a href="{{ path('app_velo_show', {'idVelo': velo.idVelo}) }}">show</a>---
+                    <a href="{{ path('app_sahar_edit', {'idVelo': velo.idVelo}) }}">edit</a>---
+                     <a href="{{ path('app_velo_generate_word_file', {'idVelo': velo.idVelo}) }}">exporter en Word</a>
                 </td>
             </tr>
         {% else %}

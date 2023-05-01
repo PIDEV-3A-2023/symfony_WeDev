@@ -27,7 +27,7 @@
                 <th>Image</th>
                 <td>
                     {% if event.photoEvent %}
-                        <img src="{{ asset('uploads/event_photos/'~event.photoEvent) }}" alt="{{ event.nomEvent }}">
+                        <img src="{{ asset('uploads/event_photos/'~event.photoEvent) }}" alt="{{ event.nomEvent }}" width="200">
                     {% else %}
                         No image
                     {% endif %}

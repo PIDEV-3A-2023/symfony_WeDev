@@ -2,7 +2,7 @@
 
 {% block title %}Event {% endblock %}
  
-{% block body %}
+{% block body %}<br><div class="container">
 <!-- Search -->
 <form method="post" action="{{ path('app_event_search') }}">
     <div class="navbar-nav align-items-center">
@@ -22,7 +22,7 @@
 </form>
 <!-- /Search -->
 
-
+<br>
 <!-- tri -->
 <form method="post" action="{{ path('app_event_tri') }}">
     <div class="navbar-nav align-items-center">
