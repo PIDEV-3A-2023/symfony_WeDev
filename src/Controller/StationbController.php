@@ -18,6 +18,9 @@ use App\Entity\Velo;
 #[Route('/station')]
 class StationbController extends AbstractController
 {
+
+
+    ////////////////////////////////////////////////////
     #[Route('/b', name: 'app_stationb')]
     public function stationb(): Response
     {
@@ -27,6 +30,8 @@ class StationbController extends AbstractController
             'liss' => $messtation,'wael'=>'','siwael'=>''
         ]);
     }
+
+    ///////////////////////////////////////////////
 
     #[Route('/', name: 'app_station')]
     public function station( ): Response

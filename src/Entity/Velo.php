@@ -15,16 +15,16 @@ class Velo
     private $idVelo;
 
     #[ORM\Column(type: 'string', length: 20, nullable: false, name: 'titre')]
-    private $titre;
+    private $titre = null;
 
     #[ORM\Column(type: 'float', precision: 10, scale: 0, nullable: false, name: 'prix')]
-    private $prix;
+    private $prix = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: false, name: 'image')]
-    private $image;
+    private $image = null;
 
     #[ORM\Column(type: 'integer', nullable: false, name: 'qte')]
-    private $qte;
+    private $qte = null;
 
     #[ORM\ManyToOne(targetEntity: Station::class)]
     #[ORM\JoinColumn(name: 'id_station', referencedColumnName: 'id_station')]

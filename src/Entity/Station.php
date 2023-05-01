@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\StationRepository;
+use Symfony\Component\Serializer\Annotation\Groups;//ta3 el json
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -14,6 +15,7 @@ class Station
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups("stations")]
     private ?int $idStation = null;
 
     #[ORM\Column(type: 'string', length: 30)]
@@ -24,14 +26,17 @@ class Station
         minMessage: 'Le nom de station doit comporter au moins {{ limit }} caractères',
         maxMessage: 'Le nom de station ne peut pas dépasser {{ limit }} caractères',
     )]
+    #[Groups("stations")]
     private string $nomStation;
 
     #[ORM\Column(type: 'string', length: 30)]
     #[Assert\NotBlank]
+    #[Groups("stations")]
     private string $localisationStation;
 
     #[ORM\Column(type: 'integer')]
     #[Assert\PositiveOrZero]
+    #[Groups("stations")]
     private int $veloStation;
 
 

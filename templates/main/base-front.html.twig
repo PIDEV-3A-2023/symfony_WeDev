@@ -28,6 +28,14 @@ https://templatemo.com/tm-579-cyborg-gaming
 
 -->
 <style>
+@media print {
+  .xxp {
+    display: none;
+  }
+  .xxh {
+    display: block;
+  }
+}
 details > summary {
   display: block;
 }
@@ -84,7 +92,7 @@ details > p {
                         <li><a href="{{ path('app_velo') }}">Nos velos</a></li>
                         <li><a href="{{ path('app_station') }}">Nos stations</a></li>
                         <li><a href="{{ path('app_evenement') }}">Evenements</a></li>
-                        <li><a href="{{ path('app_reclamation_index') }}">Reclamation</a></li>
+                        <li><a href="{{ path('app_rim2_index') }}">Reclamation</a></li>
                         <li><details ><summary><a >Profile <img src="front-office/assets/images/stream-06.jpg" alt=""></a></summary>
                         <a  href="{{ path('app_profile') }}" class="link-unstyled">mon profile</a><a href="{{ path('app_login') }}" class="link-unstyled">deconnexion</a> 
                         </details>
@@ -289,7 +297,7 @@ details > p {
   <footer>
     <div class="container">
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12 xxp">
           <p>Copyright © 2023 <a href="https://www.facebook.com/houssem.jallouli.3">WeDev</a> Company. All rights reserved. 
           
           <br>Design: <a href="https://www.facebook.com/houssem.jallouli.3" target="_blank" title="free CSS templates">WeDev</a> </p>

@@ -6,7 +6,7 @@
                         <li><a href="{{ path('app_velo') }}">Nos velos</a></li>
                         <li><a href="{{ path('app_station') }}" class="active">Nos stations</a></li>
                         <li><a href="{{ path('app_evenement') }}">Evenements</a></li>
-                        <li><a href="{{ path('app_reclamation') }}">Reclamation</a></li>
+                        <li><a href="{{ path('app_rim2_index') }}">Reclamation</a></li>
                         <li><details ><summary><a >Profile <img src="front-office/assets/images/stream-06.jpg" alt=""></a></summary>
                         <a  href="{{ path('app_profile') }}" class="link-unstyled">mon profile</a><a href="{{ path('app_login') }}" class="link-unstyled">deconnexion</a> 
                         </details>
@@ -15,6 +15,10 @@
                     {% endblock %}
 {% block body %}
 <div class="container">
+<div class="row">
+<div class="col">
+<div align="center" class="xxh" style="display:none;"><h1>Reçue de Réservation</h1></div>
+</div></div>
 <div class="row">
 <div class="col">
 <br><table class="table table-hover table-dark">
@@ -35,6 +39,7 @@
     </tr></thead>
     <script>var x=0;</script>
     {%for mes in messi %}
+    {% if mes.getIdUser().iduser == "37" %}
     <tr>
         <td>{{ mes.getDateDebut()|date('d-m-Y / H:i:s') }}</td>
         <td>{{ mes.getDateFin()|date('d-m-Y / H:i:s') }}</td>
@@ -50,19 +55,19 @@
                 <button class="btn btn-outline-danger">supprimer</button>
                 </form></td>
     </tr><script>x+={{ mes.getNbr() * mes.getPrixr() }};</script>
-
-    {%endfor%}
-    <tr><td colspan="7" ></td><td colspan="2" style="background-color: lightblue;color: black;"><div id="a">Initial text</div></td><td></td></tr>
+  {% endif %}
+    {% endfor %}
+    <tr><td colspan="7" ></td><td colspan="2" style="background-color: lightblue;color: black;"><div id="a" class="xxp">Initial text</div></td><td></td></tr>
 <script>document.getElementById("a").innerHTML = "Total: " + x + " TND";</script>
 </table>
-<button onclick="window.print()">Print this page</button>
+<button onclick="window.print()" class="xxp">Print this page</button>
 </div></div>
 <div class="row">
 <div class="col-lg-4" id="aa">
-                  <div class="item">
+                  <div class="item xxp">
                   </div>
                 </div>
-                <div class="col-lg-4" align="center">
+                <div class="col-lg-4 xxp" align="center">
                   <div class="item" >
                     <div class="icon">
                       <img src="assets/images/service-01.jpg" alt="" style="max-width: 60px; border-radius: 50%;">

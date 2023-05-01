@@ -48,7 +48,7 @@ class User implements UserInterface
     private array $role = [];
 
     #[ORM\Column(type: 'integer', name: 'EtatCompte')]
-    private ?int $etatcompte = null;
+    private ?int $etatcompte = 0;
 /////////////////////////////////////////////////////
     public function getIduser(): ?int
     {
@@ -127,7 +127,7 @@ class User implements UserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles = array_merge($roles, ['ROLE_ADMIN', 'ROLE_CLIENT']);
 
         return array_unique($roles);
     }

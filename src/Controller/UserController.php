@@ -21,6 +21,13 @@ class UserController extends AbstractController
             'users' => $userRepository->findAll(),
         ]);
     }
+    #[Route('/profile', name: 'app_profile')]
+    public function profile(UserRepository $userRepository): Response
+    {
+        return $this->render('user/profile.html.twig', [
+            'users' => $userRepository->findAll(),
+        ]);
+    }
 
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
     public function new(Request $request, UserRepository $userRepository,UserPasswordEncoderInterface $passwordEncoder): Response
@@ -56,7 +63,7 @@ class UserController extends AbstractController
     {
         $form = $this->createForm(User1Type::class, $user);
         $form->handleRequest($request);
-
+        //$user=$userRepository->upgradePassword($user,$form->getData()->getPassword());
         if ($form->isSubmitted() && $form->isValid()) {
             $userRepository->save($user, true);
 

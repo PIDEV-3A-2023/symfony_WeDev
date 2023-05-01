@@ -48,4 +48,8 @@ class Categorie
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->nomCategorie; // assuming that the Station entity has a 'name' property
+    }
 }

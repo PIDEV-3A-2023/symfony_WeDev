@@ -1,0 +1,36 @@
+{% extends 'main/base-back.html.twig' %}
+
+{% block title %}TypeRec index{% endblock %}
+
+{% block body %}<div class="container">
+
+    <h1>TypeRec index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdType</th>
+                <th>EtatRec</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for type_rec in type_recs %}
+            <tr>
+                <td>{{ type_rec.idType }}</td>
+                <td>{{ type_rec.etatRec }}</td>
+                <td>
+                    <a href="{{ path('app_rim_show', {'idType': type_rec.idType}) }}">show</a>
+                    <a href="{{ path('app_rim_edit', {'idType': type_rec.idType}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_rim_new') }}">Create new</a>
+{% endblock %}

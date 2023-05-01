@@ -52,13 +52,7 @@ class MainController extends AbstractController
         ]);
     }
 
-    #[Route('/profile', name: 'app_profile')]
-    public function profile(): Response
-    {
-        return $this->render('user/profile.html.twig', [
 
-        ]);
-    }
     
 
     #[Route('/reclamationb', name: 'app_reclamationb')]

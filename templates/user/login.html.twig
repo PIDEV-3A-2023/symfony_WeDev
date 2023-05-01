@@ -1,0 +1,160 @@
+{% extends 'main/base-back.html.twig' %}
+
+
+{% block title %}login{% endblock %}
+     
+{% block all %}
+    <!-- Content -->
+    <br><br><br>
+    <div class="container-xxl">
+
+      <div class="authentication-wrapper authentication-basic container-p-y">
+        <div class="authentication-inner">
+          <!-- Register -->
+          <div class="card">
+            <div class="card-body">
+              <!-- Logo -->
+              <div class="app-brand justify-content-center">
+                <a href="index.html" class="app-brand-link gap-2">
+                                <img src="{{asset('back-office/assets/img/logo.png')}}" width="50">
+              <span class="app-brand-text demo menu-text fw-bolder ms-2">EcoBikeGo</span>
+                </a>
+              </div>
+              <!-- /Logo -->
+              <h4 class="mb-2">Welcome ! 👋</h4>
+              <p class="mb-4">Please sign-in to your account and start the adventure</p>
+
+              <formclass="mb-3" >
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email or Username</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="login"
+                    name="email-username"
+                    placeholder="Enter your email or username"
+                    autofocus
+                  />
+                </div>
+                <div class="mb-3 form-password-toggle">
+                  <div class="d-flex justify-content-between">
+                    <label class="form-label" for="password">Password</label>
+                    <a href="{{ path('app_forgot') }}">
+                      <small>Forgot Password?</small>
+                    </a>
+                  </div>
+                  <div class="input-group input-group-merge">
+                    <input
+                      type="password"
+                      id="pwd"
+                      class="form-control"
+                      name="password"
+                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                      aria-describedby="password"
+                    />
+                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="remember-me" />
+                    <label class="form-check-label" for="remember-me"> Remember Me </label>
+                  </div>
+                </div>
+                <div id="aconnexion" class="amsg" style="display: none;">
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>Pas d'internet!</strong> Vérifier votre connexion
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                        </div>
+                    </div>
+                    <div id="agood" class="amsg" style="display: none;">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Authentification réussite!</strong> Redicrection en cours...
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                        </div>
+                    </div>
+                    <div id="abad" class="amsg" style="display: none;">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Echec d'authentification!</strong> Prière de vérifier votre login
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                        </div>
+                    </div>
+                    
+                <div class="mb-3">
+                  <button class="btn btn-primary d-grid w-100" id="b1">Sign in</button>
+                </div>
+              </form>
+
+              <p class="text-center">
+                <span>New on our platform?</span>
+                <a href="{{ path('app_register') }}">
+                  <span>Create an account</span>
+                </a>
+              </p>
+            </div>
+          </div>
+          <!-- /Register -->
+        </div>
+      </div>
+    </div>
+
+    <!-- / Content -->
+    <script>
+    document.getElementById("b1").addEventListener("click", fOK);
+
+        function fOK() {
+            var l = $("#login").val();
+            var p = $("#pwd").val();
+            if (navigator.onLine) {
+                if (l == "hassen@esprit.tn" && p == "123456") {
+                    $(".amsg").hide();
+                    $("#agood").show();
+                    setTimeout(function() { window.location.replace("./"); }, 1500);
+                } else if (l == "admin@esprit.tn" && p == "123456") {
+                      $(".amsg").hide();
+                      $("#agood").show();
+                      setTimeout(function() { window.location.replace("./dashboard"); }, 1500);
+        
+                } else {
+                    $(".amsg").hide();
+                    $("#abad").show();
+        
+                }
+            } else {
+                $(".amsg").hide();
+                $("#aconnexion").show();
+            }
+        
+            /*var url = "http://www.ilc.tn/API/AUTHENTIFICATION/?log=" + l + "&pwd=" + p;
+            $.getJSON(url, f1);*/
+        }
+        
+        function f1(x) {
+            if (navigator.onLine) {
+                if (x.etat == "ok") {
+                    $(".amsg").hide();
+                    $("#agood").show();
+                    setTimeout(function() { window.location.replace("./"); }, 1500);
+        
+        
+        
+                } else {
+                    $(".amsg").hide();
+                    $("#abad").show();
+        
+                }
+            } else {
+                $(".amsg").hide();
+                $("#aconnexion").show();
+            }
+        
+        }</script>
+{% endblock %}
+
+{% block nav %}{% endblock %}

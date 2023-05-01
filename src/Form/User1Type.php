@@ -6,6 +6,8 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 
 class User1Type extends AbstractType
 {
@@ -20,6 +22,13 @@ class User1Type extends AbstractType
             ->add('adresse')
             ->add('imguser')
             ->add('mdp')
+            ->add('roles', ChoiceType::class, [
+                'multiple' => true,
+                'choices' => [
+                    'Admin' => 'ROLE_ADMIN',
+                    'Client' => 'ROLE_CLIENT',
+                ],
+            ])
             ->add('etatcompte')
         ;
     }

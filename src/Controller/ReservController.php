@@ -103,7 +103,7 @@ class ReservController extends AbstractController
 #[Route('/reserver/{idEvent}', name: 'app_event_reserver', methods: ['GET'])]
 public function reserver(int $idEvent, EntityManagerInterface $entityManager): Response
 {
-  $iduser = 35; // Exemple : l'ID de l'utilisateur est 28
+  $iduser = 37; // Exemple : l'ID de l'utilisateur est 28
 $user = $entityManager->getRepository(User::class)->find($iduser);
     $event = $entityManager->getRepository(Event::class)->find($idEvent);
 

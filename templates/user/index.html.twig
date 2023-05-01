@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-
-<title>User index</title>
+{% extends 'main/base-front.html.twig' %}
 
 {% block body %}
     <h1>User index</h1>
@@ -8,10 +6,10 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Iduser</th>
+     
                 <th>Nomuser</th>
                 <th>Prenomuser</th>
-                <th>Datenaiss</th>
+
                 <th>Numtel</th>
                 <th>Email</th>
                 <th>Adresse</th>
@@ -23,15 +21,16 @@
         </thead>
         <tbody>
         {% for user in users %}
+                 {% if user.iduser == "37" %}
             <tr>
-                <td>{{ user.iduser }}</td>
+
                 <td>{{ user.nomuser }}</td>
                 <td>{{ user.prenomuser }}</td>
-                <td>{{ user.datenaiss ? user.datenaiss|date('Y-m-d') : '' }}</td>
+                
                 <td>{{ user.numtel }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.adresse }}</td>
-                <td>{{ user.imguser }}</td>
+                <td><img src="{{ asset('tsawir/velo/' ~  user.imguser) }}" alt="{{ user.nomuser }}" style="max-width: 100%; "></td>
                 <td>{{ user.mdp }}</td>
                 <td>{{ user.etatcompte }}</td>
                 <td>
@@ -41,8 +40,9 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="11">no records found</td>
+
             </tr>
+            {% endif %}
         {% endfor %}
         </tbody>
     </table>
