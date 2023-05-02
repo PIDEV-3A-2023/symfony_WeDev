@@ -1,105 +1,63 @@
 <?php
 
 namespace App\Entity;
-
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
+use App\Repository\VeloRepository;
 
-/**
- * Velo
- *
- * @ORM\Table(name="velo", indexes={@ORM\Index(name="id_categorie", columns={"id_categorie"}), @ORM\Index(name="id_station", columns={"id_station"})})
- * @ORM\Entity
- */
+
+#[ORM\Table(name: 'velo')]
+#[ORM\Entity(repositoryClass: VeloRepository::class)]
 class Velo
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_velo", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\Column(type: 'integer', name: 'id_velo')]
     private $idVelo;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="titre", type="string", length=20, nullable=false)
-     *  @Assert\NotBlank(message="Le champ 'titre' est obligatoire")
-     */
-    private $titre;
+    #[ORM\Column(type: 'string', length: 20, nullable: false, name: 'titre')]
+    private $titre = null;
 
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=false)
-     *  @Assert\NotBlank(message="Le champ 'prix' est obligatoire")
-     */
-    private $prix;
+    #[ORM\Column(type: 'float', precision: 10, scale: 0, nullable: false, name: 'prix')]
+    private $prix = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="image", type="string", length=0, nullable=false)
-     */
-    private $image;
+    #[ORM\Column(type: 'string', length: 255, nullable: false, name: 'image')]
+    private $image = null;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="qte", type="integer", nullable=false)
-     * * @Assert\NotBlank(message="Le champ 'Nom' est obligatoire")
-     */
-    private $qte;
+    #[ORM\Column(type: 'integer', nullable: false, name: 'qte')]
+    private $qte = null;
 
-    /**
-     * @var \Categorie
-     *
-     * @ORM\ManyToOne(targetEntity="Categorie")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_categorie", referencedColumnName="id_categorie")
-     * })
-     */
-    private $idCategorie;
-
-    /**
-     * @var \Station
-     *
-     * @ORM\ManyToOne(targetEntity="Station")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_station", referencedColumnName="id_station")
-     * })
-     */
+    #[ORM\ManyToOne(targetEntity: Station::class)]
+    #[ORM\JoinColumn(name: 'id_station', referencedColumnName: 'id_station')]
     private $idStation;
 
-    public function getIdVelo(): ?int
+    #[ORM\ManyToOne(targetEntity: Categorie::class)]
+    #[ORM\JoinColumn(name: 'id_categorie', referencedColumnName: 'id_categorie')]
+    private $idCategorie;
+
+    public function getIdVelo()
     {
         return $this->idVelo;
     }
 
-    public function getTitre(): ?string
+    public function getTitre()
     {
         return $this->titre;
     }
 
-    public function setTitre(string $titre): self
+    public function setTitre($titre)
     {
         $this->titre = $titre;
-
         return $this;
     }
 
-    public function getPrix(): ?float
+    public function getPrix()
     {
         return $this->prix;
     }
 
-    public function setPrix(float $prix): self
+    public function setPrix($prix)
     {
         $this->prix = $prix;
-
         return $this;
     }
 
@@ -108,48 +66,46 @@ class Velo
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage($image)
     {
         $this->image = $image;
-
         return $this;
     }
 
-    public function getQte(): ?int
+    public function getQte()
     {
         return $this->qte;
     }
 
-    public function setQte(int $qte): self
+    public function setQte($qte)
     {
         $this->qte = $qte;
-
         return $this;
     }
 
-    public function getIdCategorie(): ?Categorie
-    {
-        return $this->idCategorie;
-    }
-
-    public function setIdCategorie(?Categorie $idCategorie): self
-    {
-        $this->idCategorie = $idCategorie;
-
-        return $this;
-    }
-
-    public function getIdStation(): ?Station
+    public function getIdStation()
     {
         return $this->idStation;
     }
 
-    public function setIdStation(?Station $idStation): self
+    public function setIdStation($idStation)
     {
         $this->idStation = $idStation;
-
         return $this;
     }
 
+    public function getIdCategorie()
+    {
+        return $this->idCategorie;
+    }
 
+    public function setIdCategorie($idCategorie)
+    {
+        $this->idCategorie = $idCategorie;
+        return $this;
+    }
+    public function getCategorie()
+{
+    return $this->idCategorie;
+}
 }

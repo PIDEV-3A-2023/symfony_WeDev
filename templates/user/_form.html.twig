@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="col-md-6">
+        {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_label(form.nomuser) }}
+            {{ form_widget(form.nomuser, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.prenomuser) }}
+            {{ form_widget(form.prenomuser, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.datenaiss) }}
+            {{ form_widget(form.datenaiss, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.numtel) }}
+            {{ form_widget(form.numtel, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.email) }}
+            {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.adresse) }}
+            {{ form_widget(form.adresse, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.imguser) }}
+            {{ form_widget(form.imguser, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.mdp) }}
+            {{ form_widget(form.mdp, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;display:none;">
+            {{ form_label(form.roles) }}
+            {{ form_widget(form.roles, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;display:none;">
+            {{ form_label(form.etatcompte) }}
+            {{ form_widget(form.etatcompte, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+        {{ form_end(form) }}
+    </div>
+</div>

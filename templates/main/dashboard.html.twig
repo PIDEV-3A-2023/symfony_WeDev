@@ -1,21 +1,279 @@
 {% extends 'main/base-back.html.twig' %}
-{% block stationa %}
-<br><table class="table table-striped">
-    <tr>
+
+{% block station %}
+<div class="col-md-8">
+                        <h5 class="card-header m-0 me-2 pb-0">Nos Stations</h5>
+                      </div>
+<div>
+  <table class="table">
+    <thead class="table-info">
+      <tr>
         <th>nom de station</th>
         <th>localisation de station</th>
         <th>velos disponibles</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for k in range(0, 10) %}
+        <tr class="ls1">
+          <td>{{ lissa[k].getNomStation() }}</td>
+          <td>{{ lissa[k].getLocalisationStation() }}</td>
+          <td>{{ lissa[k].getVeloStation() }}</td>
+        </tr>
+      {% endfor %}
+      {% for k in range(11, lissa|length -1) %}
+        <tr class="ls2" style="display: none;">
+          <td>{{ lissa[k].getNomStation() }}</td>
+          <td>{{ lissa[k].getLocalisationStation() }}</td>
+          <td>{{ lissa[k].getVeloStation() }}</td>
+        </tr>
+      {% endfor %}
+      {% for k in range(0, 3 - (lissa|length -1)) %}
+        <tr class="ls2" style="display: none;">
+          <td style="border: none;"></td>
+          <td style="border: none;"></td>
+          <td style="border: none;"></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+<br>
+<tr><td></td><td>
 
-    </tr>
-    {%for k in lissa %}
-    <tr>
-        <td>{{k.getNomStation() }}</td>
-        <td>{{k.getLocalisationStation()}}</td>
-        <td>{{k.getVeloStation()}}</td>
+<button id="prev-btn" class="btn btn-primary"><</button>
+<button id="prev1-btn" class="btn btn-primary">1</button>
+<button id="next-btn" class="btn btn-primary">2</button>
+<button id="next1-btn" class="btn btn-primary">></button></td></tr>
+  </table>
+</div>
+<script>
+  const nextBtn = document.getElementById('next-btn');
+  const prevtBtn = document.getElementById('prev-btn');
+  const nextBtn1 = document.getElementById('next1-btn');
+  const prevtBtn1 = document.getElementById('prev1-btn');
+  const ls1 = document.getElementsByClassName('ls1');
+  const ls2 = document.getElementsByClassName('ls2');
 
-    </tr>
-    {%endfor%}
+  nextBtn.addEventListener('click', () => {
+    for (let i = 0; i < ls1.length; i++) {
+      ls1[i].style.display = 'none';
+    }
+    for (let i = 0; i < ls2.length; i++) {
+      ls2[i].style.display = 'table-row';
+    }
+  });
 
-</table>
+  prevtBtn.addEventListener('click', () => {
+    for (let i = 0; i < ls1.length; i++) {
+      ls1[i].style.display = 'table-row';
+    }
+    for (let i = 0; i < ls2.length; i++) {
+      ls2[i].style.display = 'none';
+    }
+  });
+  nextBtn1.addEventListener('click', () => {
+    for (let i = 0; i < ls1.length; i++) {
+      ls1[i].style.display = 'none';
+    }
+    for (let i = 0; i < ls2.length; i++) {
+      ls2[i].style.display = 'table-row';
+    }
+  });
+
+  prevtBtn1.addEventListener('click', () => {
+    for (let i = 0; i < ls1.length; i++) {
+      ls1[i].style.display = 'table-row';
+    }
+    for (let i = 0; i < ls2.length; i++) {
+      ls2[i].style.display = 'none';
+    }
+  });
+</script>
+
+
+
+{% endblock %}
+
+{% block stationstat %}
+
+<div>
+  <canvas id="myChart1"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx = document.getElementById('myChart1');
+
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: [
+        {% for k in lissa %}
+        '{{ k.getNomStation() }}',
+        {% endfor %}
+      ],
+      datasets: [{
+        label: '    ',
+        data: [
+          {% for k in lissa %}
+          {{ k.getVeloStation() }},
+          {% endfor %}
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+
+{% endblock %}
+
+{% block thenia %}
+<div class="card-title">
+    <h5 class="text-nowrap mb-2">Reservation par type de vélos</h5>
+</div>
+    <div>
+  <canvas id="myChart2"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const chartData = {};
+
+  {% for k in lissr %}
+    if (!chartData["{{ k.getIdVelo().titre }}"]) {
+      chartData["{{ k.getIdVelo().titre }}"] = {{ k.getNbr() }};
+    } else {
+      chartData["{{ k.getIdVelo().titre }}"] += {{ k.getNbr() }};
+    }
+  {% endfor %}
+
+  const ctx1 = document.getElementById('myChart2');
+
+  new Chart(ctx1, {
+    type: 'pie',
+    data: {
+      labels: Object.keys(chartData),
+      datasets: [{
+        label: 'Total Rentals',
+        data: Object.values(chartData),
+        backgroundColor: [
+
+          '#36A2EB',
+          '#FFCE56',
+          '#8BC34A',
+          '#9C27B0',
+          '#FF9800',
+          '#607D8B',
+         
+          '#E91E63',
+          '#00BCD4',
+        ]
+      }]
+    }
+  });
+</script>
+
+{% endblock %}
+
+{% block lawla %}
+<h5>Reservation par ville</h5>
+<div>
+  <canvas id="myChart22"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const chartDataj = {};
+
+  {% for k in lissr %}
+    if (!chartDataj["{{ k.getIdStation().localisationStation }}"]) {
+      chartDataj["{{ k.getIdStation().localisationStation }}"] = {{ k.getNbr() }};
+    } else {
+      chartDataj["{{ k.getIdStation().localisationStation }}"] += {{ k.getNbr() }};
+    }
+  {% endfor %}
+
+  const ctxf = document.getElementById('myChart22');
+
+  new Chart(ctxf, {
+    type: 'pie',
+    data: {
+      labels: Object.keys(chartDataj),
+      datasets: [{
+        label: 'Vélos',
+        data: Object.values(chartDataj),
+        backgroundColor: [
+          
+          '#795548',
+          '#E91E63',
+          '#00BCD4',
+
+          '#FF6384',
+          '#36A2EB',
+          '#FFCE56',
+          '#8BC34A',
+          '#9C27B0',
+          '#FF9800',
+          '#607D8B',
+        ]
+      }]
+    }
+  });
+</script>
+{% endblock %}
+
+{% block reservationstat %}
+<h5>Velos par ville</h5>
+<div>
+  <canvas id="myCharto"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const chartDatao = {};
+
+  {% for k in lissa %}
+    if (!chartDatao["{{ k.getLocalisationStation() }}"]) {
+      chartDatao["{{ k.getLocalisationStation() }}"] = {{ k.getVeloStation() }};
+    } else {
+      chartDatao["{{ k.getLocalisationStation() }}"] += {{ k.getVeloStation() }};
+    }
+  {% endfor %}
+
+  const ctxo = document.getElementById('myCharto');
+
+  new Chart(ctxo, {
+    type: 'bar',
+    data: {
+      labels: Object.keys(chartDatao),
+      datasets: [{
+        label: 'Vélos',
+        data: Object.values(chartDatao),
+      //  backgroundColor: [
+    //      '#FF6384',
+  //        '#36A2EB',
+//          '#FFCE56',
+     //     '#8BC34A',
+   //       '#9C27B0',
+ //         '#FF9800',
+        //  '#607D8B',
+      //    '#795548',
+    //      '#E91E63',
+  //        '#00BCD4',
+//        ]
+      }]
+    }
+  });
+</script>
 
 {% endblock %}

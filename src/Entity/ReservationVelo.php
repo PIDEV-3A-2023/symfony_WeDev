@@ -1,84 +1,51 @@
 <?php
 
 namespace App\Entity;
-
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ReservationVeloRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * ReservationVelo
- *
- * @ORM\Table(name="reservation_velo", indexes={@ORM\Index(name="iduser", columns={"iduser"}), @ORM\Index(name="id_velo", columns={"id_velo"}), @ORM\Index(name="id_station", columns={"id_station"})})
- * @ORM\Entity
- */
+
+#[ORM\Table(name: "reservation_velo")]
+#[ORM\Entity(repositoryClass: ReservationVeloRepository::class)]
 class ReservationVelo
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_reservation", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idReservation;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer", name: "id_reservation")]
+    private ?int $idReservation = null;
 
-    /**
-     * @var \DateTime|null
-     *
-     * @ORM\Column(name="date_debut", type="datetime", nullable=true)
-     */
-    private $dateDebut;
+    
+    #[ORM\Column(type: "datetime", name: "date_debut", nullable: true)]
+    #[Assert\NotBlank]
+    
+    private ?\DateTimeInterface $dateDebut = null;
 
-    /**
-     * @var \DateTime|null
-     *
-     * @ORM\Column(name="date_fin", type="datetime", nullable=true)
-     */
-    private $dateFin;
+    #[ORM\Column(type: "datetime", name: "date_fin", nullable: true)]
+    #[Assert\NotBlank]
+    private ?\DateTimeInterface $dateFin = null;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="nbr", type="integer", nullable=false, options={"default"="1"})
-     */
-    private $nbr = 1;
+    #[ORM\Column(type: "integer", name: "nbr", options: ["default" => 1])]
+    #[Assert\Positive]
+    private int $nbr = 1;
 
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="prixr", type="float", precision=10, scale=0, nullable=false)
-     */
-    private $prixr = '0';
+    #[ORM\Column(type: "float", name: "prixr")]
+    private float $prixr = 0;
 
-    /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="iduser", referencedColumnName="IdUser")
-     * })
-     */
-    private $iduser;
+    #[ORM\ManyToOne(targetEntity: Velo::class)]
+    #[ORM\JoinColumn(name: "id_velo", referencedColumnName: "id_velo")]
+    private ?Velo $idVelo = null;
 
-    /**
-     * @var \Velo
-     *
-     * @ORM\ManyToOne(targetEntity="Velo")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_velo", referencedColumnName="id_velo")
-     * })
-     */
-    private $idVelo;
+    #[ORM\ManyToOne(targetEntity: Station::class)]
+    #[ORM\JoinColumn(name: "id_station", referencedColumnName: "id_station")]
+    private ?Station $idStation = null;
 
-    /**
-     * @var \Station
-     *
-     * @ORM\ManyToOne(targetEntity="Station")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_station", referencedColumnName="id_station")
-     * })
-     */
-    private $idStation;
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name: "iduser", referencedColumnName: "IdUser")]
+    private ?User $iduser = null;
+
+    // Getters and setters
 
     public function getIdReservation(): ?int
     {
@@ -109,7 +76,7 @@ class ReservationVelo
         return $this;
     }
 
-    public function getNbr(): ?int
+    public function getNbr(): int
     {
         return $this->nbr;
     }
@@ -121,7 +88,7 @@ class ReservationVelo
         return $this;
     }
 
-    public function getPrixr(): ?float
+    public function getPrixr(): float
     {
         return $this->prixr;
     }
@@ -129,18 +96,6 @@ class ReservationVelo
     public function setPrixr(float $prixr): self
     {
         $this->prixr = $prixr;
-
-        return $this;
-    }
-
-    public function getIduser(): ?User
-    {
-        return $this->iduser;
-    }
-
-    public function setIduser(?User $iduser): self
-    {
-        $this->iduser = $iduser;
 
         return $this;
     }
@@ -169,5 +124,15 @@ class ReservationVelo
         return $this;
     }
 
+    public function getIdUser(): ?User
+    {
+        return $this->iduser;
+    }
 
+    public function setIdUser(?User $iduser): self
+    {
+        $this->iduser = $iduser;
+
+        return $this;
+    }
 }

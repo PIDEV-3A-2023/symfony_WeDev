@@ -1,0 +1,12 @@
+{% extends 'main/base-back.html.twig' %}
+
+{% block title %}New TypeRec{% endblock %}
+
+{% block body %}<div class="container">
+
+    <h1>Create new TypeRec</h1>
+
+    {{ include('rim/_form.html.twig') }}
+
+    <a href="{{ path('app_rim_index') }}">back to list</a>
+{% endblock %}

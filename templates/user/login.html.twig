@@ -3,7 +3,7 @@
 
 {% block title %}login{% endblock %}
      
-{% block body %}
+{% block all %}
     <!-- Content -->
     <br><br><br>
     <div class="container-xxl">
@@ -24,13 +24,13 @@
               <h4 class="mb-2">Welcome ! 👋</h4>
               <p class="mb-4">Please sign-in to your account and start the adventure</p>
 
-              <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+              <formclass="mb-3" >
                 <div class="mb-3">
                   <label for="email" class="form-label">Email or Username</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="email"
+                    id="login"
                     name="email-username"
                     placeholder="Enter your email or username"
                     autofocus
@@ -46,7 +46,7 @@
                   <div class="input-group input-group-merge">
                     <input
                       type="password"
-                      id="password"
+                      id="pwd"
                       class="form-control"
                       name="password"
                       placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
@@ -61,8 +61,33 @@
                     <label class="form-check-label" for="remember-me"> Remember Me </label>
                   </div>
                 </div>
+                <div id="aconnexion" class="amsg" style="display: none;">
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>Pas d'internet!</strong> Vérifier votre connexion
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                        </div>
+                    </div>
+                    <div id="agood" class="amsg" style="display: none;">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Authentification réussite!</strong> Redicrection en cours...
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                        </div>
+                    </div>
+                    <div id="abad" class="amsg" style="display: none;">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Echec d'authentification!</strong> Prière de vérifier votre login
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                        </div>
+                    </div>
+                    
                 <div class="mb-3">
-                  <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
+                  <button class="btn btn-primary d-grid w-100" id="b1">Sign in</button>
                 </div>
               </form>
 
@@ -80,6 +105,56 @@
     </div>
 
     <!-- / Content -->
+    <script>
+    document.getElementById("b1").addEventListener("click", fOK);
+
+        function fOK() {
+            var l = $("#login").val();
+            var p = $("#pwd").val();
+            if (navigator.onLine) {
+                if (l == "hassen@esprit.tn" && p == "123456") {
+                    $(".amsg").hide();
+                    $("#agood").show();
+                    setTimeout(function() { window.location.replace("./"); }, 1500);
+                } else if (l == "admin@esprit.tn" && p == "123456") {
+                      $(".amsg").hide();
+                      $("#agood").show();
+                      setTimeout(function() { window.location.replace("./dashboard"); }, 1500);
+        
+                } else {
+                    $(".amsg").hide();
+                    $("#abad").show();
+        
+                }
+            } else {
+                $(".amsg").hide();
+                $("#aconnexion").show();
+            }
+        
+            /*var url = "http://www.ilc.tn/API/AUTHENTIFICATION/?log=" + l + "&pwd=" + p;
+            $.getJSON(url, f1);*/
+        }
+        
+        function f1(x) {
+            if (navigator.onLine) {
+                if (x.etat == "ok") {
+                    $(".amsg").hide();
+                    $("#agood").show();
+                    setTimeout(function() { window.location.replace("./"); }, 1500);
+        
+        
+        
+                } else {
+                    $(".amsg").hide();
+                    $("#abad").show();
+        
+                }
+            } else {
+                $(".amsg").hide();
+                $("#aconnexion").show();
+            }
+        
+        }</script>
 {% endblock %}
 
 {% block nav %}{% endblock %}

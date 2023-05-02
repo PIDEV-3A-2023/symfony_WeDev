@@ -1,6 +1,8 @@
 {% extends 'main/base-front.html.twig' %}
 
 {% block body %}
+<div class="container">
+
   <h1>Nos vélos</h1>
 
   <div class="row">
@@ -8,7 +10,7 @@
       <div class="col-md-4">
         <div class="card mb-4 shadow-sm">
           {% if velo.image %}
-            <img src="{{ asset('uploads/velo/images/'~velo.image) }}" alt="{{ velo.titre }}" style="max-width: 100%; height: 200px;">
+            <img src="{{ asset('tsawir/velo/' ~ velo.image) }}" alt="{{ velo.titre }}" style="max-width: 100%; ">
           {% else %}
             No image
           {% endif %}
@@ -33,7 +35,13 @@
         {{ message }}
       {% endfor %}
     </div>
-  {% endfor %}
 
+  {% endfor %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 {% endblock %}
 

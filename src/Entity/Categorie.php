@@ -3,37 +3,21 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CategorieRepository;
 
-/**
- * Categorie
- *
- * @ORM\Table(name="categorie")
- * @ORM\Entity
- */
+#[ORM\Entity(repositoryClass: CategorieRepository::class)]
 class Categorie
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_categorie", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idCategorie;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $idCategorie = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom_categorie", type="string", length=30, nullable=false)
-     */
-    private $nomCategorie;
+    #[ORM\Column(length: 30)]
+    private ?string $nomCategorie = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="desc_categorie", type="string", length=30, nullable=false)
-     */
-    private $descCategorie;
+    #[ORM\Column(length: 30)]
+    private ?string $descCategorie = null;
 
     public function getIdCategorie(): ?int
     {
@@ -64,5 +48,8 @@ class Categorie
         return $this;
     }
 
-
+    public function __toString()
+    {
+        return $this->nomCategorie; // assuming that the Station entity has a 'name' property
+    }
 }

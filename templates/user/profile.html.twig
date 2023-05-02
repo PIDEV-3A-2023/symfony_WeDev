@@ -7,7 +7,7 @@
                         <li><a href="{{ path('app_velo') }}">Nos velos</a></li>
                         <li><a href="{{ path('app_station') }}">Nos stations</a></li>
                         <li><a href="{{ path('app_evenement') }}">Evenements</a></li>
-                        <li><a href="{{ path('app_reclamation') }}" >Reclamation</a></li>
+                        <li><a href="{{ path('app_rim2_index') }}" >Reclamation</a></li>
                         <li><details ><summary><a class="active">Profile <img src="front-office/assets/images/profile-header.jpg" alt=""></a></summary>
                         <a  href="{{ path('app_profile') }}" class="link-unstyled"  >mon profile</a><a href="{{ path('app_login') }}" >deconnexion</a> 
                         </details>
@@ -16,7 +16,51 @@
 
 {% block body %}<h1> Votre profile </h1>
 Découvrez notre gamme de produits de qualité supérieure qui répondent à tous vos besoins.
+<br>
+<br>
+<br>
+    <table class="table">
+        <thead>
+            <tr>
 
+                <th>Nomuser</th>
+                <th>Prenomuser</th>
+                <th>Numtel</th>
+                <th>Email</th>
+                <th>Adresse</th>
+                <th>Imguser</th>
+
+
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+         {% if user.iduser == "37" %}
+            <tr>
+
+                <td>{{ user.nomuser }}</td>
+                <td>{{ user.prenomuser }}</td>
+                
+                <td>{{ user.numtel }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.adresse }}</td>
+                <td><img src="{{ asset('tsawir/velo/' ~  user.imguser) }}" alt="{{ user.nomuser }}" style="max-width: 100%; "></td>
+
+
+                <td>
+                    <a href="{{ path('app_user_show', {'iduser': user.iduser}) }}">show</a>
+                    <a href="{{ path('app_user_edit', {'iduser': user.iduser}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+             
+            </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
 
 
 {% endblock %}

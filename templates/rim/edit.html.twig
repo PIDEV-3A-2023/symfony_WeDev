@@ -1,0 +1,14 @@
+{% extends 'main/base-back.html.twig' %}
+
+{% block title %}Edit TypeRec{% endblock %}
+
+{% block body %}<div class="container">
+
+    <h1>Edit TypeRec</h1>
+
+    {{ include('rim/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_rim_index') }}">back to list</a>
+
+    {{ include('rim/_delete_form.html.twig') }}
+{% endblock %}

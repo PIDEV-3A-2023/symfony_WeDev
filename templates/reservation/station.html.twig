@@ -1,21 +1,69 @@
 {% extends 'main/base-front.html.twig' %}
 
 {% block title %}nos stations{% endblock %}
-
-{% block nav %}<ul class="nav">
+                    {% block nav %}
+                    <ul class="nav">
                         <li><a href="{{ path('app_accueil') }}" >Accueil </a></li>
                         <li><a href="{{ path('app_velo') }}">Nos velos</a></li>
                         <li><a href="{{ path('app_station') }}" class="active">Nos stations</a></li>
                         <li><a href="{{ path('app_evenement') }}">Evenements</a></li>
-                        <li><a href="{{ path('app_reclamation') }}" >Reclamation</a></li>
-                        <li><details ><summary><a >Profile <img src="front-office/assets/images/profile-header.jpg" alt=""></a></summary>
+                        <li><a href="{{ path('app_rim2_index') }}">Reclamation</a></li>
+                        <li><details ><summary><a >Profile <img src="front-office/assets/images/stream-06.jpg" alt=""></a></summary>
                         <a  href="{{ path('app_profile') }}" class="link-unstyled">mon profile</a><a href="{{ path('app_login') }}" class="link-unstyled">deconnexion</a> 
                         </details>
                         </li>
-                    </ul>{% endblock %}
+                    </ul> 
+                    {% endblock %}
 
-{% block body %}<h4>Nos Stations </h1><br>
-Découvrez notre gamme de produits de qualité supérieure qui répondent à tous vos besoins.<br><br>
+{% block body %} <diV class="container">
+<div class="row">
+<div class="col-lg-8" align="center">
+<h1>Nos Stations </h>
+</div><div class="col-lg-4" align="right">
+<a href="{{ path('app_reservation') }}"><button type="button" class="btn btn-success btn-lg">Ma liste de reservation</button></a>
+<br></div></div>
+<p>Découvrez notre gamme de produits de qualité supérieure qui répondent à tous vos besoins.</p>
+<br><br>
+<div class="row">
+<div class="col-lg-1">
+
+</div><div class="col-lg-10">
+
+
+<div class="featured-games header-text">
+
+                <div class="heading-section">
+                  <h4><em>Featured</em> Games</h4>
+                </div>
+
+
+                <div class="owl-features owl-carousel">
+{%for o in darajet %}
+                  <div class="item">
+                    <div class="thumb">
+                      <img width="200px" src="{{ asset('tsawir/velo/' ~ o.image) }}" alt="femme">
+                      <div class="hover-effect">
+                        <h6>{{o.getCategorie().nomCategorie }}</h6>
+                      </div>
+                    </div>
+                    <h4>{{o.qte }}<br><span>{{o.titre }}</span></h4>
+                    <ul>
+                      <li><i class="fa fa-dollar"></i> {{o.prix }}</li>
+                      
+                    </ul>
+                  </div>
+{%endfor%}
+
+         
+                </div>
+              </div>
+
+
+
+</div>
+</div><br>
+<div class="row">
+<br><br><br>
 <table class="table table-striped table-dark">
     <tr>
         <th>nom de station</th>
@@ -27,13 +75,20 @@ Découvrez notre gamme de produits de qualité supérieure qui répondent à tou
     <tr>
         <td>{{k.getNomStation() }}</td>
         <td>{{k.getLocalisationStation()}}</td>
-        <td>{{k.getLocalisationStation()}}</td>
+        <td>{{k.getVeloStation()}}</td>
         <td>
-                <button class="btn btn-outline-success">reserver</button></form></td>
+        {% if k.getVeloStation() > 0 %}
+                <form method="POST" action="{{ path('app_reservation_velo_new', {'mohsen': k.getIdStation()}) }}">
+                <button class="btn btn-outline-success">reserver</button></form>
+                {% else %}
+                <p>pas de velos pour le moment</p>
+                {% endif %}
+                </td>
     </tr>
     {%endfor%}
 
 </table>
+
 <br><br><br>
 <div>EcoBikeGo vous offre la possibilité de vivre <b>des expériences</b> et <b>des aventures uniques</b> dans une atmosphère insulaire unique.<br>
 
@@ -41,5 +96,6 @@ Nous offrons des services de <b>location de vélos gratuits</b> pour tous les ad
  Que vous soyez une personne ou un groupe, nous vous apportons <b>nos conseils</b> et <b>notre expertise</b>, et mettons à votre disposition tous nos équipements et accessoires.<br>
 
 Les réservations sont fortement <b>recommandées</b>, surtout pour les weekends et les grands groupes de plus de 10 personnes.</assetdivs>
-
+</div>
+</div>
 {% endblock %}

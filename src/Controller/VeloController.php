@@ -1,6 +1,6 @@
 <?php
-
 namespace App\Controller;
+
 
 
 use App\Entity\Velo;
@@ -18,14 +18,21 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 
 
-
-
-
-
-
 #[Route('/velo')]
 class VeloController extends AbstractController
 { 
+    #[Route('/velo', name: 'app_velo')]
+    public function velo(): Response
+    {$r=$this->getDoctrine()->getRepository(Velo::class);
+        $mesvelos = $r->findAll();
+
+        return $this->render('velo1/velo1.html.twig', [
+
+            'v' => $mesvelos,
+
+        ]);
+    }
+
     #[Route('/{idVelo}/word',name:'app_velo_generate_word_file')]
     public function generateWordFile($idVelo):Response
     {
@@ -95,7 +102,7 @@ class VeloController extends AbstractController
             $newFilename = $originalFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
             try {
                 $imageFile->move(
-                    $this->getParameter('velo_images_directory'),
+                    $this->getParameter('image_directory'),
                     $newFilename
                 );
             } catch (FileException $e) {
