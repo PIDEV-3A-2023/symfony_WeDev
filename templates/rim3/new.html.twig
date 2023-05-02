@@ -1,0 +1,12 @@
+{% extends 'main/base-back.html.twig' %}
+
+{% block title %}New Reclamation{% endblock %}
+
+{% block body %}<div class="container">
+
+    <h1>Create new Reclamation</h1>
+
+    {{ include('rim3/_form.html.twig') }}
+
+    <a href="{{ path('app_rim3_index') }}">back to list</a>
+{% endblock %}

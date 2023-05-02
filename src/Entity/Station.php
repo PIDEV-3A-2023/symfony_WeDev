@@ -3,49 +3,57 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\StationRepository;
+use Symfony\Component\Serializer\Annotation\Groups;//ta3 el json
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-/**
- * Station
- *
- * @ORM\Table(name="station")
- * @ORM\Entity
- */
+#[ORM\Entity(repositoryClass: StationRepository::class)]
+#[UniqueEntity('nomStation',"Cette valeur est déjà utilisée, Le champ \"nom de la station\" ne doit pas être répété.")]
 class Station
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_station", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idStation;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    #[Groups("stations")]
+    private ?int $idStation = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom_station", type="string", length=30, nullable=false)
-     */
-    private $nomStation;
+    #[ORM\Column(type: 'string', length: 30)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 7,
+        max: 30,
+        minMessage: 'Le nom de station doit comporter au moins {{ limit }} caractères',
+        maxMessage: 'Le nom de station ne peut pas dépasser {{ limit }} caractères',
+    )]
+    #[Groups("stations")]
+    private string $nomStation;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="localisation_station", type="string", length=30, nullable=false)
-     */
-    private $localisationStation;
+    #[ORM\Column(type: 'string', length: 30)]
+    #[Assert\NotBlank]
+    #[Groups("stations")]
+    private string $localisationStation;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="velo_station", type="integer", nullable=false)
-     */
-    private $veloStation;
+    #[ORM\Column(type: 'integer')]
+    #[Assert\PositiveOrZero]
+    #[Groups("stations")]
+    private int $veloStation;
+
+
+
+    // Constructor, getters, and setters
+    // ...
 
     public function getIdStation(): ?int
     {
         return $this->idStation;
     }
+    public function setIdStation(?Station $station): void
+{
+    $this->idStation = $station;
+}
+
+
 
     public function getNomStation(): ?string
     {
@@ -83,5 +91,8 @@ class Station
         return $this;
     }
 
-
+    public function __toString()
+    {
+        return $this->nomStation; // assuming that the Station entity has a 'name' property
+    }
 }

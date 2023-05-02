@@ -1,0 +1,40 @@
+{% extends 'main/base-front.html.twig' %}
+
+{% block title %}Reclamation index{% endblock %}
+
+{% block body %}
+    <h1>Reclamation index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdRec</th>
+                <th>DateRec</th>
+                <th>DescriptionRec</th>
+                <th>Reponse</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reclamation in reclamations %}
+        {% if reclamation.getUser().iduser == "37" %}
+            <tr>
+                <td>{{ reclamation.idRec }}</td>
+                <td>{{ reclamation.dateRec ? reclamation.dateRec|date('Y-m-d') : '' }}</td>
+                <td>{{ reclamation.descriptionRec }}</td>
+                <td>{{ reclamation.image }}</td>
+                <td>
+                    <a href="{{ path('app_rim2_show', {'idRec': reclamation.idRec}) }}">show</a>
+                    <a href="{{ path('app_rim2_edit', {'idRec': reclamation.idRec}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+               
+            </tr>
+             {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('app_rim2_new') }}">Create new</a>
+{% endblock %}

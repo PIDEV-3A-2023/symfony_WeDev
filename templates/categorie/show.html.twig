@@ -1,8 +1,9 @@
-{% extends 'base.html.twig' %}
+{% extends 'main/base-back.html.twig' %}
 
 {% block title %}Categorie{% endblock %}
 
 {% block body %}
+<div class="container">
     <h1>Categorie</h1>
 
     <table class="table">
@@ -26,5 +27,5 @@
 
     <a href="{{ path('app_categorie_edit', {'idCategorie': categorie.idCategorie}) }}">edit</a>
 
-    {{ include('categorie/_delete_form.html.twig') }}
+    {{ include('categorie/_delete_form.html.twig') }}</div>
 {% endblock %}

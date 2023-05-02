@@ -28,6 +28,14 @@ https://templatemo.com/tm-579-cyborg-gaming
 
 -->
 <style>
+@media print {
+  .xxp {
+    display: none;
+  }
+  .xxh {
+    display: block;
+  }
+}
 details > summary {
   display: block;
 }
@@ -38,6 +46,8 @@ details > p {
   margin: 0;
   box-shadow: 1px 1px 2px #00ff00;
 }
+
+{% block css %}{% endblock %}
 </style>
   </head>
 
@@ -57,7 +67,7 @@ details > p {
   <!-- ***** Preloader End ***** -->
 
   <!-- ***** Header Area Start ***** -->
-  <header class="header-area header-sticky">
+  <header class="header-area header-sticky fixed-top">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -78,12 +88,12 @@ details > p {
                     <!-- ***** Menu Start ***** -->
                     {% block nav %}
                     <ul class="nav">
-                        <li><a href="{{ path('app_accueil') }}" class="active">Accueil </a></li>
+                        <li><a href="{{ path('app_accueil') }}" class="active">Accueil</a></li>
                         <li><a href="{{ path('app_velo') }}">Nos velos</a></li>
                         <li><a href="{{ path('app_station') }}">Nos stations</a></li>
                         <li><a href="{{ path('app_evenement') }}">Evenements</a></li>
-                        <li><a href="{{ path('app_reclamation') }}">Reclamation</a></li>
-                        <li><details ><summary><a >Profile <img src="front-office/assets/images/profile-header.jpg" alt=""></a></summary>
+                        <li><a href="{{ path('app_rim2_index') }}">Reclamation</a></li>
+                        <li><details ><summary><a >Profile <img src="front-office/assets/images/stream-06.jpg" alt=""></a></summary>
                         <a  href="{{ path('app_profile') }}" class="link-unstyled">mon profile</a><a href="{{ path('app_login') }}" class="link-unstyled">deconnexion</a> 
                         </details>
                         </li>
@@ -103,20 +113,28 @@ details > p {
         <div class="page-content">
 
           <!-- ***** Banner Start ***** -->
+
+
+          
           {% block body %}
           <div class="main-banner">
-            <div class="row">
-              <div class="col-lg-7">
-                <div class="header-text">
-                  <h6>Bienvenue chez EcoBikeGo</h6>
-                  <h4><em>DÉCOUVREZ</em> NOS VÉLOS ÉLECTRIQUES POPULAIRES ICI</h4>
-                  <div class="main-button">
-                    <a href="{{asset('browse.html')}}">Browse Now</a>
-                  </div>
-                </div>
-              </div>
-            </div>
+  <div class="row">
+   
+    <div class="col-lg-7"> 
+      <div>
+        <div class="header-text">
+          <h6>Bienvenue chez EcoBikeGo</h6>
+          <h4><em>DÉCOUVREZ</em> NOS VÉLOS ÉLECTRIQUES POPULAIRES ICI</h4>
+          <div class="main-button">
+            <a href="{{ path('app_station') }}">Parcourir maintenant</a>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
           <!-- ***** Banner End ***** -->
           
 
@@ -229,7 +247,7 @@ details > p {
           <div class="gaming-library">
             <div class="col-lg-12">
               <div class="heading-section">
-                <h4><em>Your Gaming</em> Library</h4>
+                <h4><em>zz</em> Library</h4>
               </div>
               <div class="item">
                 <ul>
@@ -276,13 +294,10 @@ details > p {
   </div>
   
 
-      
-
-
   <footer>
     <div class="container">
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12 xxp">
           <p>Copyright © 2023 <a href="https://www.facebook.com/houssem.jallouli.3">WeDev</a> Company. All rights reserved. 
           
           <br>Design: <a href="https://www.facebook.com/houssem.jallouli.3" target="_blank" title="free CSS templates">WeDev</a> </p>
@@ -290,20 +305,37 @@ details > p {
       </div>
     </div>
   </footer>
-
+{% endblock %}
 
   <!-- Scripts -->
   <!-- Bootstrap core JavaScript -->
-  <script src="front-office/vendor/jquery/jquery.min.js"></script>
-  <script src="front-office/vendor/bootstrap/js/bootstrap.min.js"></script>
+      <script src="{{asset('back-office/assets/vendor/libs/jquery/jquery.js')}}"></script>
 
-  <script src="front-office/assets/js/isotope.min.js"></script>
-  <script src="front-office/assets/js/owl-carousel.js"></script>
-  <script src="front-office/assets/js/tabs.js"></script>
-  <script src="front-office/assets/js/popup.js"></script>
-  <script src="front-office/assets/js/custom.js"></script>
+  <script src="{{asset('front-office/vendor/jquery/jquery.min.js')}}"></script>
+  <script src="{{asset('front-office/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
 
-{% endblock %}
+  <script src="{{asset('front-office/assets/js/isotope.min.js')}}"></script>
+  <script src="{{asset('front-office/assets/js/owl-carousel.js')}}"></script>
+  <script src="{{asset('front-office/assets/js/tabs.js')}}"></script>
+  <script src="{{asset('front-office/assets/js/popup.js')}}"></script>
+  <script src="{{asset('front-office/assets/js/custom.js')}}"></script>
+<script>
+const banner = document.querySelector('.main-banner');
+const bannerImage = document.querySelector('.banner-image');
+
+banner.addEventListener('mousemove', (event) => {
+  const mouseX = event.clientX / window.innerWidth;
+  const mouseY = event.clientY / window.innerHeight;
+  const translateX = mouseX * 20 - 5;
+  const translateY = mouseY * 30 - 5;
+
+  banner.style.transform = `translate(${translateX}px, ${translateY}px)`;
+});
+
+banner.addEventListener('mouseleave', () => {
+  bannerImage.style.transform = 'none';
+});
+</script>
   </body>
 
 </html>

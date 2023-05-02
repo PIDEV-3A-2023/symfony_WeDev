@@ -1,97 +1,55 @@
 <?php
 
 namespace App\Entity;
-
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Symfony\Component\Security\Core\User\UserInterface;
 
-/**
- * User
- *
- * @ORM\Table(name="user")
- * @ORM\Entity
- */
-class User
+
+#[ORM\Table(name: 'user')]
+#[ORM\Entity(repositoryClass: UserRepository::class)]
+class User implements UserInterface
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="IdUser", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $iduser;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer', name: 'IdUser')]
+    private ?int $iduser= null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="NomUser", type="string", length=20, nullable=false)
-     */
-    private $nomuser;
+    #[ORM\Column(type: 'string', length: 20, name: 'NomUser')]
+    private ?string $nomuser= null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="PrenomUser", type="string", length=30, nullable=false)
-     */
-    private $prenomuser;
+    #[ORM\Column(type: 'string', length: 30, name: 'PrenomUser')]
+    private ?string $prenomuser= null;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="DateNaiss", type="date", nullable=false)
-     */
-    private $datenaiss;
+    #[ORM\Column(type: 'date', name: 'DateNaiss')]
+    private \DateTimeInterface $datenaiss;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="NumTel", type="string", length=50, nullable=false)
-     */
-    private $numtel;
+    #[ORM\Column(type: 'string', length: 50, name: 'NumTel')]
+    private ?string $numtel= null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="Email", type="string", length=50, nullable=false)
-     */
-    private $email;
+    #[ORM\Column(type: 'string', length: 50, name: 'Email',unique: true)]
+    private ?string $email= null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="Adresse", type="string", length=30, nullable=false)
-     */
-    private $adresse;
+    #[ORM\Column(type: 'string', length: 30, name: 'Adresse')]
+    private ?string $adresse= null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="ImgUser", type="string", length=1048, nullable=false)
-     */
-    private $imguser;
+    #[ORM\Column(type: 'string', length: 1048, name: 'ImgUser')]
+    private ?string $imguser= null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="Mdp", type="string", length=20, nullable=false)
-     */
-    private $mdp;
+    #[ORM\Column]
+    private ?string $mdp ;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="Role", type="string", length=20, nullable=false)
-     */
-    private $role;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="EtatCompte", type="integer", nullable=false)
+     /**
+     * @ORM\Column(type="json")
      */
-    private $etatcompte;
+    private array $roles = [];
+    private array $role = [];
 
+    #[ORM\Column(type: 'integer', name: 'EtatCompte')]
+    private ?int $etatcompte = 0;
+/////////////////////////////////////////////////////
     public function getIduser(): ?int
     {
         return $this->iduser;
@@ -156,6 +114,58 @@ class User
 
         return $this;
     }
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    public function getUsername(): string
+    {
+        return (string) $this->email;
+    }
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles = array_merge($roles, ['ROLE_ADMIN', 'ROLE_CLIENT']);
+
+        return array_unique($roles);
+    }
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->mdp;
+    }
+    public function setPassword(string $mdp): self
+    {
+        $this->mdp = $mdp;
+    
+        return $this;
+    }
+    
+
+    public function getmdp(): string
+    {
+        return $this->mdp;
+    }
+
+    public function setmdp(string $mdp): self
+    {
+        $this->mdp = $mdp;
+
+        return $this;
+    }
+
+    public function getSalt(): ?string
+    {
+        return null;
+    }
 
     public function getAdresse(): ?string
     {
@@ -181,30 +191,6 @@ class User
         return $this;
     }
 
-    public function getMdp(): ?string
-    {
-        return $this->mdp;
-    }
-
-    public function setMdp(string $mdp): self
-    {
-        $this->mdp = $mdp;
-
-        return $this;
-    }
-
-    public function getRole(): ?string
-    {
-        return $this->role;
-    }
-
-    public function setRole(string $role): self
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
     public function getEtatcompte(): ?int
     {
         return $this->etatcompte;
@@ -216,10 +202,26 @@ class User
 
         return $this;
     }
-     public function __toString()
+
+
+    public function getRole(): array
     {
-        return $this->iduser;
+        return $this->role;
     }
 
+    public function setRole(array $role): self
+    {
+        $this->role = $role;
 
+        return $this;
+    }
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+    public function __toString()
+    {
+        return $this->nomuser;
+    }
 }

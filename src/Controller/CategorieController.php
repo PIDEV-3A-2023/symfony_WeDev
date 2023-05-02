@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Categorie;
 use App\Form\CategorieType;
+use App\Entity\Categorie;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

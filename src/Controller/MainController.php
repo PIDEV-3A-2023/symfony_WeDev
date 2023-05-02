@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
+use App\Entity\ReservationVelo;
+use App\Entity\Station;
 
 class MainController extends AbstractController
 {
@@ -18,6 +20,7 @@ class MainController extends AbstractController
     #[Route('/forgot', name: 'app_forgot')]
     public function forgot(): Response
     {
+        $st=new Station();
         return $this->render('user/forgot.html.twig', [
             
         ]);
@@ -28,13 +31,43 @@ class MainController extends AbstractController
         return $this->render('user/register.html.twig', [
             
         ]);
-    }
+    } 
     #[Route('/dashboard', name: 'app_dashboard')]
     public function dashboard(): Response
     {
+        $r=$this->getDoctrine()->getRepository(Station::class);
+        $messtation = $r->findAll();
+        $r2=$this->getDoctrine()->getRepository(ReservationVelo::class);
+        $mesreservation = $r2->findAll();
         return $this->render('main/dashboard.html.twig', [
-            
+            'lissa' => $messtation,
+            'lissr' => $mesreservation
         ]);
     }
+    #[Route('/', name: 'app_accueil')]
+    public function index(): Response
+    {
+        return $this->render('main/accueil.html.twig', [
+
+        ]);
+    }
+
+
     
+
+    #[Route('/reclamationb', name: 'app_reclamationb')]
+    public function reclamationb(): Response
+    {
+        return $this->render('reclamation/reclamationb.html.twig', [
+
+        ]);
+    }
+
+    #[Route('/profileb', name: 'app_profileb')]
+    public function profileb(): Response
+    {
+        return $this->render('user/profileb.html.twig', [
+
+        ]);
+    }
 }

@@ -12,8 +12,8 @@ class ReservType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('iduser')
-            ->add('idEvent')
+            ->add('event')
+            ->add('user')
         ;
     }
 

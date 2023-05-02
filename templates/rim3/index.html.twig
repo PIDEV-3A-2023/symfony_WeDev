@@ -1,0 +1,40 @@
+{% extends 'main/base-back.html.twig' %}
+
+{% block title %}Reclamation index{% endblock %}
+
+{% block body %}<div class="container">
+
+    <h1>Reclamation index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdRec</th>
+                <th>DateRec</th>
+                <th>DescriptionRec</th>
+                <th>Reponse</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reclamation in reclamations %}
+            <tr>
+                <td>{{ reclamation.idRec }}</td>
+                <td>{{ reclamation.dateRec ? reclamation.dateRec|date('Y-m-d') : '' }}</td>
+                <td>{{ reclamation.descriptionRec }}</td>
+                <td>{{ reclamation.image }}</td>
+                <td>
+                    <a href="{{ path('app_rim3_show', {'idRec': reclamation.idRec}) }}">show</a>
+                    <a href="{{ path('app_rim3_edit', {'idRec': reclamation.idRec}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_rim3_new') }}">Create new</a>
+{% endblock %}

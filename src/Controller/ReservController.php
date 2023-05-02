@@ -11,7 +11,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 namespace App\Controller;
-
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Endroid\QrCode\QrCode;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -102,7 +103,7 @@ class ReservController extends AbstractController
 #[Route('/reserver/{idEvent}', name: 'app_event_reserver', methods: ['GET'])]
 public function reserver(int $idEvent, EntityManagerInterface $entityManager): Response
 {
-  $iduser = 28; // Exemple : l'ID de l'utilisateur est 28
+  $iduser = 37; // Exemple : l'ID de l'utilisateur est 28
 $user = $entityManager->getRepository(User::class)->find($iduser);
     $event = $entityManager->getRepository(Event::class)->find($idEvent);
 

@@ -1,0 +1,27 @@
+{% extends 'main/base-back.html.twig' %}
+
+{% block title %}TypeRec{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>TypeRec</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>IdType</th>
+                <td>{{ type_rec.idType }}</td>
+            </tr>
+            <tr>
+                <th>EtatRec</th>
+                <td>{{ type_rec.etatRec }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_rim_index') }}">back to list</a>
+
+    <a href="{{ path('app_rim_edit', {'idType': type_rec.idType}) }}">edit</a>
+
+    {{ include('rim/_delete_form.html.twig') }}
+{% endblock %}

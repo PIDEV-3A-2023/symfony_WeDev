@@ -1,29 +1,89 @@
+{% extends 'main/base-front.html.twig' %}
+{% block title %}Mes reservations{% endblock %}
+{% block nav %}
+                    <ul class="nav">
+                        <li><a href="{{ path('app_accueil') }}" >Accueil </a></li>
+                        <li><a href="{{ path('app_velo') }}">Nos velos</a></li>
+                        <li><a href="{{ path('app_station') }}" class="active">Nos stations</a></li>
+                        <li><a href="{{ path('app_evenement') }}">Evenements</a></li>
+                        <li><a href="{{ path('app_rim2_index') }}">Reclamation</a></li>
+                        <li><details ><summary><a >Profile <img src="front-office/assets/images/stream-06.jpg" alt=""></a></summary>
+                        <a  href="{{ path('app_profile') }}" class="link-unstyled">mon profile</a><a href="{{ path('app_login') }}" class="link-unstyled">deconnexion</a> 
+                        </details>
+                        </li>
+                    </ul> 
+                    {% endblock %}
 {% block body %}
 <div class="container">
-
-
-<br><table class="table table-striped table-dark">
-<thead class="thead-dark">
+<div class="row">
+<div class="col">
+<div align="center" class="xxh" style="display:none;"><h1>Reçue de Réservation</h1></div>
+</div></div>
+<div class="row">
+<div class="col">
+<br><table class="table table-hover table-dark">
+<thead class="thead-darmes">
+    <tr>          
+        <th colspan="9" align="center"><b>Mes reservations</b></th ><th rowspan="2">Annulation</th>
+    </tr>
     <tr>
         <th>Date de début</th>
         <th>Date de fin</th>
-        <th>velos disponibles</th>
-        <th>(nom)id de station</th>
-        <th>id d user</th>
-        <th>id de velo</th>
-
+        <th>nom station</th>
+        <th>Ville</th>
+        <th>nom de vélo</th>
+        <th>catégorie</th>
+        <th>Prixr</th>
+        <th>nombre de vélos</th>
+        <th>total</th>
     </tr></thead>
-    {%for k in liss %}
+    <script>var x=0;</script>
+    {%for mes in messi %}
+    {% if mes.getIdUser().iduser == "37" %}
     <tr>
-        <td>{{k.getDateDebut().format('d-m-Y / H:i:s') }}</td>
-        <td>{{k.getDateFin().format('d-m-Y / H:i:s')}}</td>
-        <td>{{k.getPrixr()}}</td>
-        <td>{{k.getNbr() }}</td>
-        <td>{{k.getNbr()}}</td>
-        <td>{{k.getNbr()}}</td>
-    </tr>
-    {%endfor%}
-
+        <td>{{ mes.getDateDebut()|date('d-m-Y / H:i:s') }}</td>
+        <td>{{ mes.getDateFin()|date('d-m-Y / H:i:s') }}</td>
+        <td>{{ mes.getIdStation().nomStation }}</td>
+        <td>{{ mes.getIdStation().localisationStation }}</td>
+        <td>{{ mes.getIdVelo().titre }}</td>
+        <td>{{ mes.getIdVelo().getCategorie().getNomCategorie() }}</td>
+        <td>{{ mes.getPrixr() }}</td>
+        <td>{{ mes.getNbr() }}</td>
+        
+        <td style="background-color: lightblue;color: black;">{{ mes.getNbr() * mes.getPrixr() }}</td>
+        <td><form method="POST" action="{{ path('app_reservation_velo_delete', {'idReservation': mes.idReservation}) }}" onsubmit="return confirm('Are you sure you want to delete this reservation?')">
+                <button class="btn btn-outline-danger">supprimer</button>
+                </form></td>
+    </tr><script>x+={{ mes.getNbr() * mes.getPrixr() }};</script>
+  {% endif %}
+    {% endfor %}
+    <tr><td colspan="7" ></td><td colspan="2" style="background-color: lightblue;color: black;"><div id="a" class="xxp">Initial text</div></td><td></td></tr>
+<script>document.getElementById("a").innerHTML = "Total: " + x + " TND";</script>
 </table>
-</div>
+<button onclick="window.print()" class="xxp">Print this page</button>
+</div></div>
+<div class="row">
+<div class="col-lg-4" id="aa">
+                  <div class="item xxp">
+                  </div>
+                </div>
+                <div class="col-lg-4 xxp" align="center">
+                  <div class="item" >
+                    <div class="icon">
+                      <img src="assets/images/service-01.jpg" alt="" style="max-width: 60px; border-radius: 50%;">
+                    </div>
+                    <h4>Bike SOS</h4>
+                    <p>EcoBikeGo répare également vos vélos !.</p>
+                    <p>1 - Apportez votre vélo dans l'une de nos succursales,<br>
+2 - Nous effectuons un diagnostic précis des réparations à effectuer,<br>
+3 - Nous vous envoyons un devis détaillé,<br>
+4 - Vous récupérez votre vélo en moins d'une semaine !</p>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="item">
+                  </div>
+                </div>
+              </div>
+              </div>
 {% endblock %}

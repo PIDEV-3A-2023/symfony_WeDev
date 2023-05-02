@@ -1,6 +1,7 @@
 <?php
-
 namespace App\Controller;
+
+
 
 use App\Entity\Velo;
 use App\Form\VeloType;
@@ -12,12 +13,68 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Categorie;
 use App\Entity\Station;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use PhpOffice\PhpWord\PhpWord;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 
 
 #[Route('/velo')]
 class VeloController extends AbstractController
-{
+{ 
+    #[Route('/velo', name: 'app_velo')]
+    public function velo(): Response
+    {$r=$this->getDoctrine()->getRepository(Velo::class);
+        $mesvelos = $r->findAll();
+
+        return $this->render('velo1/velo1.html.twig', [
+
+            'v' => $mesvelos,
+
+        ]);
+    }
+
+    #[Route('/{idVelo}/word',name:'app_velo_generate_word_file')]
+    public function generateWordFile($idVelo):Response
+    {
+        $velo = $this->getDoctrine()->getRepository(Velo::class)->find($idVelo);
+        $titre = $velo->getTitre();
+        $prix = $velo->getPrix();
+        $qte = $velo->getQte();
+        
+
+    // create the PhpWord object
+    $phpWord = new \PhpOffice\PhpWord\PhpWord();
+
+    // Adding styles
+    $phpWord->addTitleStyle(1, array('size' => 22, 'bold' => true), array('spaceAfter' => 240));
+    $phpWord->addTitleStyle(2, array('size' => 18, 'bold' => true), array('spaceAfter' => 120));
+    $phpWord->addParagraphStyle('myStyle', array('align' => 'center'));
+
+    // Creating the new document...
+    $section = $phpWord->addSection();
+
+    // Adding a title
+    $section->addTitle('Liste des Vélos', 1);
+
+    // Adding bike details
+    $section->addTitle('Détails du Vélo', 2);
+    $section->addText("Numéro : " . $idVelo);
+    $section->addText("Titre : " . $titre);
+    $section->addText("Prix : " . $prix);
+    $section->addText("Quantité : " . $qte);
+
+    // Saving the document as OOXML file...
+    $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+    $objWriter->save('detail_velo_' . $idVelo . '.docx');
+
+    // Set up the response object
+    $response = new Response();
+    $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+    $response->headers->set('Content-Disposition', 'attachment; filename=detail_velo_' . $idVelo . '.docx');
+    $response->setContent(file_get_contents('detail_velo_' . $idVelo . '.docx'));
+
+    return $response;
+   }
     #[Route('/', name: 'app_velo_index', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager): Response
     {
@@ -45,7 +102,7 @@ class VeloController extends AbstractController
             $newFilename = $originalFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
             try {
                 $imageFile->move(
-                    $this->getParameter('velo_images_directory'),
+                    $this->getParameter('image_directory'),
                     $newFilename
                 );
             } catch (FileException $e) {
@@ -56,6 +113,31 @@ class VeloController extends AbstractController
 
         $entityManager->persist($velo);
         $entityManager->flush();
+        $this->addFlash('success', 'Velo ajouté avec succès');
+
+       /* // Replace these values with your Twilio account SID, auth token, and phone number
+$twilio_sid = 'ACb011e177d137dbe84545e69a9e562b30';
+$twilio_token = '9d7dbce112887f40e8f912e61c487847';
+$twilio_phone_number = '+16206788499';
+
+// Instantiate a new Twilio client with your account SID and auth token
+$client = new \Twilio\Rest\Client($twilio_sid, $twilio_token);
+
+// Use the client to send an SMS message to a specific phone number
+$message = $client->messages->create(
+    // The phone number to send the message to
+    '+21629163358',
+    array(
+        // The Twilio phone number to send the message from
+        'from' => $twilio_phone_number,
+        // The body of the SMS message
+        'body' => 'This is a test message from Twilio!'
+    )
+);
+
+// Output the message SID to the console for debugging purposes
+echo $message->sid;
+*/
 
         return $this->redirectToRoute('app_velo_index', [], Response::HTTP_SEE_OTHER);
     }
@@ -66,14 +148,15 @@ class VeloController extends AbstractController
     ]);
 }
 
+#[Route('/{idVelo}', name: 'app_velo_show', methods: ['GET'])]
+public function show(Velo $velo): Response
+{
+    return $this->render('velo/show.html.twig', [
+        'velo' => $velo,
+    ]);
+}
 
-    #[Route('/{idVelo}', name: 'app_velo_show', methods: ['GET'])]
-    public function show(Velo $velo): Response
-    {
-        return $this->render('velo/show.html.twig', [
-            'velo' => $velo,
-        ]);
-    }
+
 
     #[Route('/{idVelo}/edit', name: 'app_velo_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Velo $velo, EntityManagerInterface $entityManager): Response
@@ -100,7 +183,17 @@ class VeloController extends AbstractController
             $entityManager->remove($velo);
             $entityManager->flush();
         }
-
+      // Ajouter la notification
+    $this->addFlash('success', 'Velo supprimé avec succès');
+    
         return $this->redirectToRoute('app_velo_index', [], Response::HTTP_SEE_OTHER);
     }
+   
+    
+    
+   
+
+    // ...
+
+   
 }

@@ -1,0 +1,45 @@
+{% extends 'base-front.html.twig' %}
+
+{% block title %}TypeRec index{% endblock %}
+
+{% block body %}
+    <h1>TypeRec index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+             <style>
+        thead th {
+  color: red; /* Set the text color to white */
+} </style>
+                <th>Id</th>
+                
+                <th>nom</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for type_rec in type_recs %}
+            <tr>
+             <style>
+        td {
+  color: red; /* Set the text color to white */
+} </style>
+                <td>{{ type_rec.id }}</td>
+                
+                <td>{{ type_rec.nom }}</td>
+                <td>
+                    <a href="{{ path('app_type_rec_show', {'id': type_rec.id}) }}">show</a>
+                    <a href="{{ path('app_type_rec_edit', {'id': type_rec.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_type_rec_new') }}">Create new</a>
+{% endblock %}

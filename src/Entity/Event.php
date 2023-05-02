@@ -1,69 +1,33 @@
 <?php
 
 namespace App\Entity;
-
 use Doctrine\DBAL\Types\Types;
+use repository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
+use App\Repository\EventRepository;
 
-/**
- * Event
- *
- * @ORM\Table(name="event")
- * @ORM\Entity
- */
+#[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
 {
-/**
-     * @var int
-     *
-     * @ORM\Column(name="id_event", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idEvent;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private ?int $idEvent = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom_event", type="string", length=50, nullable=false)
-     * 
-     * @Assert\NotBlank(message="Le nom de l'événement ne peut pas être vide.")
-     * @Assert\Length(max=50, maxMessage="Le nom de l'événement ne peut pas dépasser {{ limit }} caractères.")
-     */
-    private $nomEvent;
+    #[ORM\Column(type: 'string', length: 50)]
+    private string $nomEvent;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date_event", type="date", nullable=false)
-     * 
-     
-    
-     */
-    private $dateEvent;
+    #[ORM\Column(type: 'date')]
+    private \DateTimeInterface $dateEvent;
 
+    #[ORM\Column(type: 'string', length: 50)]
+    private string $locateEvent;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="locate_event", type="string", length=50, nullable=false)
-     */
-    private $locateEvent;
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $photoEvent;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="photo_event", type="string", length=0, nullable=false)
-     */
-    private $photoEvent;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="dispoplace_event", type="integer", nullable=false)
-     */
-    private $dispoplaceEvent;
+    #[ORM\Column(type: 'integer')]
+    private int $dispoplaceEvent;
 
     public function getIdEvent(): ?int
     {
@@ -106,12 +70,12 @@ class Event
         return $this;
     }
 
-    public function getPhotoEvent()
+    public function getPhotoEvent(): ?string
     {
         return $this->photoEvent;
     }
 
-    public function setPhotoEvent($photoEvent): self
+    public function setPhotoEvent(string $photoEvent): self
     {
         $this->photoEvent = $photoEvent;
 
@@ -129,10 +93,8 @@ class Event
 
         return $this;
     }
-
-       public function __toString()
+    public function __toString()
     {
-        return $this->idEvent;
+        return $this->nomEvent; // assuming that the Station entity has a 'name' property
     }
-
 }

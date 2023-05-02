@@ -1,63 +1,64 @@
 <?php
 
 namespace App\Entity;
-
+use repository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ReservRepository;
 
-/**
- * Reserv
- *
- * @ORM\Table(name="reserv", indexes={@ORM\Index(name="reserv_rr_1", columns={"IdUser"}), @ORM\Index(name="reservation_rr_2", columns={"id_event"})})
- * @ORM\Entity
- */
+
+#[ORM\Table(name: "reserv")]
+#[ORM\Entity(repositoryClass: ReservRepository::class)]
 class Reserv
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_res", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idRes;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer", name: "id_res")]
+    private ?int $idRes = null;
 
-    /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="IdUser", referencedColumnName="IdUser")
-     * })
-     */
-    private $iduser;
+    #[ORM\ManyToOne(targetEntity: "Event")]
 
-    /**
-     * @var \Event
-     *
-     * @ORM\ManyToOne(targetEntity="Event")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_event", referencedColumnName="id_event")
-     * })
-     */
-    private $idEvent;
+        #[ORM\JoinColumn(name: "id_event", referencedColumnName: "id_event")]
+    private ?Event $idEvent = null;
+
+    #[ORM\ManyToOne(targetEntity: "User")]
+
+        #[ORM\JoinColumn(name: "IdUser", referencedColumnName: "IdUser")]
+    private ?User $user = null;
+
+    // Getters and setters
 
     public function getIdRes(): ?int
     {
         return $this->idRes;
     }
 
-    public function getIduser(): ?User
+    public function getEvent(): ?Event
     {
-        return $this->iduser;
+        return $this->event;
     }
 
-public function setIdUser(User $user): self
-{
-    $this->iduser = $user;
+    public function setEvent(?Event $event): self
+    {
+        $this->event = $event;
 
-    return $this;
-}
+        return $this;
+    }
 
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setIdUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+    public function __toString()
+    {
+        return $this->idRes; // assuming that the Station entity has a 'name' property
+    }
 
     public function getIdEvent(): ?Event
     {
@@ -70,6 +71,4 @@ public function setIdUser(User $user): self
 
         return $this;
     }
-
-
 }

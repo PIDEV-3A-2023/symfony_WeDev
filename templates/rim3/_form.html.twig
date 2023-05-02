@@ -1,0 +1,25 @@
+<form method="post">
+        {{ form_start(form) }}
+            <div style="margin-bottom: 10px;">
+                {{ form_label(form.dateRec) }}
+                {{ form_widget(form.dateRec, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div style="margin-bottom: 10px;">
+                {{ form_label(form.descriptionRec) }}
+                {{ form_widget(form.descriptionRec, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div style="margin-bottom: 10px;">
+                {{ form_label(form.image, "reponse") }}
+                {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div style="margin-bottom: 10px;">
+                {{ form_label(form.user) }}
+                {{ form_widget(form.user, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div style="margin-bottom: 10px;">
+                {{ form_label(form.typeRec) }}
+                {{ form_widget(form.typeRec, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+        {{ form_end(form) }}
+    </form>

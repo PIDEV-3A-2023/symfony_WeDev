@@ -15,6 +15,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Endroid\QrCode\Logo\Logo;
 use Endroid\QrCode\Writer\PngWriter;
 use Endroid\QrCode\Label\Font\NotoSans;
+
  
 
 class QrCodeController extends AbstractController

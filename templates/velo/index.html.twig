@@ -1,11 +1,15 @@
-{% extends 'base.html.twig' %}
+{% extends 'main/base-back.html.twig' %}
 
 {% block title %}Velo index{% endblock %}
 
 {% block body %}
-    <h1>Velo index</h1>
+<br>
+<div class="container">
+<input type="text" id="filter-name" name="name" class="form-control" placeholder="Filter by name">
 
-    <table class="table">
+    <h1>Velo index</h1>
+<br>
+    <table class="table table-striped table-dark" id="customers-table">
         <thead>
             <tr>
                 <th>IdVelo</th>
@@ -18,15 +22,16 @@
         </thead>
         <tbody>
         {% for velo in velos %}
-            <tr>
+            <tr data-name="{{ velo.titre }}">
                 <td>{{ velo.idVelo }}</td>
                 <td>{{ velo.titre }}</td>
                 <td>{{ velo.prix }}</td>
-                <td>{{ velo.image }}</td>
+                <td><img src="{{ asset('tsawir/velo/'~velo.image) }}" alt="{{ velo.titre }}" width="70"></td>
                 <td>{{ velo.qte }}</td>
                 <td>
-                    <a href="{{ path('app_velo_show', {'idVelo': velo.idVelo}) }}">show</a>
-                    <a href="{{ path('app_velo_edit', {'idVelo': velo.idVelo}) }}">edit</a>
+                    <a href="{{ path('app_velo_show', {'idVelo': velo.idVelo}) }}">show</a>---
+                    <a href="{{ path('app_sahar_edit', {'idVelo': velo.idVelo}) }}">edit</a>---
+                     <a href="{{ path('app_velo_generate_word_file', {'idVelo': velo.idVelo}) }}">exporter en Word</a>
                 </td>
             </tr>
         {% else %}
@@ -37,5 +42,22 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_velo_new') }}">Create new</a>
+    <a href="{{ path('app_velo_new') }}">Create new</a></div>
+       <script>
+       const filterInput = document.querySelector('#filter-name');
+const tableRows = document.querySelectorAll('#customers-table tbody tr');
+
+filterInput.addEventListener('keyup', () => {
+  const filterValue = filterInput.value.toLowerCase();
+  tableRows.forEach(row => {
+    const name = row.getAttribute('data-name').toLowerCase();
+    if (name.indexOf(filterValue) > -1) {
+      row.style.display = '';
+    } else {
+      row.style.display = 'none';
+    }
+  });
+});
+</script>
+   
 {% endblock %}

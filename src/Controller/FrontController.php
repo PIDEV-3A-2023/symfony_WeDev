@@ -64,25 +64,8 @@ class FrontController extends AbstractController
         ]);
     }
     
-    #[Route('/velo', name: 'app_velo')]
-    public function velo(): Response
-    {
-        return $this->render('velo/velo.html.twig', [
 
-        ]);
-    }
-    
-    #[Route('/station', name: 'app_station')]
-    public function station( ): Response
-    { 
-        $r=$this->getDoctrine()->getRepository(Station::class);
-        $messtation = $r->findAll();
 
-        return $this->render('reservation/station.html.twig', [
-
-            'liss' => $messtation,
-        ]);
-    }
 
 #[Route('/evenement', name: 'app_evenement')]
 public function evenement(Security $security): Response
@@ -111,24 +94,4 @@ public function evenement(Security $security): Response
     ]);
 }
 
-
-
-
-  
-
-    #[Route('/reclamation', name: 'app_reclamation')]
-    public function reclamation(): Response
-    {
-        return $this->render('reclamation/reclamation.html.twig', [
-
-        ]);
-    }
-
-    #[Route('/profile', name: 'app_profile')]
-    public function profile(): Response
-    {
-        return $this->render('user/profile.html.twig', [
-
-        ]);
-    }
 }

@@ -2,28 +2,50 @@
 
 namespace App\Controller;
 
+use Doctrine\DBAL\Exception\IntegrityConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Form\StationType;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use App\Entity\Station;
-use App\Repository\StationRepository;
+use App\Repository\ReservationVeloRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\StationRepository;
+use App\Form\StationType;
+use App\Entity\Station;
+use App\Entity\Velo;
 
-#[Route('/stationb')]
+#[Route('/station')]
 class StationbController extends AbstractController
 {
-    #[Route('/', name: 'app_stationb')]
+
+
+    ////////////////////////////////////////////////////
+    #[Route('/b', name: 'app_stationb')]
     public function stationb(): Response
     {
         $r=$this->getDoctrine()->getRepository(Station::class);
         $messtation = $r->findAll();
         return $this->render('reservation/stationb.html.twig', [
+            'liss' => $messtation,'wael'=>'','siwael'=>''
+        ]);
+    }
+
+    ///////////////////////////////////////////////
+
+    #[Route('/', name: 'app_station')]
+    public function station( ): Response
+    { 
+        $r=$this->getDoctrine()->getRepository(Station::class);
+        $messtation = $r->findAll();
+
+        $bsekel=$this->getDoctrine()->getRepository(Velo::class)->findAll();
+        return $this->render('reservation/station.html.twig', [
+            'darajet' => $bsekel,
             'liss' => $messtation,
         ]);
     }
+
     #[Route('/add', name: 'app_addstation')]
     public function addstation(Request $request): Response
     {
@@ -41,17 +63,32 @@ class StationbController extends AbstractController
         ]);
     }
     #[Route('/{id}', name: 'app_delstation')]
-    public function dellstation($id,ManagerRegistry $doctrine,StationRepository $rep): Response
+    public function delStation($id, ManagerRegistry $doctrine, StationRepository $rep, ReservationVeloRepository $represervation): Response
     {          
-        $r=$this->getDoctrine()->getRepository(Station::class);
+        $r = $this->getDoctrine()->getRepository(Station::class);
         $messtation = $r->findAll();
-      
-        $station=$rep->find($id);
-            $entityManager=$doctrine->getManager();
-            $entityManager->remove($station);
-            $entityManager->flush(); 
-            return $this->redirectToRoute('app_stationb',['liss' => $messtation]);
+        $station = $rep->find($id);
+        $countreservation = count($represervation->findBy(['idStation' => $station->getIdStation()]));
+        $wael = 'Impossible !!! (il existe des reservations dans cette station!)';
+    
+        if ($countreservation != 0) {
+            return $this->render('reservation/stationb.html.twig', [
+                'liss' => $messtation,
+                'wael' => $wael,
+                'siwael'=>''
+            ]);
+        }
+    
+        $entityManager = $doctrine->getManager();
+        $entityManager->remove($station);
+        $entityManager->flush(); 
+        return $this->redirectToRoute('app_stationb', [
+            'liss' => $messtation,
+            'wael' => '',
+            'siwael'=>'Station supprimer avec succe!'
+        ]);
     }
+       
     #[Route('/{id}/edit', name: 'app_modstation', methods: ['GET', 'POST'])]
     public function edit(Request $request, Station $Station, EntityManagerInterface $entityManager): Response
     {

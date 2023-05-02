@@ -1,0 +1,35 @@
+{% extends 'main/base-back.html.twig' %}
+
+{% block title %}Reclamation{% endblock %}
+
+{% block body %}<div class="container">
+
+    <h1>Reclamation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>IdRec</th>
+                <td>{{ reclamation.idRec }}</td>
+            </tr>
+            <tr>
+                <th>DateRec</th>
+                <td>{{ reclamation.dateRec ? reclamation.dateRec|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DescriptionRec</th>
+                <td>{{ reclamation.descriptionRec }}</td>
+            </tr>
+            <tr>
+                <th>Reponse</th>
+                <td>{{ reclamation.image }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_rim3_index') }}">back to list</a>
+
+    <a href="{{ path('app_rim3_edit', {'idRec': reclamation.idRec}) }}">edit</a>
+
+    {{ include('rim3/_delete_form.html.twig') }}
+{% endblock %}

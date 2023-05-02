@@ -1,22 +1,30 @@
-{% extends 'base.html.twig' %}
+{% extends 'main/base-back.html.twig' %}
 
 {% block title %}Reserv{% endblock %}
 
-{% block body %}
-    <h1>Reserv</h1>
+{% block body %}<br><div class="container">
+    <th>Reserv</th>
+    <th> Event</th>
+    <th>nom user</th>
+    <th>prenom user</th>
+
+
 
     <table class="table">
         <tbody>
             <tr>
-                <th>IdRes</th>
+                
                 <td>{{ reserv.idRes }}</td>
+                <td>{{ reserv.getIdEvent().nomEvent }}</td>
+                <td>{{ reserv.getUser().nomuser }}</td>
+                <td>{{ reserv.getUser().prenomuser }}</td>
             </tr>
         </tbody>
     </table>
 
     <a href="{{ path('app_reserv_index') }}">back to list</a>
 
-    <a href="{{ path('app_reserv_edit', {'idRes': reserv.idRes}) }}">edit</a>
+    {#<a href="{{ path('app_reserv_edit', {'idRes': reserv.idRes}) }}">edit</a>
 
-    {{ include('reserv/_delete_form.html.twig') }}
+    {{ include('reserv/_delete_form.html.twig') }}#}
 {% endblock %}
