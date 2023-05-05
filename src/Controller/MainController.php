@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Response;
-use App\Entity\ReservationVelo;
+use App\Entity\User;
 use App\Entity\Station;
+use App\Entity\ReservationVelo;
+use App\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MainController extends AbstractController
 {
@@ -33,7 +35,7 @@ class MainController extends AbstractController
         ]);
     } 
     #[Route('/dashboard', name: 'app_dashboard')]
-    public function dashboard(): Response
+    public function dashboard(UserRepository $userRepository): Response
     {
         $r=$this->getDoctrine()->getRepository(Station::class);
         $messtation = $r->findAll();
@@ -41,17 +43,26 @@ class MainController extends AbstractController
         $mesreservation = $r2->findAll();
         return $this->render('main/dashboard.html.twig', [
             'lissa' => $messtation,
-            'lissr' => $mesreservation
+            'lissr' => $mesreservation,
+            'crepe' => $userRepository->find(35)
         ]);
     }
     #[Route('/', name: 'app_accueil')]
     public function index(): Response
     {
+        $choklata=$this->getDoctrine()->getRepository(User::class);
+        $crepe = $choklata->find(37);
         return $this->render('main/accueil.html.twig', [
+            'crepe'=>$crepe
+        ]);
+    }
+    #[Route('/welcom', name: 'welcom')]
+    public function welcom(): Response
+    {
+        return $this->render('welcom.html.twig', [
 
         ]);
     }
-
 
     
 

@@ -30,7 +30,7 @@
                 <td>{{ user.numtel }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.adresse }}</td>
-                <td><img src="{{ asset('tsawir/velo/' ~  user.imguser) }}" alt="{{ user.nomuser }}" style="max-width: 100%; "></td>
+                <td><img src="{{ asset('tsawir/velo/' ~  user.imguser) }}" alt="{{ user.nomuser }}" width="200" style="max-width: 100%; "></td>
                 <td>{{ user.mdp }}</td>
                 <td>{{ user.etatcompte }}</td>
                 <td>
@@ -47,5 +47,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_user_new') }}">Create new</a>
+    
 {% endblock %}

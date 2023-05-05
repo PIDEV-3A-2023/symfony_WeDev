@@ -2,18 +2,19 @@
 
 namespace App\Controller;
 
-use Doctrine\DBAL\Exception\IntegrityConstraintViolationException;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
-use App\Repository\ReservationVeloRepository;
-use Doctrine\Persistence\ManagerRegistry;
-use Doctrine\ORM\EntityManagerInterface;
-use App\Repository\StationRepository;
-use App\Form\StationType;
-use App\Entity\Station;
 use App\Entity\Velo;
+use App\Entity\Station;
+use App\Form\StationType;
+use App\Repository\UserRepository;
+use App\Repository\StationRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\ReservationVeloRepository;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\DBAL\Exception\IntegrityConstraintViolationException;
 
 #[Route('/station')]
 class StationbController extends AbstractController
@@ -34,7 +35,7 @@ class StationbController extends AbstractController
     ///////////////////////////////////////////////
 
     #[Route('/', name: 'app_station')]
-    public function station( ): Response
+    public function station(UserRepository $userRepository ): Response
     { 
         $r=$this->getDoctrine()->getRepository(Station::class);
         $messtation = $r->findAll();
@@ -43,6 +44,7 @@ class StationbController extends AbstractController
         return $this->render('reservation/station.html.twig', [
             'darajet' => $bsekel,
             'liss' => $messtation,
+            'crepe' => $userRepository->find(37)
         ]);
     }
 

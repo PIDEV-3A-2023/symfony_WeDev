@@ -18,6 +18,8 @@ class AzizController extends AbstractController
     {
         return $this->render('aziz/index.html.twig', [
             'users' => $userRepository->findAll(),
+            'crepe' => $userRepository->find(37)
+
         ]);
     }
 

@@ -19,6 +19,7 @@ class UserController extends AbstractController
     {
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findAll(),
+            'crepe' => $userRepository->find(37)
         ]);
     }
     #[Route('/profile', name: 'app_profile')]
@@ -26,6 +27,7 @@ class UserController extends AbstractController
     {
         return $this->render('user/profile.html.twig', [
             'users' => $userRepository->findAll(),
+            'crepe' => $userRepository->find(37)
         ]);
     }
 
@@ -41,7 +43,7 @@ class UserController extends AbstractController
 
             $userRepository->save($user, true);
 
-            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('user/new.html.twig', [

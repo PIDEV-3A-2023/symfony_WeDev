@@ -1,47 +1,61 @@
 {% extends 'main/base-front.html.twig' %}
 
 {% block body %}
-<div class="container">
+  <div class="container">
 
-  <h1>Nos vélos</h1>
+      <div class="row">
+        <div  align="center">
+          <h1>Nos vélos</h1><br>
+        </div>
+      </div>
 
-  <div class="row">
-    {% for velo in v %}
-      <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-          {% if velo.image %}
-            <img src="{{ asset('tsawir/velo/' ~ velo.image) }}" alt="{{ velo.titre }}" style="max-width: 100%; ">
-          {% else %}
-            No image
-          {% endif %}
-          <div class="card-body">
-            <p class="card-title">{{ velo.titre }}</p>
-           
-            <p class="card-text">{{ velo.prix }}</p>
+      <div class="row">
+        {% for velo in v %}
+          <div class="col-md-3">
+            <div class="card mb-3 shadow-sm">
+              {% if velo.image %}
+                <img src="{{ asset('tsawir/velo/' ~ velo.image) }}" alt="{{ velo.titre }}" style="max-width: 100%;">
+              {% else %}
+                No image
+              {% endif %}
 
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
+              <div class="card-body">
+                <p class="card-title">{{ velo.titre }}</p>
+                <p class="card-text">{{ velo.prix }}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        {% endfor %}
       </div>
-    {% endfor %}
-  </div>
 
-  {% for label, messages in app.flashes() %}
-    <div class="alert alert-{{ label }}">
-      {% for message in messages %}
-        {{ message }}
+      {% for label, messages in app.flashes() %}
+        <div class="alert alert-{{ label }}">
+          {% for message in messages %}
+            {{ message }}
+          {% endfor %}
+        </div>
       {% endfor %}
+
+      <br><br><br><br><br><br>
     </div>
+  </div>
+  <script>$(document).ready(function() {
+  var previousScroll = 0;
 
-  {% endfor %}
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+  $(window).scroll(function() {
+    var currentScroll = $(this).scrollTop();
+    if (currentScroll < previousScroll) {
+      $('.header-area').removeClass('hide-nav');
+    } else {
+      $('.header-area').addClass('hide-nav');
+    }
+    previousScroll = currentScroll;
+  });
+});
+
+  </script>
 {% endblock %}
-

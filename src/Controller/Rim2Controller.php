@@ -4,20 +4,22 @@ namespace App\Controller;
 
 use App\Entity\Reclamation;
 use App\Form\Reclamation1Type;
+use App\Repository\UserRepository;
 use App\Repository\ReclamationRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/rim2')]
 class Rim2Controller extends AbstractController
 {
     #[Route('/', name: 'app_rim2_index', methods: ['GET'])]
-    public function index(ReclamationRepository $reclamationRepository): Response
+    public function index(ReclamationRepository $reclamationRepository,UserRepository $userRepository): Response
     {
         return $this->render('rim2/index.html.twig', [
             'reclamations' => $reclamationRepository->findAll(),
+            'crepe' => $userRepository->find(37)
         ]);
     }
 

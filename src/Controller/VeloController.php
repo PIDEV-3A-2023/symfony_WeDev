@@ -5,16 +5,17 @@ namespace App\Controller;
 
 use App\Entity\Velo;
 use App\Form\VeloType;
+use App\Entity\Station;
+use App\Entity\Categorie;
+use PhpOffice\PhpWord\PhpWord;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Categorie;
-use App\Entity\Station;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use PhpOffice\PhpWord\PhpWord;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 
@@ -22,14 +23,14 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 class VeloController extends AbstractController
 { 
     #[Route('/velo', name: 'app_velo')]
-    public function velo(): Response
+    public function velo(UserRepository $userRepository): Response
     {$r=$this->getDoctrine()->getRepository(Velo::class);
         $mesvelos = $r->findAll();
 
         return $this->render('velo1/velo1.html.twig', [
 
             'v' => $mesvelos,
-
+            'crepe' => $userRepository->find(37)
         ]);
     }
 

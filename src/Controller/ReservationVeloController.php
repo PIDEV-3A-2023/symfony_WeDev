@@ -5,18 +5,19 @@ namespace App\Controller;
 use App\Entity\Station;
 use App\Entity\ReservationVelo;
 use App\Form\ReservationVeloType;
+use App\Repository\UserRepository;
 use App\Repository\StationRepository;
+use Symfony\Component\Form\FormBuilder;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use App\Repository\ReservationVeloRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\FormBuilder;
-use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3Validator;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Doctrine\ORM\EntityManagerInterface;
 
 
 
@@ -31,11 +32,12 @@ class ReservationVeloController extends AbstractController
     }
     
     #[Route('/', name: 'app_reservation')]
-    public function mesres(): Response
+    public function mesres(UserRepository $userRepository): Response
     {   $r=$this->getDoctrine()->getRepository(ReservationVelo::class);
         $messtation = $r->findAll();
         return $this->render('reservation/reservation.html.twig', [
             'messi' => $messtation,
+            'crepe' => $userRepository->find(37)
         ]);
     }
 
@@ -88,7 +90,7 @@ class ReservationVeloController extends AbstractController
             $this->entityManager->flush();
 
 // Appel de la méthode sendsms depuis OffreRepository
-            //$reservationVeloRepository->sendsms();
+            $reservationVeloRepository->sendsms();
 
             return $this->redirectToRoute('app_reservation', [], Response::HTTP_SEE_OTHER);
             }
