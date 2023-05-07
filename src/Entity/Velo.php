@@ -3,6 +3,7 @@
 namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\VeloRepository;
+use Symfony\Component\Serializer\Annotation\Groups;//ta3 el json
 
 
 #[ORM\Table(name: 'velo')]
@@ -12,26 +13,33 @@ class Velo
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'IDENTITY')]
     #[ORM\Column(type: 'integer', name: 'id_velo')]
+    #[Groups("velos")]
     private $idVelo;
 
     #[ORM\Column(type: 'string', length: 20, nullable: false, name: 'titre')]
+    #[Groups("velos")]
     private $titre = null;
 
     #[ORM\Column(type: 'float', precision: 10, scale: 0, nullable: false, name: 'prix')]
+    #[Groups("velos")]
     private $prix = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: false, name: 'image')]
+    #[Groups("velos")]
     private $image = null;
 
     #[ORM\Column(type: 'integer', nullable: false, name: 'qte')]
+    #[Groups("velos")]
     private $qte = null;
 
     #[ORM\ManyToOne(targetEntity: Station::class)]
     #[ORM\JoinColumn(name: 'id_station', referencedColumnName: 'id_station')]
+    #[Groups("velos")]
     private $idStation;
 
     #[ORM\ManyToOne(targetEntity: Categorie::class)]
     #[ORM\JoinColumn(name: 'id_categorie', referencedColumnName: 'id_categorie')]
+    #[Groups("velos")]
     private $idCategorie;
 
     public function getIdVelo()

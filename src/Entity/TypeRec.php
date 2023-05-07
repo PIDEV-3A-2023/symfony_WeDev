@@ -4,6 +4,7 @@ namespace App\Entity;
 use repository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TypeRecRepository;
+use Symfony\Component\Serializer\Annotation\Groups;//ta3 el json
 
 #[ORM\Entity(repositoryClass: TypeRecRepository::class)]
 class TypeRec
@@ -14,6 +15,7 @@ class TypeRec
     private ?int $idType = null;
 
     #[ORM\Column(type: 'string', length: 20)]
+    #[Groups("reclamations")]
     private string $etatRec;
 
     // Constructor, getters, and setters

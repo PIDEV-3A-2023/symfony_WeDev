@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use App\Entity\TypeRec;
 use App\Form\TypeRecType;
 
@@ -18,6 +19,16 @@ use App\Form\TypeRecType;
 #[Route('/reclamation')]
 class ReclamationController extends AbstractController
 {
+    #[Route('/getall', name: 'getallaze')]
+    public function stationb(NormalizerInterface $serializer): Response
+    {
+        $r=$this->getDoctrine()->getRepository(Reclamation::class);
+        $messtation = $r->findAll();
+        $snorm=$serializer->normalize($messtation,'json',['groups'=>'reclamations']);
+        $json= json_encode($snorm);
+        return new Response($json);
+    }
+
     #[Route('/', name: 'app_reclamation_index', methods: ['GET'])]
     public function index(ReclamationRepository $reclamationRepository): Response
     {
