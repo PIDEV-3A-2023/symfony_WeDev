@@ -90,15 +90,12 @@ details > p {
                     <ul class="nav">
                         <li><a href="{{ path('app_accueil') }}" class="active">Accueil</a></li>
                         <li><a href="{{ path('app_velo') }}">Nos velos</a></li>
-                        <li><a href="{{ path('app_station') }}">Nos stations</a></li>
-                        <li><a href="{{ path('app_evenement') }}">Evenements</a></li>
-                        <li><a href="{{ path('app_reclamation_front_index') }}">Reclamation</a></li>
                         <li><details ><summary><a >Profile 
                         {% if crepe is defined %}
                         <img src="{{ asset('tsawir/velo/' ~  crepe.imguser) }}" alt="{{ crepe.nomuser }}">
                         {% endif %}
                         </a></summary>
-                        <a  href="{{ path('app_profile') }}" class="link-unstyled">mon profile</a><a href="{{ path('welcom') }}" class="link-unstyled">deconnexion</a> 
+                        <a href="{{ path('app_login') }}" class="link-unstyled">connexion</a> 
                         </details>
                         </li>
                     </ul> 
@@ -130,7 +127,7 @@ details > p {
           <h6>Bienvenue chez EcoBikeGo</h6>
           <h4><em>DÉCOUVREZ</em> NOS VÉLOS ÉLECTRIQUES POPULAIRES ICI</h4>
           <div class="main-button">
-            <a href="{{ path('app_station') }}">Parcourir maintenant</a>
+            <a href="{{ path('app_velo') }}">Parcourir maintenant</a>
           </div>
         </div>
       </div>

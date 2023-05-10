@@ -8,7 +8,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Iduser</th>
+                
                 <th>Nomuser</th>
                 <th>Prenomuser</th>
                 <th>Datenaiss</th>
@@ -24,7 +24,7 @@
         <tbody>
         {% for user in users %}
             <tr>
-                <td>{{ user.iduser }}</td>
+                
                 <td>{{ user.nomuser }}</td>
                 <td>{{ user.prenomuser }}</td>
                 <td>{{ user.datenaiss ? user.datenaiss|date('Y-m-d') : '' }}</td>

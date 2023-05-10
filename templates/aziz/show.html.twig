@@ -7,10 +7,7 @@
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Iduser</th>
-                <td>{{ user.iduser }}</td>
-            </tr>
+
             <tr>
                 <th>Nomuser</th>
                 <td>{{ user.nomuser }}</td>
@@ -54,5 +51,4 @@
 
     <a href="{{ path('app_aziz_edit', {'iduser': user.iduser}) }}">edit</a>
 
-    {{ include('aziz/_delete_form.html.twig') }}
 {% endblock %}

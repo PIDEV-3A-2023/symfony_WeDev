@@ -7,8 +7,10 @@
                         <li><a href="{{ path('app_velo') }}">Nos velos</a></li>
                         <li><a href="{{ path('app_station') }}" class="active">Nos stations</a></li>
                         <li><a href="{{ path('app_evenement') }}">Evenements</a></li>
-                        <li><a href="{{ path('app_rim2_index') }}">Reclamation</a></li>
-                        <li><details ><summary><a >Profile <img src="front-office/assets/images/stream-06.jpg" alt=""></a></summary>
+                        <li><a href="{{ path('app_reclamation_front_index') }}">Reclamation</a></li>
+                        <li><details ><summary><a >Profile  {% if crepe is defined %}
+                        <img src="{{ asset('tsawir/velo/' ~  crepe.imguser) }}" alt="{{ crepe.nomuser }}">
+                        {% endif %}</a></summary>
                         <a  href="{{ path('app_profile') }}" class="link-unstyled">mon profile</a><a href="{{ path('app_login') }}" class="link-unstyled">deconnexion</a> 
                         </details>
                         </li>

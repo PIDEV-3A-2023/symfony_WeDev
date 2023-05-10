@@ -7,8 +7,14 @@
                         <li><a href="{{ path('app_velo') }}">Nos velos</a></li>
                         <li><a href="{{ path('app_station') }}">Nos stations</a></li>
                         <li><a href="{{ path('app_evenement') }}">Evenements</a></li>
-                        <li><a href="{{ path('app_rim2_index') }}" >Reclamation</a></li>
-                        <li><details ><summary><a class="active">Profile <img src="front-office/assets/images/profile-header.jpg" alt=""></a></summary>
+                        <li><a href="{{ path('app_reclamation_front_index') }}" >Reclamation</a></li>
+                        <li><details ><summary><a class="active">Profile 
+                        
+                        {% if crepe is defined %}
+                        <img src="{{ asset('tsawir/velo/' ~  crepe.imguser) }}" alt="{{ crepe.nomuser }}">
+                        {% endif %}
+                        
+                        </a></summary>
                         <a  href="{{ path('app_profile') }}" class="link-unstyled"  >mon profile</a><a href="{{ path('app_login') }}" >deconnexion</a> 
                         </details>
                         </li>
@@ -45,7 +51,7 @@ Découvrez notre gamme de produits de qualité supérieure qui répondent à tou
                 <td>{{ user.numtel }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.adresse }}</td>
-                <td><img src="{{ asset('tsawir/velo/' ~  user.imguser) }}" alt="{{ user.nomuser }}" style="max-width: 100%; "></td>
+                <td><img src="{{ asset('tsawir/velo/' ~  user.imguser) }}" alt="{{ user.nomuser }}" width="100" style="max-width: 50%; "></td>
 
 
                 <td>

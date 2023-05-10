@@ -20,8 +20,8 @@
                 <td>{{ type_rec.idType }}</td>
                 <td>{{ type_rec.etatRec }}</td>
                 <td>
-                    <a href="{{ path('app_rim_show', {'idType': type_rec.idType}) }}">show</a>
-                    <a href="{{ path('app_rim_edit', {'idType': type_rec.idType}) }}">edit</a>
+                    <a href="{{ path('app_type_reclamation_show', {'idType': type_rec.idType}) }}">show</a>
+                    <a href="{{ path('app_type_reclamation_edit', {'idType': type_rec.idType}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -32,5 +32,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_rim_new') }}">Create new</a>
+    <a href="{{ path('app_type_reclamation_new') }}">Create new</a>
 {% endblock %}

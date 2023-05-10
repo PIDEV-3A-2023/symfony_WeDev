@@ -1,0 +1,96 @@
+<?php
+
+namespace App\Controller;
+
+use App\Entity\Reclamation;
+use App\Form\Reclamation2Type;
+use App\Repository\ReclamationRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
+
+#[Route('/reclamation_back')]
+class ReclamationBackController extends AbstractController
+{
+    #[Route('/', name: 'app_reclamation_back_index', methods: ['GET'])]
+    public function index(ReclamationRepository $reclamationRepository): Response
+    {
+        return $this->render('reclamation_back/index.html.twig', [
+            'reclamations' => $reclamationRepository->findAll(),
+        ]);
+    }
+    #[Route('/getall', name: 'reclamation_api', methods: ['GET'])]
+    function reclamationAPI(ReclamationRepository $reclamationRepository)
+    {
+        $reclamations = $reclamationRepository->findAll();
+        $normalizer = new ObjectNormalizer(null, null, null, new ReflectionExtractor());
+        $serializer = new Serializer([new DateTimeNormalizer(), $normalizer]);
+        $formatted = $serializer->normalize($reclamations);
+
+        return new JsonResponse($formatted);
+    }
+
+    #[Route('/new', name: 'app_reclamation_back_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, ReclamationRepository $reclamationRepository): Response
+    {
+        $reclamation = new Reclamation();
+        $form = $this->createForm(Reclamation2Type::class, $reclamation);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $reclamationRepository->save($reclamation, true);
+
+            return $this->redirectToRoute('app_reclamation_back_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('reclamation_back/new.html.twig', [
+            'reclamation' => $reclamation,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{idRec}', name: 'app_reclamation_back_show', methods: ['GET'])]
+    public function show(Reclamation $reclamation): Response
+    {
+        return $this->render('reclamation/show.html.twig', [
+            'reclamation' => $reclamation,
+        ]);
+    }
+
+    #[Route('/{idRec}/edit', name: 'app_reclamation_back_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Reclamation $reclamation, ReclamationRepository $reclamationRepository): Response
+    {
+        $form = $this->createForm(Reclamation2Type::class, $reclamation);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $reclamationRepository->save($reclamation, true);
+
+            return $this->redirectToRoute('app_reclamation_back_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('reclamation_back/edit.html.twig', [
+            'reclamation' => $reclamation,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{idRec}', name: 'app_reclamation_back_delete', methods: ['POST'])]
+    public function delete(Request $request, Reclamation $reclamation, ReclamationRepository $reclamationRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $reclamation->getIdRec(), $request->request->get('_token'))) {
+            $reclamationRepository->remove($reclamation, true);
+        }
+
+        return $this->redirectToRoute('app_reclamation_back_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+
+}

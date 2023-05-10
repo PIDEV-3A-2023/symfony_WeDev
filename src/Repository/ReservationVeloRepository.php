@@ -50,7 +50,7 @@ class ReservationVeloRepository extends ServiceEntityRepository
     {
         //require ('vendor\autoload.php');
         $sid = "AC6f7e613707d043a92b9f2a0d7114ddfe" ; 
-        $token = "609aa220e3ccfa362e7ce740dc46fbc0" ; 
+        $token = "a83e9899178caa6d8d4461fac076f563" ; 
         $client = new Client ($sid, $token);
 
         $message = $client->messages

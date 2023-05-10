@@ -1,5 +1,12 @@
 {% extends 'main/base-back.html.twig' %}
 
+{% block nad %}
+{% if crepe is defined %}
+{{ crepe.nomuser }} {{ crepe.prenomuser }} 
+{% endif %}
+
+{% endblock %}
+
 {% block station %}
 <div class="col-md-8">
                         <h5 class="card-header m-0 me-2 pb-0">Nos Stations</h5>

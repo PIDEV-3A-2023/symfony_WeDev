@@ -26,9 +26,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_rim2_index') }}">back to list</a>
+    <a href="{{ path('app_reclamation_front_index') }}">back to list</a>
 
-    <a href="{{ path('app_rim2_edit', {'idRec': reclamation.idRec}) }}">edit</a>
+    <a href="{{ path('app_reclamation_front_edit', {'idRec': reclamation.idRec}) }}">edit</a>
 
-    {{ include('rim2/_delete_form.html.twig') }}
+    {{ include('reclamation_front/_delete_form.html.twig') }}
 {% endblock %}

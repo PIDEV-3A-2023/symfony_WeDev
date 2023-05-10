@@ -182,12 +182,12 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="{{ path('app_rim_index') }}" class="menu-link">
+                  <a href="{{ path('app_type_reclamation_index') }}" class="menu-link">
                     <div data-i18n="Basic Inputs">types des reclamations</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="{{ path('app_rim3_index') }}" class="menu-link">
+                  <a href="{{ path('app_reclamation_back_index') }}" class="menu-link">
                     <div data-i18n="Input groups">liste de reclamation</div>
                   </a>
                 </li>
@@ -242,7 +242,11 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
+                    {% if crepe is defined %}
+                     <img src="{{ asset('tsawir/velo/' ~  crepe.imguser) }}" alt="{{ crepe.nomuser }}" class="w-px-40 h-auto rounded-circle">
+                        {% else %}
                       <img src="{{asset('back-office/assets/img/avatars/1.png')}}" alt class="w-px-40 h-auto rounded-circle" />
+                      {% endif %}
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -251,7 +255,12 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
+                            {% if crepe is defined %}
+                        <img src="{{ asset('tsawir/velo/' ~  crepe.imguser) }}" alt="{{ crepe.nomuser }}" class="w-px-40 h-auto rounded-circle">
+
+                        {% else %}
                               <img src="{{asset('back-office/assets/img/avatars/1.png')}}" alt class="w-px-40 h-auto rounded-circle" />
+                              {% endif %}
                             </div>
                           </div>
                           <div class="flex-grow-1">
@@ -265,7 +274,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a class="dropdown-item" href="./aziz/35">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">My Profile</span>
                       </a>
@@ -289,7 +298,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="{{ path('app_login') }}">
+                      <a class="dropdown-item" href="{{ path('welcom') }}">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
                       </a>
@@ -314,7 +323,12 @@
                     <div class="d-flex align-items-end row">
                       <div class="col-sm-7">
                         <div class="card-body">
-                          <h5 class="card-title text-primary">Congratulations Houssem! 🎉</h5>
+                          <h5 class="card-title text-primary">Congratulations 
+                          {% block nad %}
+                          Houssem
+                          {% endblock %}
+                          
+                          ! 🎉</h5>
                           <p class="mb-4">
                             You have done <span class="fw-bold">72%</span> more sales today. Check your new badge in
                             your profile.

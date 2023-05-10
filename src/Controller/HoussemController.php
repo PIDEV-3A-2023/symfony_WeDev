@@ -28,6 +28,7 @@ class HoussemController extends AbstractController
     {
         $this->entityManager = $entityManager;
     }
+    
     #[Route('/getall', name: 'getall')]
     public function stationb(NormalizerInterface $serializer): Response
     {
@@ -54,7 +55,7 @@ class HoussemController extends AbstractController
         return new Response(json_encode($jsonContent));
     }
 /////////////////////////////////////json
-    #[Route('/del', name: 'del')]
+    #[Route('/del/{id}', name: 'del')]
     public function delStation($id, ManagerRegistry $doctrine, StationRepository $rep, ReservationVeloRepository $represervation): Response
     {          
         $r = $this->getDoctrine()->getRepository(Station::class);
@@ -100,4 +101,42 @@ class HoussemController extends AbstractController
             'formA' => $form,
         ]);
     }
+
+    #[Route('/edit', name: 'edit', methods: ['GET', 'POST'])]
+public function editj(Request $request, Station $station, EntityManagerInterface $entityManager, NormalizerInterface $serializer): JsonResponse
+{
+    $form = $this->createForm(StationType::class, $station);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $entityManager->flush();
+
+        $jsonContent = $serializer->normalize($station, 'json', ['groups' => 'stations']);
+        return new JsonResponse($jsonContent, Response::HTTP_OK);
+    }
+
+    $jsonContent = $serializer->normalize($form->getErrors(true), 'json');
+    return new JsonResponse($jsonContent, Response::HTTP_BAD_REQUEST);
+}
+
+#[Route('/del/{id}', name: 'del')]
+public function delStationj($id, ManagerRegistry $doctrine, StationRepository $rep, ReservationVeloRepository $represervation, NormalizerInterface $serializer): JsonResponse
+{
+    $station = $rep->find($id);
+    $countReservation = count($represervation->findBy(['idStation' => $station->getIdStation()]));
+
+    if ($countReservation != 0) {
+        $error = ['message' => 'Impossible !!! (il existe des reservations dans cette station!)'];
+        $jsonContent = $serializer->normalize($error, 'json');
+        return new JsonResponse($jsonContent, Response::HTTP_BAD_REQUEST);
+    }
+
+    $entityManager = $doctrine->getManager();
+    $entityManager->remove($station);
+    $entityManager->flush(); 
+
+    $jsonContent = $serializer->normalize(['message' => 'Station supprimer avec succe!'], 'json');
+    return new JsonResponse($jsonContent, Response::HTTP_OK);
+}
+
 }
