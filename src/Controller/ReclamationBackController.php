@@ -32,7 +32,23 @@ class ReclamationBackController extends AbstractController
         $reclamations = $reclamationRepository->findAll();
         $normalizer = new ObjectNormalizer(null, null, null, new ReflectionExtractor());
         $serializer = new Serializer([new DateTimeNormalizer(), $normalizer]);
-        $formatted = $serializer->normalize($reclamations);
+        // $formatted = $serializer->normalize($reclamations,'json', [AbstractNormalizer::ATTRIBUTES => ['idRec','dateRec','descriptionRec','image','typeRec','typeRec','etat','idU'=>['id']]]);
+        // Get reclamations with specific format
+        $formatted = $serializer->normalize($reclamations, 'json', [
+            AbstractNormalizer::CALLBACKS => [
+                'typeRec' => function ($typeRec) {
+                    return $typeRec->getEtatRec();
+                }
+            ],
+            AbstractNormalizer::ATTRIBUTES => [
+                'idRec',
+                'dateRec',
+                'descriptionRec',
+                'image',
+                'typeRec'
+            ]
+        ]);
+                // $formatted = $serializer->normalize($reclamations);
 
         return new JsonResponse($formatted);
     }
