@@ -26,32 +26,6 @@ class ReclamationBackController extends AbstractController
             'reclamations' => $reclamationRepository->findAll(),
         ]);
     }
-    #[Route('/getall', name: 'reclamation_api', methods: ['GET'])]
-    function reclamationAPI(ReclamationRepository $reclamationRepository)
-    {
-        $reclamations = $reclamationRepository->findAll();
-        $normalizer = new ObjectNormalizer(null, null, null, new ReflectionExtractor());
-        $serializer = new Serializer([new DateTimeNormalizer(), $normalizer]);
-        // $formatted = $serializer->normalize($reclamations,'json', [AbstractNormalizer::ATTRIBUTES => ['idRec','dateRec','descriptionRec','image','typeRec','typeRec','etat','idU'=>['id']]]);
-        // Get reclamations with specific format
-        $formatted = $serializer->normalize($reclamations, 'json', [
-            AbstractNormalizer::CALLBACKS => [
-                'typeRec' => function ($typeRec) {
-                    return $typeRec->getEtatRec();
-                }
-            ],
-            AbstractNormalizer::ATTRIBUTES => [
-                'idRec',
-                'dateRec',
-                'descriptionRec',
-                'image',
-                'typeRec'
-            ]
-        ]);
-                // $formatted = $serializer->normalize($reclamations);
-
-        return new JsonResponse($formatted);
-    }
 
     #[Route('/new', name: 'app_reclamation_back_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ReclamationRepository $reclamationRepository): Response
@@ -108,5 +82,59 @@ class ReclamationBackController extends AbstractController
         return $this->redirectToRoute('app_reclamation_back_index', [], Response::HTTP_SEE_OTHER);
     }
 
+    #[Route('/api/getall', name: 'reclamation_api', methods: ['GET', 'POST'])]
+    function getAllAPI(ReclamationRepository $reclamationRepository)
+    {
+        $reclamations = $reclamationRepository->findAll();
+        $normalizer = new ObjectNormalizer(null, null, null, new ReflectionExtractor());
+        $serializer = new Serializer([new DateTimeNormalizer(), $normalizer]);
+        // $formatted = $serializer->normalize($reclamations,'json', [AbstractNormalizer::ATTRIBUTES => ['idRec','dateRec','descriptionRec','image','typeRec','typeRec','etat','idU'=>['id']]]);
+        // Get reclamations with specific format
+        $formatted = $serializer->normalize($reclamations, 'json', [
+            AbstractNormalizer::CALLBACKS => [
+                'typeRec' => function ($typeRec) {
+                    return $typeRec->getEtatRec();
+                }
+            ],
+            AbstractNormalizer::ATTRIBUTES => [
+                'idRec',
+                'dateRec',
+                'descriptionRec',
+                'image',
+                'typeRec'
+                ]
+            ]);
+            // $formatted = $serializer->normalize($reclamations);
+            
+            return new JsonResponse($formatted);
+        }
 
+        // #[Route('/api/delete/{idRec}', name: 'reclamation_api_delete', methods: ['POST'])]
+        // public function deleteByIdAPI(Request $request, Reclamation $reclamation, ReclamationRepository $reclamationRepository)
+        // {
+        //     $reclamation = $reclamationRepository->find($reclamation->getIdRec());
+        //     $reclamationRepository->remove($reclamation, true);
+        //     return new JsonResponse($reclamation);
+        // }    
+        #[Route('/api/delete/{id}', name: 'reclamation_api_delete', methods: ['DELETE'])]
+        public function remAction(Request $request, ReclamationRepository $reclamationRepository, Reclamation $reclamation)
+        {
+            $reclamation = $reclamationRepository->find($request->get('id'));
+            // $reclamation = $this->getDoctrine()->getManager()
+            //     ->getRepository('ReclamationBundle:Reclamation')
+            //     ->find($request->get('id'));
+    
+    
+            // $em = $this->getDoctrine()->getManager();
+    
+            // $em->remove($reclamation);
+            // $em->flush();
+            $reclamationRepository->remove($reclamation, true);
+            $normalizer = new ObjectNormalizer(null, null, null, new ReflectionExtractor());
+    
+            $serializer = new Serializer([new DateTimeNormalizer(), $normalizer]);
+            $formatted = $serializer->normalize($reclamation);
+    
+            return new JsonResponse($formatted);
+        }
 }
