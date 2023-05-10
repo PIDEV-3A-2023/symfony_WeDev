@@ -29,6 +29,21 @@ class ReclamationController extends AbstractController
         return new Response($json);
     }
 
+    #[Route('/add', name: 'addsqd')]
+    public function addstationsd(Request $request,NormalizerInterface $Normalizer): Response
+    {
+            $em = $this->getDoctrine()->getManager();
+            $station = new Reclamation();   
+            $station->setDateRec($request->get('dateRec'));
+            $station->setDescriptionRec($request->get('descriptionRec'));
+            $station->setImage($request->get('image'));
+            $em->persist($station);
+            $em->flush();
+            
+            $jsonContent = $Normalizer->normalize($station, 'json', ['groups' => 'stations']);
+        return new Response(json_encode($jsonContent));
+    }
+
     #[Route('/', name: 'app_reclamation_index', methods: ['GET'])]
     public function index(ReclamationRepository $reclamationRepository): Response
     {

@@ -14,11 +14,12 @@ use Symfony\Component\Serializer\Serializer;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\StationRepository;
+use App\Entity\ReservationVelo;
 use App\Form\StationType;
 use App\Entity\Station;
 use App\Entity\Velo;
 
-/////////////////////////////////////json
+/////////////////////////////////////json station
 #[Route('/houssem')]
 class HoussemController extends AbstractController
 {
@@ -39,12 +40,22 @@ class HoussemController extends AbstractController
         return new Response($json);
     }
 /////////////////////////////////////json
+#[Route('/getone/{id}', name: 'getone')]
+    public function stationba($id,NormalizerInterface $serializer): Response
+    {
+        $r=$this->getDoctrine()->getRepository(Station::class);
+        $messtation = $r->find($id);
+        $snorm=$serializer->normalize($messtation,'json',['groups'=>'stations']);
+        $json= json_encode($snorm);
+        return new Response($json);
+    }
+/////////////////////////////////////json
 
-    #[Route('/add', name: 'add')]
-    public function addstation(Request $request,NormalizerInterface $Normalizer): Response
+    #[Route('/add', name: 'adkud')]
+    public function addstatiosn(Request $request,NormalizerInterface $Normalizer): Response
     {
             $em = $this->getDoctrine()->getManager();
-            $station = new station();   
+            $station = new Station();   
             $station->setNomStation($request->get('nomStation'));
             $station->setLocalisationStation($request->get('localisationStation'));
             $station->setVeloStation($request->get('veloStation'));
@@ -54,7 +65,69 @@ class HoussemController extends AbstractController
             $jsonContent = $Normalizer->normalize($station, 'json', ['groups' => 'stations']);
         return new Response(json_encode($jsonContent));
     }
-/////////////////////////////////////json
+/////////////////////////////////////json reservation
+
+
+////9dima
+// #[Route('/getallr', name: 'getallr')]
+//     public function dsdds(NormalizerInterface $serializer): Response
+//     {
+//         $r=$this->getDoctrine()->getRepository(ReservationVelo::class);
+//         $messtation = $r->findAll();
+//         $snorm=$serializer->normalize($messtation,'json',['groups'=>["rv","velos","stations"]]);
+//         $json= json_encode($snorm);
+//         return new Response($json);
+//     }
+////jdida
+#[Route('/getallr', name: 'getallr')]
+    public function dsdds(NormalizerInterface $serializer): Response
+    {
+        $r=$this->getDoctrine()->getRepository(ReservationVelo::class);
+        $messtation = $r->findAll();
+
+
+	foreach ($messtation as $user) {
+            $responseArray[] = array(
+                'idReservation' => $user->getIdReservation(),
+                'dateDebut' => $user->getDateDebut() ? $user->getDateDebut()->format('Y-m-d') : null,
+                'dateFin' => $user->getDateFin() ? $user->getDateFin()->format('Y-m-d') : null,
+                'nbr' => $user->getNbr(),
+                'prixr' => $user->getPrixr(),
+                'idVelo' => $user->getIdVelo() ? $user->getIdVelo()->getTitre() : null,
+                'idStation' => $user->getIdStation() ? $user->getIdStation()->getNomStation() : null,
+
+            );
+        }
+        
+        $snorm=$serializer->normalize($responseArray,'json',['groups'=>["rv","velos","stations"]]);//ken 5edmet sinon nahi v et s
+        $json= json_encode($snorm);
+        return new Response($json);
+    }
+
+    /////////////////////////////////////json
+
+    #[Route('/addr/{id}/{id1}', name: 'addr')]
+    public function addstatzeazeion(Request $request,NormalizerInterface $Normalizer): Response
+    {    $r=$this->getDoctrine()->getRepository(ReservationVelo::class);
+        $a= $r->find($id);
+        $r2=$this->getDoctrine()->getRepository(Station::class);
+        $a2= $r2->find($id1);
+            $em = $this->getDoctrine()->getManager();
+            $station = new ReservationVelo();   
+            $station->setDateDebut($request->get('dateDebut'));
+            $station->setDateFin($request->get('dateFin'));
+            $station->setNbr($request->get('nbr'));
+            $station->setPrixr($request->get('prix'));
+            $station->setIdVelo($a);
+            $station->setIdStation($a2);
+            $em->persist($station);
+            $em->flush();
+            //->format('Y-m-d'),
+            $jsonContent = $Normalizer->normalize($station, 'json', ["rv","velos","stations"]);
+        return new Response(json_encode($jsonContent));
+    }
+
+    /////////////////////////////////////json
     #[Route('/del/{id}', name: 'del')]
     public function delStation($id, ManagerRegistry $doctrine, StationRepository $rep, ReservationVeloRepository $represervation): Response
     {          

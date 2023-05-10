@@ -22,13 +22,7 @@ class User1Type extends AbstractType
             ->add('adresse')
             ->add('imguser')
             ->add('mdp')
-            ->add('roles', ChoiceType::class, [
-                'multiple' => true,
-                'choices' => [
-                    'Admin' => 'ROLE_ADMIN',
-                    'Client' => 'ROLE_CLIENT',
-                ],
-            ])
+            ->add('role')
             ->add('etatcompte')
         ;
     }

@@ -17,7 +17,7 @@ class Velo
     private $idVelo;
 
     #[ORM\Column(type: 'string', length: 20, nullable: false, name: 'titre')]
-    #[Groups("velos")]
+    #[Groups("velos","rv")]
     private $titre = null;
 
     #[ORM\Column(type: 'float', precision: 10, scale: 0, nullable: false, name: 'prix')]
@@ -39,7 +39,7 @@ class Velo
 
     #[ORM\ManyToOne(targetEntity: Categorie::class)]
     #[ORM\JoinColumn(name: 'id_categorie', referencedColumnName: 'id_categorie')]
-    #[Groups("velos")]
+    
     private $idCategorie;
 
     public function getIdVelo()

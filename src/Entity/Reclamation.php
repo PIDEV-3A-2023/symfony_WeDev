@@ -38,6 +38,7 @@ class Reclamation
     #[Groups("reclamations")]
     private ?TypeRec $typeRec = null;
 
+
     public function getIdRec(): ?int
     {
         return $this->idRec;

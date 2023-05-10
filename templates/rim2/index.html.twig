@@ -17,7 +17,7 @@
         </thead>
         <tbody>
         {% for reclamation in reclamations %}
-        {% if reclamation.getUser().iduser == "37" %}
+        {% if reclamation.getUser().iduser == "53" %}
             <tr>
                 <td>{{ reclamation.idRec }}</td>
                 <td>{{ reclamation.dateRec ? reclamation.dateRec|date('Y-m-d') : '' }}</td>

@@ -5,6 +5,7 @@ use Doctrine\DBAL\Types\Types;
 use repository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\EventRepository;
+use Symfony\Component\Serializer\Annotation\Groups;//ta3 el json
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
@@ -12,21 +13,27 @@ class Event
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups("events")]
     private ?int $idEvent = null;
 
     #[ORM\Column(type: 'string', length: 50)]
+    #[Groups("events")]
     private string $nomEvent;
 
     #[ORM\Column(type: 'date')]
+    
     private \DateTimeInterface $dateEvent;
 
     #[ORM\Column(type: 'string', length: 50)]
+    #[Groups("events")]
     private string $locateEvent;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups("events")]
     private string $photoEvent;
 
     #[ORM\Column(type: 'integer')]
+    #[Groups("events")]
     private int $dispoplaceEvent;
 
     public function getIdEvent(): ?int

@@ -5,49 +5,59 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;//ta3 el json
 
 
 #[ORM\Table(name: 'user')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User implements UserInterface
+class User  
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', name: 'IdUser')]
+    #[Groups("users")]
     private ?int $iduser= null;
 
     #[ORM\Column(type: 'string', length: 20, name: 'NomUser')]
+    #[Groups("users")]
     private ?string $nomuser= null;
 
     #[ORM\Column(type: 'string', length: 30, name: 'PrenomUser')]
+    #[Groups("users")]
     private ?string $prenomuser= null;
 
     #[ORM\Column(type: 'date', name: 'DateNaiss')]
+    #[Groups("users")]
     private \DateTimeInterface $datenaiss;
 
     #[ORM\Column(type: 'string', length: 50, name: 'NumTel')]
+    #[Groups("users")]
     private ?string $numtel= null;
 
     #[ORM\Column(type: 'string', length: 50, name: 'Email',unique: true)]
+    #[Groups("users")]
     private ?string $email= null;
 
     #[ORM\Column(type: 'string', length: 30, name: 'Adresse')]
+    #[Groups("users")]
     private ?string $adresse= null;
 
     #[ORM\Column(type: 'string', length: 1048, name: 'ImgUser')]
+    #[Groups("users")]
     private ?string $imguser= null;
 
     #[ORM\Column]
+    #[Groups("users")]
     private ?string $mdp ;
 
 
-     /**
-     * @ORM\Column(type="json")
-     */
-    private array $roles = [];
-    private array $role = [];
+    #[ORM\Column]
+    #[Groups("users")]
+    private ?string $role ;
+
 
     #[ORM\Column(type: 'integer', name: 'EtatCompte')]
+    #[Groups("users")]
     private ?int $etatcompte = 0;
 /////////////////////////////////////////////////////
     public function getIduser(): ?int
@@ -123,20 +133,6 @@ class User implements UserInterface
     {
         return (string) $this->email;
     }
-    public function getRoles(): array
-    {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles = array_merge($roles, ['ROLE_ADMIN', 'ROLE_CLIENT']);
-
-        return array_unique($roles);
-    }
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
 
     public function getPassword(): ?string
     {
@@ -204,12 +200,12 @@ class User implements UserInterface
     }
 
 
-    public function getRole(): array
+    public function getRole(): ?string
     {
         return $this->role;
     }
 
-    public function setRole(array $role): self
+    public function setRole(string $role): self
     {
         $this->role = $role;
 

@@ -5,6 +5,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ReservationVeloRepository;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;//ta3 el json
 
 
 #[ORM\Table(name: "reservation_velo")]
@@ -14,31 +15,38 @@ class ReservationVelo
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer", name: "id_reservation")]
+    #[Groups("rv")]
     private ?int $idReservation = null;
 
     
     #[ORM\Column(type: "datetime", name: "date_debut", nullable: true)]
+    #[Groups("rv")]
     #[Assert\NotBlank]
     
     private ?\DateTimeInterface $dateDebut = null;
 
     #[ORM\Column(type: "datetime", name: "date_fin", nullable: true)]
     #[Assert\NotBlank]
+    #[Groups("rv")]
     private ?\DateTimeInterface $dateFin = null;
 
     #[ORM\Column(type: "integer", name: "nbr", options: ["default" => 1])]
     #[Assert\Positive]
+    #[Groups("rv")]
     private int $nbr = 1;
 
     #[ORM\Column(type: "float", name: "prixr")]
+    #[Groups("rv")]
     private float $prixr = 0;
 
     #[ORM\ManyToOne(targetEntity: Velo::class)]
     #[ORM\JoinColumn(name: "id_velo", referencedColumnName: "id_velo")]
+    #[Groups("rv")]
     private ?Velo $idVelo = null;
 
     #[ORM\ManyToOne(targetEntity: Station::class)]
     #[ORM\JoinColumn(name: "id_station", referencedColumnName: "id_station")]
+    #[Groups("rv")]
     private ?Station $idStation = null;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
