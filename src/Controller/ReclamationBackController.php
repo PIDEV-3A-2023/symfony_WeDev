@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Reclamation;
 use App\Form\Reclamation2Type;
 use App\Repository\ReclamationRepository;
+use App\Repository\TypeRecRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -102,39 +104,47 @@ class ReclamationBackController extends AbstractController
                 'descriptionRec',
                 'image',
                 'typeRec'
-                ]
-            ]);
-            // $formatted = $serializer->normalize($reclamations);
-            
-            return new JsonResponse($formatted);
-        }
+            ]
+        ]);
+        // $formatted = $serializer->normalize($reclamations);
 
-        // #[Route('/api/delete/{idRec}', name: 'reclamation_api_delete', methods: ['POST'])]
-        // public function deleteByIdAPI(Request $request, Reclamation $reclamation, ReclamationRepository $reclamationRepository)
-        // {
-        //     $reclamation = $reclamationRepository->find($reclamation->getIdRec());
-        //     $reclamationRepository->remove($reclamation, true);
-        //     return new JsonResponse($reclamation);
-        // }    
-        #[Route('/api/delete/{id}', name: 'reclamation_api_delete', methods: ['DELETE'])]
-        public function remAction(Request $request, ReclamationRepository $reclamationRepository, Reclamation $reclamation)
-        {
-            $reclamation = $reclamationRepository->find($request->get('id'));
-            // $reclamation = $this->getDoctrine()->getManager()
-            //     ->getRepository('ReclamationBundle:Reclamation')
-            //     ->find($request->get('id'));
+        return new JsonResponse($formatted);
+    }
+
+    #[Route('/api/delete/{id}', name: 'reclamation_api_delete', methods: ['DELETE'])]
+    public function deleteAPI(Request $request, ReclamationRepository $reclamationRepository, Reclamation $reclamation)
+    {
+        $reclamation = $reclamationRepository->find($request->get('id'));
+        $reclamationRepository->remove($reclamation, true);
+        $normalizer = new ObjectNormalizer(null, null, null, new ReflectionExtractor());
+
+        $serializer = new Serializer([new DateTimeNormalizer(), $normalizer]);
+        $formatted = $serializer->normalize($reclamation);
+
+        return new JsonResponse($formatted);
+    }
     
-    
-            // $em = $this->getDoctrine()->getManager();
-    
-            // $em->remove($reclamation);
-            // $em->flush();
-            $reclamationRepository->remove($reclamation, true);
-            $normalizer = new ObjectNormalizer(null, null, null, new ReflectionExtractor());
-    
-            $serializer = new Serializer([new DateTimeNormalizer(), $normalizer]);
-            $formatted = $serializer->normalize($reclamation);
-    
-            return new JsonResponse($formatted);
-        }
+    #[Route('/api/create', name: 'reclamation_api_create2', methods: ['POST'])]
+    public function addUser(Request $request, UserRepository $userRepository, TypeRecRepository $typeRecRepository): JsonResponse
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $reclamation = new Reclamation();
+        $reclamation->setImage($request->get('etat'));
+        // $reclamation->setEtat($request->get('sujet'));
+        $reclamation->setDescriptionRec($request->get('description'));
+        // $reclamation->setEtat("Pending");
+        $reclamation->setDateRec(new \DateTime());
+        
+        $user = $userRepository->find(37);
+        $typeRec = $typeRecRepository->find(2);
+        $reclamation->setUser($user);
+        $reclamation->setTypeRec($typeRec);
+
+
+        $entityManager->persist($reclamation);
+        $entityManager->flush();
+
+        $response = new JsonResponse(['status' => 'added'], Response::HTTP_CREATED);
+        return $response;
+    }
 }
